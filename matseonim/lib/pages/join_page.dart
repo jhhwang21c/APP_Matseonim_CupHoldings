@@ -1,9 +1,10 @@
-import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:matseonim/util/validator.dart';
+
 import 'package:matseonim/components/custom_text_form_field.dart';
+import 'package:matseonim/components/custom_elevated_button.dart';
+import 'package:matseonim/pages/login_page.dart';
+import 'package:matseonim/utils/validator.dart';
 
 class JoinPage extends StatelessWidget {
   @override
@@ -22,7 +23,8 @@ class JoinPage extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white),
+                    color: Colors.white
+                ),
               ),
             ),
             _joinForm()

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:matseonim/components/custom_text_form_field.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/util/validator.dart';
+import 'package:matseonim/pages/main_page.dart';
+import 'package:matseonim/utils/validator.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[900],
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
@@ -17,10 +20,14 @@ class LoginPage extends StatelessWidget {
               height: 200,
               child: const Text(
                 "이메일로 로그인",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 30, 
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white
+                ),
               ),
             ),
-            _loginForm(),
+            _emailLoginForm(),
           ],
         ),
       ),
@@ -28,7 +35,7 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-Widget _loginForm() {
+Widget _emailLoginForm() {
   final _formKey = GlobalKey<FormState>();
 
   return Form(
@@ -47,7 +54,7 @@ Widget _loginForm() {
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {
-              Get.to(LoginPage());
+              Get.to(MainPage());
             }
           },
         ),
