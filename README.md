@@ -32,7 +32,13 @@
 
 # 빌드 방법
 
-(추가 예정)
+## GNU/Linux (Ubuntu 18.04.1 LTS)
+
+```console
+$ git clone https://github.com/osamhack2021/APP_Matseonim_CupHoldings.git
+$ cd APP_Matseonim_CupHoldings/client
+$ flutter run -d web-server --web-hostname=0.0.0.0
+```
 
 # 기술 스택
 
