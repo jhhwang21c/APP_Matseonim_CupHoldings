@@ -36,7 +36,7 @@
 
 ```console
 $ git clone https://github.com/osamhack2021/APP_Matseonim_CupHoldings.git
-$ cd APP_Matseonim_CupHoldings/client
+$ cd APP_Matseonim_CupHoldings/matseonim
 $ flutter run -d web-server --web-hostname=0.0.0.0
 ```
 
