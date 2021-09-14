@@ -5,9 +5,13 @@ import 'package:flutter/material.dart';
 
 ThemeData theme() {
   return ThemeData(
-    primaryColor: Colors.indigo[900],
+    backgroundColor: Colors.indigo[900],
     appBarTheme: AppBarTheme(
       iconTheme: IconThemeData(color: Colors.white),
     ),
   );
+}
+
+double getScreenWidth(BuildContext context) {
+  return MediaQuery.of(context).size.width;
 }
