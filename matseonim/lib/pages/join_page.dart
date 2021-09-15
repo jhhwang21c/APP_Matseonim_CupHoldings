@@ -22,7 +22,7 @@ class JoinPage extends StatelessWidget {
               child: const Text(
                 "회원가입 정보",
                 style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 32,
                     fontWeight: FontWeight.bold,
                     color: Colors.white
                 ),

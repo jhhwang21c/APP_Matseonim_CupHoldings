@@ -21,7 +21,7 @@ class LoginPage extends StatelessWidget {
               child: const Text(
                 "이메일로 로그인",
                 style: TextStyle(
-                  fontSize: 30, 
+                  fontSize: 32, 
                   fontWeight: FontWeight.bold,
                   color: Colors.white
                 ),

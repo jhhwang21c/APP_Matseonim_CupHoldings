@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 
 ThemeData theme() {
   return ThemeData(
-    backgroundColor: Colors.indigo[900],
-    appBarTheme: AppBarTheme(
-      iconTheme: IconThemeData(color: Colors.white),
-    ),
+    backgroundColor: Colors.blue[900],
+    fontFamily: "NeoPixel"  // if !(16픽셀의 배수) else 깨짐
   );
 }
 
