@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/custom_text_form_field.dart';
+import 'package:matseonim/components/login_elevated_button.dart';
+import 'package:matseonim/components/login_form_field.dart';
 import 'package:matseonim/pages/login_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -43,21 +43,21 @@ Widget _joinForm() {
   return Form(
     child: Column(
       children: [
-        CustomTextFormField(
-          hint: "이메일",
+        LoginFormField(
+          hintText: "이메일",
           funValidator: validateEmail(),
         ),
-        CustomTextFormField(
-          hint: "비밀번호",
+        LoginFormField(
+          hintText: "비밀번호",
           funValidator: validatePassword(),
         ),
-        CustomTextFormField(
-          hint: "비밀번호 확인",
+        LoginFormField(
+          hintText: "비밀번호 확인",
           funValidator: validatePassword(),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: CustomElevatedButton(
+          child: LoginElevatedButton(
             text: "회원가입",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {

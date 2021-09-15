@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/components/custom_text_form_field.dart';
-import 'package:matseonim/components/custom_elevated_button.dart';
+import 'package:matseonim/components/login_elevated_button.dart';
+import 'package:matseonim/components/login_form_field.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class LoginPage extends StatelessWidget {
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -44,15 +43,15 @@ Widget _emailLoginForm() {
     key: _formKey,
     child: Column(
       children: [
-        CustomTextFormField(
-          hint: "이메일",
+        LoginFormField(
+          hintText: "이메일",
           funValidator: validateEmail(),
         ),
-        CustomTextFormField(
-          hint: "비밀번호",
+        LoginFormField(
+          hintText: "비밀번호",
           funValidator: validatePassword(),
         ),
-        CustomElevatedButton(
+        LoginElevatedButton(
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {

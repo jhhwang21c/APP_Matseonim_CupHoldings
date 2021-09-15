@@ -1,6 +1,8 @@
 import 'package:validators/validators.dart';
 
-Function validateEmail() {
+typedef Validator = String? Function(String?);
+
+Validator validateEmail() {
   return (String? value) {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";
@@ -12,7 +14,7 @@ Function validateEmail() {
   };
 }
 
-Function validateUsername() {
+Validator validateUsername() {
   return (String? value) {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다.";
@@ -26,7 +28,7 @@ Function validateUsername() {
   };
 }
 
-Function validatePassword() {
+Validator validatePassword() {
   return (String? value) {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";

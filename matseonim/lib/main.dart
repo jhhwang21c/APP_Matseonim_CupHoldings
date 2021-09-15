@@ -11,7 +11,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: theme(),
+      theme: DefaultTheme(),
       home: LoginPage(),
     );
   }
