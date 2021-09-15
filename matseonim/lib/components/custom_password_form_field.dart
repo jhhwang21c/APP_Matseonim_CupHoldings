@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 
-// TODO: `CustomTextFormField`를 `StatefulWidget`으로 변경하기
-class CustomTextFormField extends StatelessWidget {
-  final String? hint;
-  final funValidator;
+class CustomPasswordFormField extends StatefulWidget {
+  @override
+  _PasswordState createState() => _PasswordState();
+}
 
-  const CustomTextFormField({required this.hint, required this.funValidator});
+class _PasswordState extends State<CustomPasswordFormField> {
+  late bool _passwordVisible;
 
   @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
-        validator: funValidator,
-        obscureText: hint == "비밀번호",
+        keyboardType: TextInputType.text,
+        obscureText: !_passwordVisible,
         decoration: InputDecoration(
-          hintText: "$hint",
+          hintText: '비밀번호',
           fillColor: Colors.white,
           filled: true,
           enabledBorder: OutlineInputBorder(
@@ -30,9 +35,19 @@ class CustomTextFormField extends StatelessWidget {
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(20),
           ),
+          suffixIcon: IconButton(
+            icon: Icon(
+              _passwordVisible ? Icons.visibility : Icons.visibility_off,
+              color: Theme.of(context).primaryColorDark,
+            ),
+            onPressed: () {
+              setState(() {
+                _passwordVisible = !_passwordVisible;
+              });
+            },
+          ),
         ),
       ),
     );
   }
 }
-

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:matseonim/components/custom_password_form_field.dart';
 
 import 'package:matseonim/components/custom_text_form_field.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
@@ -45,14 +46,8 @@ Widget _joinForm() {
           hint: "이메일",
           funValidator: validateEmail(),
         ),
-        CustomTextFormField(
-          hint: "비밀번호",
-          funValidator: validatePassword(),
-        ),
-        CustomTextFormField(
-          hint: "비밀번호 확인",
-          funValidator: validatePassword(),
-        ),
+        CustomPasswordFormField(), //todo: validator 추가하기
+        CustomPasswordFormField(),
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: CustomElevatedButton(
