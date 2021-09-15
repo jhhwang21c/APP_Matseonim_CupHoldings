@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: `CustomTextFormField`를 `StatefulWidget`으로 변경하기
 class CustomTextFormField extends StatelessWidget {
   final String? hint;
   final funValidator;
@@ -13,7 +12,6 @@ class CustomTextFormField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
         validator: funValidator,
-        obscureText: hint == "비밀번호",
         decoration: InputDecoration(
           hintText: "$hint",
           fillColor: Colors.white,

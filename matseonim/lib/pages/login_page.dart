@@ -25,7 +25,6 @@ class LoginPage extends StatelessWidget {
                 "이메일로 로그인",
                 style: TextStyle(
                   fontSize: 32, 
-                  fontWeight: FontWeight.bold,
                   color: Colors.white
                 ),
               ),
@@ -57,7 +56,7 @@ Widget _emailLoginForm() {
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {
-              Get.to(MainPage());   //현재 get 작동 안함
+              Get.to(MainPage());
             }
           },
         ),

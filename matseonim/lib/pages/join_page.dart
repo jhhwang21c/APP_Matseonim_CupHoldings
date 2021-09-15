@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/components/custom_password_form_field.dart';
-import 'package:matseonim/components/custom_text_form_field.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
+import 'package:matseonim/components/custom_text_form_field.dart';
 import 'package:matseonim/pages/login_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class JoinPage extends StatelessWidget {
-
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -49,15 +47,21 @@ Widget _joinForm() {
           hint: "이메일",
           funValidator: validateEmail(),
         ),
-        CustomPasswordFormField(), //todo: "비밀번호 확인" 메시지 전달, aka hint 전달법 연구
-        CustomPasswordFormField(),
+        CustomTextFormField(
+          hint: "비밀번호",
+          funValidator: validatePassword(),
+        ),
+        CustomTextFormField(
+          hint: "비밀번호 확인",
+          funValidator: validatePassword(),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: CustomElevatedButton(
             text: "회원가입",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(LoginPage());   //현재 get 작동 안함
+                Get.to(LoginPage());
               }
             },
           ),
