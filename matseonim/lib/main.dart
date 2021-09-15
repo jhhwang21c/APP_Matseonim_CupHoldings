@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: theme(),
-      home: JoinPage(),
+      home: LoginPage(),
     );
   }
 }

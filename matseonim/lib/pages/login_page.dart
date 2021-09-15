@@ -7,6 +7,9 @@ import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class LoginPage extends StatelessWidget {
+
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +57,7 @@ Widget _emailLoginForm() {
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {
-              Get.to(MainPage());
+              Get.to(MainPage());   //현재 get 작동 안함
             }
           },
         ),
