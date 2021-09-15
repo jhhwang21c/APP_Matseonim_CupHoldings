@@ -6,34 +6,47 @@ import 'package:matseonim/utils/validator.dart';
 
 class LoginFormFieldController extends GetxController {
   bool obscureText = true;
+  bool shouldObscure = false;
+
+  LoginFormFieldController(this.shouldObscure);
 
   void toggleObscureText() {
-    obscureText = !obscureText;
-    update();
+    if (shouldObscure) {
+      obscureText = !obscureText;
+      update();
+    }
   }
 }
 
 class LoginFormField extends GetView<LoginFormFieldController> {
+  final bool shouldObscure;
+
   final String? hintText;
   final Validator funValidator;
 
-  LoginFormField({required this.hintText, required this.funValidator});
+  LoginFormField({
+    required this.shouldObscure, 
+    required this.hintText, 
+    required this.funValidator
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: GetBuilder<LoginFormFieldController>(
-        init: LoginFormFieldController(),
+        init: LoginFormFieldController(shouldObscure),
         global: false,
         builder: (_) => TextFormField(
-          obscureText: _.obscureText,
+          obscureText: _.shouldObscure && _.obscureText,
           validator: funValidator,
           decoration: InputDecoration(
             hintText: hintText,
             suffixIcon: IconButton(
               icon: Icon(
-                _.obscureText ? Icons.visibility : Icons.visibility_off,
+                (_.shouldObscure && _.obscureText) 
+                ? Icons.visibility_off 
+                : Icons.visibility,
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: _.toggleObscureText,

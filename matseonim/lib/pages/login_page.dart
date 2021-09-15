@@ -7,8 +7,6 @@ import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class LoginPage extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,10 +42,12 @@ Widget _emailLoginForm() {
     child: Column(
       children: [
         LoginFormField(
+          shouldObscure: false,
           hintText: "이메일",
           funValidator: validateEmail(),
         ),
         LoginFormField(
+          shouldObscure: true,
           hintText: "비밀번호",
           funValidator: validatePassword(),
         ),
