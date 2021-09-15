@@ -32,8 +32,8 @@ Validator validatePassword() {
   return (String? value) {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";
-    } else if (value.length < 4) {
-      return "최소 4글자 이상 입력해주세요.";
+    } else if (value.length < 8) {
+      return "최소 8글자 이상 입력해주세요.";
     } else {
       return null;
     }
