@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:matseonim/components/autocomplete.dart';
 
 import 'package:matseonim/components/login_elevated_button.dart';
 import 'package:matseonim/components/login_form_field.dart';
@@ -22,7 +23,6 @@ class JoinPage extends StatelessWidget {
                 "회원가입 정보",
                 style: TextStyle(
                     fontSize: 32,
-                    fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
             ),
@@ -36,9 +36,12 @@ class JoinPage extends StatelessWidget {
 
 Widget _joinForm() {
   final _formKey = GlobalKey<FormState>();
-  var confirmPass;
+
+  final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController(); 
 
   return Form(
+    key: _formKey,
     child: Column(
       children: [
         LoginFormField(
@@ -49,33 +52,16 @@ Widget _joinForm() {
         LoginFormField(
           shouldObscure: true,
           hintText: "비밀번호",
-          funValidator: (String? value) {
-            confirmPass = value;
-            if (value!.isEmpty) {
-              return "공백이 들어갈 수 없습니다.";
-            } else if (value.length < 8) {
-              return "최소 8글자 이상 입력해주세요.";
-            } else {
-              return null;
-            }
-          },
+          funValidator: validatePassword(),
+          textController: passwordController
         ),
         LoginFormField(
           shouldObscure: true,
           hintText: "비밀번호 확인",
-          funValidator: (String? value) {
-            confirmPass = value;
-            if (value!.isEmpty) {
-              return "공백이 들어갈 수 없습니다.";
-            } else if (value.length < 8) {
-              return "최소 8글자 이상 입력해주세요.";
-            } else if (value != confirmPass) {
-              return "위 비밀번호와 일치하지 않습니다.";
-            } else {
-              return null;
-            }
-          },
+          funValidator: validateConfirmPassword(passwordController.text),
+          textController: confirmPasswordController,
         ),
+        AutocompleteForm(),
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: LoginElevatedButton(

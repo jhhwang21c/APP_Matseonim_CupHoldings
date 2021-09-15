@@ -23,9 +23,11 @@ class LoginFormField extends GetView<LoginFormFieldController> {
 
   final String? hintText;
   final Validator funValidator;
+  final TextEditingController? textController;
 
   LoginFormField({
-    required this.shouldObscure, 
+    this.textController,
+    required this.shouldObscure,
     required this.hintText, 
     required this.funValidator
   });
@@ -35,22 +37,24 @@ class LoginFormField extends GetView<LoginFormFieldController> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: GetBuilder<LoginFormFieldController>(
-        init: LoginFormFieldController(shouldObscure),
         global: false,
+        init: LoginFormFieldController(shouldObscure),
+        dispose: (_) => textController?.dispose(),
         builder: (_) => TextFormField(
+          controller: textController,
           obscureText: _.shouldObscure && _.obscureText,
           validator: funValidator,
           decoration: InputDecoration(
             hintText: hintText,
-            suffixIcon: IconButton(
+            suffixIcon: _.shouldObscure ? IconButton(
               icon: Icon(
-                (_.shouldObscure && _.obscureText) 
+                _.obscureText
                 ? Icons.visibility_off 
                 : Icons.visibility,
                 color: Theme.of(context).primaryColor,
               ),
               onPressed: _.toggleObscureText,
-            ),
+            ) : null,
             fillColor: Colors.white,
             filled: true,
             enabledBorder: OutlineInputBorder(

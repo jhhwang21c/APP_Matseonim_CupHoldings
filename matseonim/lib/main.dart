@@ -3,7 +3,6 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'package:matseonim/theme.dart';
 import 'package:matseonim/pages/join_page.dart';
-import 'package:matseonim/pages/login_page.dart';
 
 void main() => runApp(MainApp());
 
@@ -12,7 +11,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: DefaultTheme(),
+      theme: defaultTheme(),
       home: JoinPage(),
     );
   }

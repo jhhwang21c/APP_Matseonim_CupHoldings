@@ -14,26 +14,26 @@ Validator validateEmail() {
   };
 }
 
-Validator validateUsername() {
-  return (String? value) {
-    if (value!.isEmpty) {
-      return "공백이 들어갈 수 없습니다.";
-    } else if (!isAlphanumeric(value)) {
-      return "영문과 숫자만 입력해주세요.";
-    } else if (value.length < 4) {
-      return "최소 4글자 이상 입력해주세요.";
-    } else {
-      return null;
-    }
-  };
-}
-
 Validator validatePassword() {
   return (String? value) {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";
     } else if (value.length < 8) {
       return "최소 8글자 이상 입력해주세요.";
+    } else {
+      return null;
+    }
+  };
+}
+
+Validator validateConfirmPassword(String s) {
+  return (String? value) {
+    if (value!.isEmpty) {
+      return "공백이 들어갈 수 없습니다.";
+    } else if (value.length < 8) {
+      return "최소 8글자 이상 입력해주세요.";
+    } else if (!matches(value, s)) {
+      return "위 비밀번호와 일치하지 않습니다.";
     } else {
       return null;
     }
