@@ -39,3 +39,25 @@ Validator validateConfirmPassword(String s) {
     }
   };
 }
+
+Validator validateMobile() {
+  return (String? value) {
+    if (value!.length != 11)
+      return '휴대폰번호 형식은 010xxxxxxxx 입니다.';
+    else
+      return null;
+  };
+}
+
+
+Validator validateName() {
+  return (String? value) {
+    if (value!.isEmpty) {
+      return "공백이 들어갈 수 없습니다.";
+    } else if (value.length < 2) {
+      return "최소 2글자 이상 입력해주세요.";
+    } else {
+      return null;
+    }
+  };
+}

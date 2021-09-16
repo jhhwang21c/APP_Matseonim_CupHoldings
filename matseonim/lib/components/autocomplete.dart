@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class AutocompleteForm extends StatelessWidget {
+  final String? hint;
+
+  const AutocompleteForm({required this.hint});
+
   @override
   Widget build(BuildContext context) {
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
           decoration: InputDecoration(
-              hintText: '전문 분야를 입력해 주세요',
+              hintText: '$hint',
               fillColor: Colors.white,
               filled: true,
               enabledBorder: OutlineInputBorder(

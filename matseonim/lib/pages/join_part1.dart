@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:matseonim/components/autocomplete.dart';
 
 import 'package:matseonim/components/login_elevated_button.dart';
 import 'package:matseonim/components/login_form_field.dart';
-import 'package:matseonim/pages/login_page.dart';
+import 'package:matseonim/pages/join_part2.dart';
 import 'package:matseonim/utils/validator.dart';
 
-class JoinPage extends StatelessWidget {
+class JoinPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +19,7 @@ class JoinPage extends StatelessWidget {
               alignment: Alignment.center,
               height: 200,
               child: const Text(
-                "회원가입 정보",
+                "회원가입 (1/2)",
                 style: TextStyle(
                     fontSize: 32,
                     color: Colors.white),
@@ -46,29 +45,50 @@ Widget _joinForm() {
       children: [
         LoginFormField(
           shouldObscure: false,
-          hintText: "이메일",
-          funValidator: validateEmail(),
+          hintText: "성명",
+          funValidator: validateName(),
         ),
-        LoginFormField(
-          shouldObscure: true,
-          hintText: "비밀번호",
-          funValidator: validatePassword(),
-          textController: passwordController
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: LoginFormField(
+            shouldObscure: false,
+            hintText: "휴대폰 번호",
+            funValidator: validateMobile(),
+          ),
         ),
-        LoginFormField(
-          shouldObscure: true,
-          hintText: "비밀번호 확인",
-          funValidator: validateConfirmPassword(passwordController.text),
-          textController: confirmPasswordController,
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: LoginFormField(
+            shouldObscure: false,
+            hintText: "이메일",
+            funValidator: validateEmail(),
+          ),
         ),
-        AutocompleteForm(),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: LoginFormField(
+            shouldObscure: true,
+            hintText: "비밀번호",
+            funValidator: validatePassword(),
+            textController: passwordController
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 4.0),
+          child: LoginFormField(
+            shouldObscure: true,
+            hintText: "비밀번호 확인",
+            funValidator: validateConfirmPassword(passwordController.text),
+            textController: confirmPasswordController,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
           child: LoginElevatedButton(
-            text: "회원가입",
+            text: "다음",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(LoginPage());
+                Get.to(JoinPage2());
               }
             },
           ),
