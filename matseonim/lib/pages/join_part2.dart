@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:matseonim/components/autocomplete.dart';
+import 'package:matseonim/components/login_autocomplete_form.dart';
 
 import 'package:matseonim/components/login_elevated_button.dart';
 import 'package:matseonim/pages/login_page.dart';
@@ -19,9 +19,7 @@ class JoinPage2 extends StatelessWidget {
               height: 200,
               child: const Text(
                 "회원가입 (2/2)",
-                style: TextStyle(
-                    fontSize: 32,
-                    color: Colors.white),
+                style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
             _joinForm()
@@ -34,9 +32,6 @@ class JoinPage2 extends StatelessWidget {
 
 Widget _joinForm() {
   final _formKey = GlobalKey<FormState>();
-
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController(); 
 
   return Form(
     key: _formKey,
