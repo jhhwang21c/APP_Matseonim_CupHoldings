@@ -20,9 +20,7 @@ class JoinPage1 extends StatelessWidget {
               height: 200,
               child: const Text(
                 "회원가입 (1/2)",
-                style: TextStyle(
-                    fontSize: 32,
-                    color: Colors.white),
+                style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
             _joinForm()
@@ -37,7 +35,7 @@ Widget _joinForm() {
   final _formKey = GlobalKey<FormState>();
 
   final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController(); 
+  final confirmPasswordController = TextEditingController();
 
   return Form(
     key: _formKey,
@@ -67,11 +65,10 @@ Widget _joinForm() {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: LoginFormField(
-            shouldObscure: true,
-            hintText: "비밀번호",
-            funValidator: validatePassword(),
-            textController: passwordController
-          ),
+              shouldObscure: true,
+              hintText: "비밀번호",
+              funValidator: validatePassword(),
+              textController: passwordController),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
