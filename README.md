@@ -42,7 +42,21 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 # 기술 스택
 
-(추가 예정)
+## 프론트엔드
+
+- [Dart 2.14.0 (stable)](https://github.com/dart-lang/sdk/commit/4c8a4f0d7ad055fa7dea5e80862cd2074f4454d3)
+- [Flutter 2.5.0 (stable)](https://github.com/flutter/flutter/commit/4cc385b4b84ac2f816d939a49ea1f328c4e0b48e)
+
+### [플러그인](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/matseonim/pubspec.yaml)
+
+- [`cupertino_icons (^1.0.2)`](https://pub.dev/packages/cupertino_icons)
+- [`get (^4.3.8)`](https://pub.dev/packages/get)
+- [`flutter_typeahead (^3.2.1)`](https://pub.dev/packages/flutter_typeahead)
+- [`validators (^3.0.0)`](https://pub.dev/packages/validators)
+
+## 백엔드
+
+- [Firebase](https://firebase.google.com/?hl=en)
 
 # 라이선스
 
