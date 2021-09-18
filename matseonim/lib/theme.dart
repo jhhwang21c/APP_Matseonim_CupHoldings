@@ -16,8 +16,14 @@ ThemeData defaultTheme() {
   */
 
   return ThemeData(
-    backgroundColor: Colors.blue[900],
-    primaryColor: Colors.blue[700],
-    fontFamily: "NeoPixel"
-  );
+      backgroundColor: Colors.blue[900],
+      primaryColor: Colors.blue[900],
+      fontFamily: "NeoPixel",
+      textTheme: TextTheme(
+        headline6: TextStyle(fontSize: 32),
+        subtitle1: TextStyle(fontSize: 16),
+        bodyText1: TextStyle(fontSize: 16),
+        bodyText2: TextStyle(fontSize: 16),
+      ),
+      );
 }

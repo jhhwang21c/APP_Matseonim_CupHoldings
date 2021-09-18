@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/login_elevated_button.dart';
 import 'package:matseonim/components/login_form_field.dart';
-import 'package:matseonim/pages/join_part2.dart';
+import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class JoinPage1 extends StatelessWidget {
