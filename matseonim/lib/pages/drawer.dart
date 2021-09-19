@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'main_page.dart';
+
 
 class DrawerPage extends StatelessWidget {
   @override
@@ -23,23 +27,19 @@ class DrawerPage extends StatelessWidget {
           ),
           ListTile(
             title: const Text('내 맞선임'),
-            onTap: () {},
+            onTap: () {Get.to(MainPage());},
           ),
           ListTile(
             title: const Text('내 맞후임'),
-            onTap: () {},
+            onTap: () {Get.to(MainPage());},
           ),
           ListTile(
             title: const Text('새로운 의뢰'),
-            onTap: () {},
+            onTap: () {Get.to(MainPage());},
           ),
           ListTile(
             title: const Text('환경설정'),
-            onTap: () {},
-          ),
-          ListTile(
-            title: const Text('문의하기'),
-            onTap: () {},
+            onTap: () {Get.to(MainPage());},
           ),
         ],
       ),
