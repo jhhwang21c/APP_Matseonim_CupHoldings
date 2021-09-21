@@ -13,7 +13,7 @@ class MainPage extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20),
         child: ListView(
           children: [
-            const SizedBox(height: 20),  //검색창 넣기?
+            const SizedBox(height: 20), // TODO: 검색창 넣기?
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -123,16 +123,16 @@ class MainPage extends StatelessWidget {
 
   Widget _buildSmallProfile() {
     return Column(
-      children: [
-        const SizedBox(
+      children: const [
+        SizedBox(
           width: 60,
           height: 60,
           child: CircleAvatar(
             backgroundImage:
-                AssetImage("images/sampleAvatar.jpg"), // 이미지는 서버에서 불러와야함
+                AssetImage("images/sampleAvatar.jpg"), // TODO: 서버에서 이미지 불러오기
           ),
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: 10),
         Text(
           "홍길동",
           style: TextStyle(

@@ -30,6 +30,23 @@
   <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOD7aBuznc8g1JrHW94gehzMC9D96nDMc",
+      authDomain: "matseonim-c58fd.firebaseapp.com",
+      projectId: "matseonim-c58fd",
+      storageBucket: "matseonim-c58fd.appspot.com",
+      messagingSenderId: "1088762795041",
+      appId: "1:1088762795041:web:cb3e0aafb795b3e4823f60"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->

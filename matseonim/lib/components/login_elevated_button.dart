@@ -23,7 +23,7 @@ class LoginElevatedButton extends StatelessWidget {
         onPressed: funPageRoute,
         child: Text(
           text, 
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16, 
             color: Colors.black
           )
