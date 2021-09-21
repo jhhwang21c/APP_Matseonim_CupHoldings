@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 
 typedef _RouteCallback = void Function();
 
-class CustomElevatedButton extends StatelessWidget {
+class CustomElevatedIconButton extends StatelessWidget {
+  final Widget icon;
   final String text;
-  final Color? color;
 
+  final Color? color;
   final _RouteCallback? funPageRoute;
 
-  const CustomElevatedButton({required this.text, this.color, this.funPageRoute});
+  const CustomElevatedIconButton({required this.icon, required this.text, this.color, this.funPageRoute});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
-      child: ElevatedButton(
+      child: ElevatedButton.icon(
         onPressed: funPageRoute,
         style: ElevatedButton.styleFrom(
           primary: color ?? Colors.white,
@@ -23,13 +24,14 @@ class CustomElevatedButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
           ),
         ),
-        child: Text(
+        icon: icon, 
+        label: Text(
           text, 
           style: const TextStyle(
             fontSize: 16, 
             color: Colors.black
           )
-        ),
+        )
       )
     );
   }

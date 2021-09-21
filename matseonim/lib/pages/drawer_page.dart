@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'main_page.dart';
-
+import 'package:matseonim/pages/main_page.dart';
 
 class DrawerPage extends StatelessWidget {
   @override

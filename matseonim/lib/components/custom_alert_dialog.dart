@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class LoginAlertDialog extends StatelessWidget {
+class CustomAlertDialog extends StatelessWidget {
   final String message;
 
-  const LoginAlertDialog({required this.message});
+  const CustomAlertDialog({required this.message});
 
   @override
   Widget build(BuildContext context) {

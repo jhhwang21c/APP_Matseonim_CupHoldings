@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/components/login_alert_dialog.dart';
+import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/login_form_field.dart';
+import 'package:matseonim/components/custom_form_field.dart';
 import 'package:matseonim/pages/join_page1.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
@@ -33,7 +33,7 @@ class _ErrorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[900],
-      body: const LoginAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요.")
+      body: const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요.")
     );
   }
 }
@@ -132,12 +132,12 @@ Widget _emailLoginForm() {
     key: _formKey,
     child: Column(
       children: [
-        LoginFormField(
+        CustomFormField(
             shouldObscure: false,
             hintText: "이메일",
             funValidator: validateEmail(),
             textController: _emailTextController),
-        LoginFormField(
+        CustomFormField(
           shouldObscure: true,
           hintText: "비밀번호",
           funValidator: validatePassword(),
@@ -167,9 +167,9 @@ void _userSignIn({required String email, required String password}) async {
     Get.to(MainPage());
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
-      Get.dialog(const LoginAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
+      Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
     } else if (e.code == 'wrong-password') {
-      Get.dialog(const LoginAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
+      Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
     }
   }
 }

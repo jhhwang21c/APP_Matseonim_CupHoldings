@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/login_form_field.dart';
+import 'package:matseonim/components/custom_form_field.dart';
 import 'package:matseonim/firebase/user_data.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
@@ -45,7 +45,7 @@ Widget _joinForm() {
     key: _formKey,
     child: Column(
       children: [
-        LoginFormField(
+        CustomFormField(
           shouldObscure: false,
           hintText: "성명",
           funValidator: validateName(),
@@ -53,7 +53,7 @@ Widget _joinForm() {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: LoginFormField(
+          child: CustomFormField(
             shouldObscure: false,
             hintText: "휴대폰 번호 (010-XXXX-XXXX)",
             funValidator: validatePhoneNumber(),
@@ -62,7 +62,7 @@ Widget _joinForm() {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: LoginFormField(
+          child: CustomFormField(
             shouldObscure: false,
             hintText: "이메일",
             funValidator: validateEmail(),
@@ -71,7 +71,7 @@ Widget _joinForm() {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: LoginFormField(
+          child: CustomFormField(
             shouldObscure: true,
             hintText: "비밀번호",
             funValidator: validatePassword(),
@@ -80,7 +80,7 @@ Widget _joinForm() {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
-          child: LoginFormField(
+          child: CustomFormField(
             shouldObscure: true,
             hintText: "비밀번호 확인",
             funValidator: validateConfirmPassword(passwordTextController.text),

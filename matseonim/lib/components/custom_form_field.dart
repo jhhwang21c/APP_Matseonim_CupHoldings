@@ -4,11 +4,11 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'package:matseonim/utils/validator.dart';
 
-class LoginFormFieldController extends GetxController {
+class CustomFormFieldController extends GetxController {
   bool obscureText = true;
   bool shouldObscure = false;
 
-  LoginFormFieldController(this.shouldObscure);
+  CustomFormFieldController(this.shouldObscure);
 
   void toggleObscureText() {
     if (shouldObscure) {
@@ -18,14 +18,14 @@ class LoginFormFieldController extends GetxController {
   }
 }
 
-class LoginFormField extends GetView<LoginFormFieldController> {
+class CustomFormField extends GetView<CustomFormFieldController> {
   final bool shouldObscure;
 
   final String? hintText;
   final Validator funValidator;
   final TextEditingController? textController;
 
-  const LoginFormField({
+  const CustomFormField({
     this.textController,
     required this.shouldObscure,
     required this.hintText, 
@@ -36,9 +36,9 @@ class LoginFormField extends GetView<LoginFormFieldController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
-      child: GetBuilder<LoginFormFieldController>(
+      child: GetBuilder<CustomFormFieldController>(
         global: false,
-        init: LoginFormFieldController(shouldObscure),
+        init: CustomFormFieldController(shouldObscure),
         dispose: (_) => textController?.dispose(),
         builder: (_) => TextFormField(
           controller: textController,

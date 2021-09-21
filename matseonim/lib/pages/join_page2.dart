@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/login_alert_dialog.dart';
-import 'package:matseonim/components/login_autocomplete_form.dart';
+import 'package:matseonim/components/custom_alert_dialog.dart';
+import 'package:matseonim/components/autocomplete_form.dart';
 import 'package:matseonim/firebase/user_data.dart';
 import 'package:matseonim/pages/login_page.dart';
 
@@ -78,7 +78,7 @@ void _userSignUp({required String email, required String password}) async {
     Get.to(LoginPage());
   } on FirebaseAuthException catch (e) {
     if (e.code == 'email-already-in-use') {
-      Get.dialog(const LoginAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
+      Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
     }
   }
 }
