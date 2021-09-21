@@ -51,6 +51,8 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 - [`cupertino_icons (^1.0.2)`](https://pub.dev/packages/cupertino_icons)
 - [`get (^4.3.8)`](https://pub.dev/packages/get)
+- [`firebase_auth (^3.1.1)`](https://pub.dev/packages/firebase_auth)
+- [`firebase_core (^1.6.0)`](https://pub.dev/packages/firebase_core)
 - [`flutter_typeahead (^3.2.1)`](https://pub.dev/packages/flutter_typeahead)
 - [`validators (^3.0.0)`](https://pub.dev/packages/validators)
 

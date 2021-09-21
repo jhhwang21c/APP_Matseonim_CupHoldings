@@ -55,7 +55,7 @@ Widget _joinForm() {
           padding: const EdgeInsets.only(top: 4.0),
           child: LoginFormField(
             shouldObscure: false,
-            hintText: "휴대폰 번호",
+            hintText: "휴대폰 번호 (010-XXXX-XXXX)",
             funValidator: validatePhoneNumber(),
             textController: phoneNumberTextController,
           ),

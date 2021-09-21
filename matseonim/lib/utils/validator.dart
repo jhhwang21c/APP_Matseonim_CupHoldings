@@ -42,12 +42,12 @@ Validator validateConfirmPassword(String s) {
 
 Validator validatePhoneNumber() {
   return (String? value) {
-    RegExp expr = RegExp(r"/^\d{3}-\d{4}-\d{4}$/");
+    RegExp expr = RegExp(r"^\d{3}-\d{4}-\d{4}$");
 
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다.";
     } else if (!expr.hasMatch(value)) {
-      return "010-XXXX-XXXX와 같이 입력해주세요.";
+      return "휴대폰 번호 형식에 맞지 않습니다.";
     } else {
       return null;
     }
