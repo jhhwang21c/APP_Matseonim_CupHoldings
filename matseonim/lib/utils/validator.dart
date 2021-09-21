@@ -40,15 +40,19 @@ Validator validateConfirmPassword(String s) {
   };
 }
 
-Validator validateMobile() {
+Validator validatePhoneNumber() {
   return (String? value) {
-    if (value!.length != 11)
-      return '휴대폰번호 형식은 010xxxxxxxx 입니다.';
-    else
+    RegExp expr = RegExp(r"/^\d{3}-\d{4}-\d{4}$/");
+
+    if (value!.isEmpty) {
+      return "공백이 들어갈 수 없습니다.";
+    } else if (!expr.hasMatch(value)) {
+      return "010-XXXX-XXXX와 같이 입력해주세요.";
+    } else {
       return null;
+    }
   };
 }
-
 
 Validator validateName() {
   return (String? value) {

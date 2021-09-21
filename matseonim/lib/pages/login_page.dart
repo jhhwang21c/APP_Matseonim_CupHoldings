@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/login_alert_dialog.dart';
-import 'package:matseonim/components/login_elevated_button.dart';
+import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/login_form_field.dart';
+import 'package:matseonim/pages/join_page1.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -64,12 +65,26 @@ class _MainLoginPage extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ListView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              LoginElevatedButton(
+              CustomElevatedButton(
                 text: "이메일로 로그인",
                 funPageRoute: () {
                   Get.to(_EmailLoginPage());
+                },
+              ),
+              const SizedBox(height: 10),
+              CustomElevatedButton(
+                text: "카카오로 로그인",
+                funPageRoute: () {},
+              ),
+              const SizedBox(height: 60),
+              CustomElevatedButton(
+                text: "회원가입",
+                color: Colors.lightGreenAccent,
+                funPageRoute: () {
+                  Get.to(JoinPage1());
                 },
               )
             ]
@@ -126,7 +141,7 @@ Widget _emailLoginForm() {
           funValidator: validatePassword(),
           textController: _passwordTextController,
         ),
-        LoginElevatedButton(
+        CustomElevatedButton(
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {

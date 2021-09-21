@@ -25,7 +25,7 @@ class LoginFormField extends GetView<LoginFormFieldController> {
   final Validator funValidator;
   final TextEditingController? textController;
 
-  LoginFormField({
+  const LoginFormField({
     this.textController,
     required this.shouldObscure,
     required this.hintText, 

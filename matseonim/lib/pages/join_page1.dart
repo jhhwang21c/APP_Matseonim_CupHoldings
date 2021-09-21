@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/components/login_elevated_button.dart';
+import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/login_form_field.dart';
+import 'package:matseonim/firebase/user_data.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -34,8 +35,11 @@ class JoinPage1 extends StatelessWidget {
 Widget _joinForm() {
   final _formKey = GlobalKey<FormState>();
 
-  final passwordController = TextEditingController();
-  final confirmPasswordController = TextEditingController();
+  final nameTextController = TextEditingController();
+  final phoneNumberTextController = TextEditingController();
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
+  final confirmPasswordTextController = TextEditingController();
 
   return Form(
     key: _formKey,
@@ -45,13 +49,15 @@ Widget _joinForm() {
           shouldObscure: false,
           hintText: "성명",
           funValidator: validateName(),
+          textController: nameTextController,
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: LoginFormField(
             shouldObscure: false,
             hintText: "휴대폰 번호",
-            funValidator: validateMobile(),
+            funValidator: validatePhoneNumber(),
+            textController: phoneNumberTextController,
           ),
         ),
         Padding(
@@ -60,32 +66,43 @@ Widget _joinForm() {
             shouldObscure: false,
             hintText: "이메일",
             funValidator: validateEmail(),
+            textController: emailTextController,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: LoginFormField(
-              shouldObscure: true,
-              hintText: "비밀번호",
-              funValidator: validatePassword(),
-              textController: passwordController),
+            shouldObscure: true,
+            hintText: "비밀번호",
+            funValidator: validatePassword(),
+            textController: passwordTextController
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: LoginFormField(
             shouldObscure: true,
             hintText: "비밀번호 확인",
-            funValidator: validateConfirmPassword(passwordController.text),
-            textController: confirmPasswordController,
+            funValidator: validateConfirmPassword(passwordTextController.text),
+            textController: confirmPasswordTextController,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
-          child: LoginElevatedButton(
+          child: CustomElevatedButton(
             text: "다음",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(JoinPage2());
+                Get.to(
+                  JoinPage2(
+                    userData: UserData(
+                      name: nameTextController.text,
+                      phoneNumber: phoneNumberTextController.text,
+                      email: emailTextController.text,
+                      password: passwordTextController.text
+                    )
+                  )
+                );
               }
             },
           ),
