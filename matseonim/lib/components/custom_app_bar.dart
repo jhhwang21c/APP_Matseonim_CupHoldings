@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:matseonim/pages/request_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
   @override
@@ -15,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
             Icons.notifications,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () { Get.to(RequestPage());},
         ),
         SizedBox(width: 15),
       ],
