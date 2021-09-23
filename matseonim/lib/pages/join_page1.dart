@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
-import 'package:matseonim/firebase/user_data.dart';
+import 'package:matseonim/database/user_data.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -72,11 +72,10 @@ Widget _joinForm() {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: CustomFormField(
-            shouldObscure: true,
-            hintText: "비밀번호",
-            funValidator: validatePassword(),
-            textController: passwordTextController
-          ),
+              shouldObscure: true,
+              hintText: "비밀번호",
+              funValidator: validatePassword(),
+              textController: passwordTextController),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
@@ -93,16 +92,12 @@ Widget _joinForm() {
             text: "다음",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(
-                  JoinPage2(
+                Get.to(JoinPage2(
                     userData: UserData(
-                      name: nameTextController.text,
-                      phoneNumber: phoneNumberTextController.text,
-                      email: emailTextController.text,
-                      password: passwordTextController.text
-                    )
-                  )
-                );
+                        name: nameTextController.text,
+                        phoneNumber: phoneNumberTextController.text,
+                        email: emailTextController.text,
+                        password: passwordTextController.text)));
               }
             },
           ),

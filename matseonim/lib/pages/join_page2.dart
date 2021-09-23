@@ -4,10 +4,8 @@ import 'package:get/get.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/autocomplete_form.dart';
-import 'package:matseonim/firebase/user_data.dart';
+import 'package:matseonim/database/user_data.dart';
 import 'package:matseonim/pages/login_page.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class JoinPage2 extends StatelessWidget {
   final UserData userData;
@@ -60,7 +58,6 @@ Widget _joinForm(UserData userData) {
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
                 _userSignUp(email: userData.email, password: userData.password);
-                _createData(email: userData.email, name: userData.name, mobile: userData.phoneNumber);
               }
             },
           ),
@@ -81,20 +78,4 @@ void _userSignUp({required String email, required String password}) async {
       Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
     }
   }
-}
-
-void _createData(
-    {required String email,
-    required String name,
-    required String mobile,
-    String? profession,
-    String? interest})  //이거 되는지 확인, 깃헙 서버쪽 에러인지 웹 에뮬 무한로딩 걸려서 확인 못함
-    {
-    final firestore = FirebaseFirestore.instance;
-    firestore.collection('users').doc(email).set({
-    'userName': name,
-    'userMobile': mobile,
-    'userProfession': profession ?? "none",
-    'userInterest': interest ?? "none",
-  });
 }
