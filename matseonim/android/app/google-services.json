@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "145868879919",
+    "project_id": "matseonim-test",
+    "storage_bucket": "matseonim-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:145868879919:android:5a465dbd69c3154d6caeda",
+        "android_client_info": {
+          "package_name": "com.cupholdings.matseonim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "145868879919-2r6aabgrrne6rm94f1bk3qbsva560e4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1p2sL0tPWLgtl-2gXT3g1nZVKFikW8Zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "145868879919-2r6aabgrrne6rm94f1bk3qbsva560e4t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,16 +1,15 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/autocomplete_form.dart';
-import 'package:matseonim/database/user_data.dart';
+import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/login_page.dart';
 
 class JoinPage2 extends StatelessWidget {
-  final UserData userData;
+  final MSIUser user;
 
-  const JoinPage2({Key? key, required this.userData}) : super(key: key);
+  const JoinPage2({Key? key, required this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,7 @@ class JoinPage2 extends StatelessWidget {
                 style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
-            _joinForm(userData)
+            _joinForm(user)
           ],
         ),
       ),
@@ -36,7 +35,7 @@ class JoinPage2 extends StatelessWidget {
   }
 }
 
-Widget _joinForm(UserData userData) {
+Widget _joinForm(MSIUser user) {
   final _formKey = GlobalKey<FormState>();
 
   return Form(
@@ -57,7 +56,7 @@ Widget _joinForm(UserData userData) {
             text: "회원가입",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                _userSignUp(email: userData.email, password: userData.password);
+                user.signUp(nextPage: LoginPage());
               }
             },
           ),
@@ -65,17 +64,4 @@ Widget _joinForm(UserData userData) {
       ],
     ),
   );
-}
-
-void _userSignUp({required String email, required String password}) async {
-  try {
-    UserCredential _ = await FirebaseAuth.instance
-        .createUserWithEmailAndPassword(email: email, password: password);
-
-    Get.to(LoginPage());
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'email-already-in-use') {
-      Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
-    }
-  }
 }

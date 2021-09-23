@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
-import 'package:matseonim/database/user_data.dart';
+import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -82,7 +82,7 @@ Widget _joinForm() {
           child: CustomFormField(
             shouldObscure: true,
             hintText: "비밀번호 확인",
-            funValidator: validateConfirmPassword(passwordTextController.text),
+            funValidator: validateConfirmPassword(),
             textController: confirmPasswordTextController,
           ),
         ),
@@ -92,12 +92,16 @@ Widget _joinForm() {
             text: "다음",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(JoinPage2(
-                    userData: UserData(
-                        name: nameTextController.text,
-                        phoneNumber: phoneNumberTextController.text,
-                        email: emailTextController.text,
-                        password: passwordTextController.text)));
+                Get.to(
+                  JoinPage2(
+                    user: MSIUser(
+                      name: nameTextController.text,
+                      phoneNumber: phoneNumberTextController.text,
+                      email: emailTextController.text,
+                      password: passwordTextController.text
+                    )
+                  )
+                );
               }
             },
           ),
