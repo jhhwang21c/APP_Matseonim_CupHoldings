@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
-import 'package:matseonim/firebase/user_data.dart';
+import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -72,18 +72,17 @@ Widget _joinForm() {
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: CustomFormField(
-            shouldObscure: true,
-            hintText: "비밀번호",
-            funValidator: validatePassword(),
-            textController: passwordTextController
-          ),
+              shouldObscure: true,
+              hintText: "비밀번호",
+              funValidator: validatePassword(),
+              textController: passwordTextController),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 4.0),
           child: CustomFormField(
             shouldObscure: true,
             hintText: "비밀번호 확인",
-            funValidator: validateConfirmPassword(passwordTextController.text),
+            funValidator: validateConfirmPassword(),
             textController: confirmPasswordTextController,
           ),
         ),
@@ -95,7 +94,7 @@ Widget _joinForm() {
               if (_formKey.currentState!.validate()) {
                 Get.to(
                   JoinPage2(
-                    userData: UserData(
+                    user: MSIUser(
                       name: nameTextController.text,
                       phoneNumber: phoneNumberTextController.text,
                       email: emailTextController.text,

@@ -17,7 +17,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget{
             Icons.notifications,
             color: Colors.white,
           ),
-          onPressed: () { Get.to(RequestPage());},
+          onPressed: () { },
         ),
         SizedBox(width: 15),
       ],

@@ -2,6 +2,8 @@ import 'package:validators/validators.dart';
 
 typedef Validator = String? Function(String?);
 
+String? passwordText = "";
+
 Validator validateEmail() {
   return (String? value) {
     if (value!.isEmpty) {
@@ -16,6 +18,8 @@ Validator validateEmail() {
 
 Validator validatePassword() {
   return (String? value) {
+    passwordText = value;
+
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";
     } else if (value.length < 8) {
@@ -26,13 +30,13 @@ Validator validatePassword() {
   };
 }
 
-Validator validateConfirmPassword(String s) {
+Validator validateConfirmPassword() {
   return (String? value) {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다.";
     } else if (value.length < 8) {
       return "최소 8글자 이상 입력해주세요.";
-    } else if (!matches(value, s)) {
+    } else if (value != passwordText!) {
       return "위 비밀번호와 일치하지 않습니다.";
     } else {
       return null;
