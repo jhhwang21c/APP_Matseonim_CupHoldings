@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
+import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/join_page1.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
@@ -147,29 +147,14 @@ Widget _emailLoginForm() {
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {
-              _userSignIn(
-                email: _emailTextController.text,
+              MSIUser(
+                email: _emailTextController.text, 
                 password: _passwordTextController.text
-              );
+              ).signIn(nextPage: MainPage());
             }
           },
         ),
       ],
     ),
   );
-}
-
-void _userSignIn({required String email, required String password}) async {
-  try {
-    UserCredential _ = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-
-    Get.to(MainPage());
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
-    } else if (e.code == 'wrong-password') {
-      Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
-    }
-  }
 }

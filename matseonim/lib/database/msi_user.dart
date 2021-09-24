@@ -4,24 +4,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_alert_dialog.dart';
+import 'package:matseonim/pages/main_page.dart';
 
 class MSIUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
-  final String name, phoneNumber, email, password;
-  final String? profession, interest;
+  final String email, password;
+  final String? name, phoneNumber, profession, interest;
 
   MSIUser({
-    required this.name, 
-    required this.phoneNumber, 
     required this.email, 
     required this.password,
+    this.name, 
+    this.phoneNumber, 
     this.profession,
     this.interest
   });
 
-  void signIn({StatelessWidget? nextPage}) async {
+  void signIn({required StatelessWidget nextPage}) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
@@ -35,7 +36,7 @@ class MSIUser {
     }
   }
 
-  void signUp({StatelessWidget? nextPage}) async {
+  void signUp({required StatelessWidget nextPage}) async {
     CollectionReference users = _firestore.collection('users');
 
     try {
