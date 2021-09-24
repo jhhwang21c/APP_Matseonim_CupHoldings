@@ -150,7 +150,7 @@ Widget _emailLoginForm() {
               MSIUser(
                 email: _emailTextController.text, 
                 password: _passwordTextController.text
-              ).signIn(nextPage: MainPage());
+              ).signIn(() => Get.to(MainPage()));
             }
           },
         ),

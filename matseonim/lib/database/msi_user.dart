@@ -1,17 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_alert_dialog.dart';
-import 'package:matseonim/pages/main_page.dart';
+
+typedef _RouteCallback = void Function();
 
 class MSIUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   
-  final String email, password;
-  final String? name, phoneNumber, profession, interest;
+  String email, password;
+  String? name, phoneNumber, profession, interest;
 
   MSIUser({
     required this.email, 
@@ -22,11 +22,11 @@ class MSIUser {
     this.interest
   });
 
-  void signIn({required StatelessWidget nextPage}) async {
+  void signIn(_RouteCallback routeCallback) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
-      Get.to(nextPage);
+      routeCallback();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
@@ -36,7 +36,7 @@ class MSIUser {
     }
   }
 
-  void signUp({required StatelessWidget nextPage}) async {
+  void signUp(_RouteCallback routeCallback) async {
     CollectionReference users = _firestore.collection('users');
 
     try {
@@ -55,13 +55,7 @@ class MSIUser {
 
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
 
-      Get.snackbar(
-        "맞선임",
-        "회원가입이 완료되었습니다.",
-        snackPosition: SnackPosition.BOTTOM
-      );
-
-      Get.to(nextPage);
+      routeCallback();
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
         Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));

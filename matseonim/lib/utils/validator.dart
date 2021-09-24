@@ -2,7 +2,7 @@ import 'package:validators/validators.dart';
 
 typedef Validator = String? Function(String?);
 
-String? passwordText = "";
+String? _passwordText = "";
 
 Validator validateEmail() {
   return (String? value) {
@@ -18,7 +18,7 @@ Validator validateEmail() {
 
 Validator validatePassword() {
   return (String? value) {
-    passwordText = value;
+    _passwordText = value;
 
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";
@@ -36,7 +36,7 @@ Validator validateConfirmPassword() {
       return "공백이 들어갈 수 없습니다.";
     } else if (value.length < 8) {
       return "최소 8글자 이상 입력해주세요.";
-    } else if (value != passwordText!) {
+    } else if (value != _passwordText!) {
       return "위 비밀번호와 일치하지 않습니다.";
     } else {
       return null;
@@ -51,7 +51,7 @@ Validator validatePhoneNumber() {
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다.";
     } else if (!expr.hasMatch(value)) {
-      return "휴대폰 번호 형식에 맞지 않습니다.";
+      return "올바르지 않은 휴대폰 번호입니다.";
     } else {
       return null;
     }

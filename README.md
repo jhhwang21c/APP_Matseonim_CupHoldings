@@ -49,6 +49,7 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 ### [플러그인](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/matseonim/pubspec.yaml)
 
+- [`cloud_firestore (^2.5.3)`](https://pub.dev/packages/cloud_firestore)
 - [`cupertino_icons (^1.0.2)`](https://pub.dev/packages/cupertino_icons)
 - [`get (^4.3.8)`](https://pub.dev/packages/get)
 - [`firebase_auth (^3.1.1)`](https://pub.dev/packages/firebase_auth)

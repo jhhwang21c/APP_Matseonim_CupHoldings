@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/autocomplete_form.dart';
 import 'package:matseonim/database/msi_user.dart';
@@ -38,17 +39,26 @@ class JoinPage2 extends StatelessWidget {
 Widget _joinForm(MSIUser user) {
   final _formKey = GlobalKey<FormState>();
 
+  final professionTextController = TextEditingController();
+  final interestTextController = TextEditingController();
+
   return Form(
     key: _formKey,
     child: Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
-          child: AutocompleteForm(hintText: "전문 분야를 입력해 주세요"),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: AutocompleteForm(
+            hintText: "전문 분야를 입력해 주세요",
+            textController: professionTextController,
+          ),
         ),
-        const Padding(
-          padding: EdgeInsets.only(top: 8.0),
-          child: AutocompleteForm(hintText: "관심 분야를 입력해 주세요"),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: AutocompleteForm(
+            hintText: "관심 분야를 입력해 주세요",
+            textController: interestTextController,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(top: 10),
@@ -56,7 +66,13 @@ Widget _joinForm(MSIUser user) {
             text: "회원가입",
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
-                user.signUp(nextPage: LoginPage());
+                user.profession = professionTextController.text;
+                user.interest = interestTextController.text;
+                
+                user.signUp(() {
+                  Get.to(LoginPage());
+                  Get.dialog(const CustomAlertDialog(message: "회원가입이 완료되었습니다."));
+                });
               }
             },
           ),
