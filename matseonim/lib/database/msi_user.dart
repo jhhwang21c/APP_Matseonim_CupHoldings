@@ -7,9 +7,6 @@ import 'package:matseonim/components/custom_alert_dialog.dart';
 typedef _RouteCallback = void Function();
 
 class MSIUser {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   String email, password;
 
   String? name, phoneNumber, profession, interest;
@@ -27,7 +24,8 @@ class MSIUser {
 
   void signIn(_RouteCallback routeCallback) async {
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
 
       routeCallback();
     } on FirebaseAuthException catch (e) {
@@ -40,7 +38,7 @@ class MSIUser {
   }
 
   void signUp(_RouteCallback routeCallback) async {
-    CollectionReference users = _firestore.collection('users');
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
 
     try {
       users.add({
@@ -54,8 +52,8 @@ class MSIUser {
       }).catchError((error) =>
           throw FirebaseException(plugin: "cloud_firestore", message: error));
 
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       routeCallback();
     } on FirebaseAuthException catch (e) {

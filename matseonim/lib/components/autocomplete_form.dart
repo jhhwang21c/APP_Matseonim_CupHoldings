@@ -11,25 +11,23 @@ class AutocompleteForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return TypeAheadFormField(
       textFieldConfiguration: TextFieldConfiguration(
-        controller: textController,
-        decoration: InputDecoration(
-          hintText: hintText,
-          fillColor: Colors.white,
-          filled: true,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-          )
-        )
-      ),
+          controller: textController,
+          decoration: InputDecoration(
+              hintText: hintText,
+              fillColor: Colors.white,
+              filled: true,
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+              ))),
       suggestionsCallback: (pattern) {
         return Professions.getSuggestions(pattern);
       },
@@ -41,7 +39,9 @@ class AutocompleteForm extends StatelessWidget {
       transitionBuilder: (context, suggestionsBox, controller) {
         return suggestionsBox;
       },
-      onSuggestionSelected: (suggestion) {},
+      onSuggestionSelected: (String suggestion) {
+        textController?.text = suggestion;
+      },
     );
   }
 }

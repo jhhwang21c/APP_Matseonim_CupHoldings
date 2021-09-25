@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'package:matseonim/pages/login_page.dart';
+import 'package:matseonim/pages/intro_page.dart';
 import 'package:matseonim/utils/theme.dart';
 
 void main() {
@@ -16,7 +16,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: defaultTheme(),
-      home: LoginPage(),
+      home: IntroPage(),
     );
   }
 }
