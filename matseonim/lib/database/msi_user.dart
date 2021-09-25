@@ -9,18 +9,21 @@ typedef _RouteCallback = void Function();
 class MSIUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
-  String email, password;
-  String? name, phoneNumber, profession, interest;
 
-  MSIUser({
-    required this.email, 
-    required this.password,
-    this.name, 
-    this.phoneNumber, 
-    this.profession,
-    this.interest
-  });
+  String email, password;
+
+  String? name, phoneNumber, profession, interest;
+  String? avatarUrl, baseName;
+
+  MSIUser(
+      {required this.email,
+      required this.password,
+      this.name,
+      this.phoneNumber,
+      this.profession,
+      this.interest,
+      this.avatarUrl,
+      this.baseName});
 
   void signIn(_RouteCallback routeCallback) async {
     try {
@@ -29,9 +32,9 @@ class MSIUser {
       routeCallback();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
+        Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다."));
       } else if (e.code == 'wrong-password') {
-        Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
+        Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다."));
       }
     }
   }
@@ -45,15 +48,14 @@ class MSIUser {
         "phoneNumber": phoneNumber,
         "email": email,
         "profession": profession,
-        "interest": interest
-      }).catchError(
-        (error) => throw FirebaseException(
-          plugin: "cloud_firestore", 
-          message: error
-        )
-      );
+        "interest": interest,
+        "avatar_url": null,
+        "base_name": null
+      }).catchError((error) =>
+          throw FirebaseException(plugin: "cloud_firestore", message: error));
 
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 
       routeCallback();
     } on FirebaseAuthException catch (e) {

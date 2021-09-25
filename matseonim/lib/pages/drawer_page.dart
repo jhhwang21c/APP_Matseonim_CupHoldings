@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/pages/main_page.dart';
-
 class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,19 +24,27 @@ class DrawerPage extends StatelessWidget {
           ),
           ListTile(
             title: const Text('내 맞선임'),
-            onTap: () {Get.to(MainPage());},
+            onTap: () {
+              Get.back();
+            },
           ),
           ListTile(
             title: const Text('내 맞후임'),
-            onTap: () {Get.to(MainPage());},
+            onTap: () {
+              Get.back();
+            },
           ),
           ListTile(
             title: const Text('새로운 의뢰'),
-            onTap: () {Get.to(MainPage());},
+            onTap: () {
+              Get.back();
+            },
           ),
           ListTile(
             title: const Text('환경설정'),
-            onTap: () {Get.to(MainPage());},
+            onTap: () {
+              Get.back();
+            },
           ),
         ],
       ),
