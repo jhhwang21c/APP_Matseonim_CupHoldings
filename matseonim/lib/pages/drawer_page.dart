@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:matseonim/components/custom_circle_avatar.dart';
+import 'package:matseonim/database/msi_user.dart';
+
 class DrawerPage extends StatelessWidget {
+  final MSIUser? user;
+
+  const DrawerPage({this.user});
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -15,9 +22,25 @@ class DrawerPage extends StatelessWidget {
                 Text('내 정보'),
                 SizedBox(height: 20),
                 Row(children: [
-                  _buildHeaderAvatar(),
+                  CustomCircleAvatar(
+                    size: 80,
+                    url: user?.avatarUrl ?? ""
+                  ),
                   SizedBox(width: 20),
-                  _buildHeaderProfile(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(user?.name ?? "(이름)",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                          )),
+                      Text(user?.baseName ?? "(부대 명칭)",
+                          style: const TextStyle(
+                            fontSize: 16,
+                          )),
+                    ],
+                  )
                 ])
               ],
             ),
@@ -48,33 +71,6 @@ class DrawerPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildHeaderAvatar() {
-    return SizedBox(
-      width: 80,
-      height: 80,
-      child: CircleAvatar(
-        backgroundImage: AssetImage("images/sampleAvatar.jpg"),
-      ),
-    );
-  }
-
-  Widget _buildHeaderProfile() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("홍길동",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            )),
-        Text("제20전투비행단",
-            style: TextStyle(
-              fontSize: 16,
-            )),
-      ],
     );
   }
 }

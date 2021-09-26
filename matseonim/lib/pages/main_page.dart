@@ -2,14 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
+import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class MainPage extends StatelessWidget {
+  final MSIUser? user;
+
+  const MainPage({this.user});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      drawer: DrawerPage(),
+      drawer: DrawerPage(user: user),
       drawerEnableOpenDragGesture: false,
       body: Padding(
         padding: const EdgeInsets.only(left: 20),

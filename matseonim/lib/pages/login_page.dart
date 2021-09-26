@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -147,10 +148,18 @@ Widget _emailLoginForm() {
           text: "로그인",
           funPageRoute: () {
             if (_formKey.currentState!.validate()) {
-              MSIUser(
-                email: _emailTextController.text, 
-                password: _passwordTextController.text
-              ).signIn(() => Get.to(MainPage()));
+              try {
+                MSIUser(
+                  email: _emailTextController.text, 
+                  password: _passwordTextController.text
+                ).login(onComplete: () => Get.to(MainPage()));
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'user-not-found') {
+                  Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다."));
+                } else if (e.code == 'wrong-password') {
+                  Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다."));
+                }
+              }
             }
           },
         ),

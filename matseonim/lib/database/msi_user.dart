@@ -1,69 +1,107 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 
-import 'package:matseonim/components/custom_alert_dialog.dart';
-
-typedef _RouteCallback = void Function();
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class MSIUser {
-  String email, password;
-
+  String? email, password;
   String? name, phoneNumber, profession, interest;
   String? avatarUrl, baseName;
 
-  MSIUser(
-      {required this.email,
-      required this.password,
-      this.name,
-      this.phoneNumber,
-      this.profession,
-      this.interest,
-      this.avatarUrl,
-      this.baseName});
-
-  void signIn(_RouteCallback routeCallback) async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-
-      routeCallback();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다."));
-      } else if (e.code == 'wrong-password') {
-        Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다."));
-      }
-    }
+  MSIUser({
+    this.name,
+    this.email,
+    this.password,
+    this.phoneNumber,
+    this.profession,
+    this.interest,
+    this.avatarUrl,
+    this.baseName
+  }) {
+    reload();
   }
 
-  void signUp(_RouteCallback routeCallback) async {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+  Future<void> delete({void Function()? onComplete}) async {
+    if (_auth.currentUser == null) return;
 
-    try {
-      users.add({
-        "name": name,
-        "phoneNumber": phoneNumber,
-        "email": email,
-        "profession": profession,
-        "interest": interest,
-        "avatar_url": null,
-        "base_name": null
-      }).catchError((error) =>
-          throw FirebaseException(plugin: "cloud_firestore", message: error));
+    String uid = _auth.currentUser!.uid;
 
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+    await _auth.currentUser!.delete();
 
-      routeCallback();
-    } on FirebaseAuthException catch (e) {
-      if (e.code == "email-already-in-use") {
-        Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
-      } else if (e.code == "invalid-email") {
-        Get.dialog(const CustomAlertDialog(message: "올바르지 않은 이메일 주소입니다."));
+    CollectionReference users = _firestore.collection("users");
+
+    users.doc(uid).delete().then((_) => onComplete?.call());
+  }
+
+  Future<void> login({void Function()? onComplete}) async {
+    if (email == null || password == null) return;
+
+    UserCredential _ = await _auth.signInWithEmailAndPassword(
+      email: email!, 
+      password: password!
+    );
+
+    reload().then((_) => onComplete?.call());
+  }
+
+  Future<void> logout({void Function()? onComplete}) async {
+    if (_auth.currentUser == null) return;
+
+    _auth.signOut().then((_) => onComplete?.call());
+  }
+
+  Future<void> reload({void Function()? onComplete}) async {
+    if (_auth.currentUser == null) return;
+
+    CollectionReference users = _firestore.collection("users");
+
+    users.doc(_auth.currentUser!.uid).get().then(
+      (DocumentSnapshot value) {
+        name = value["name"];
+        phoneNumber = value["phoneNumber"];
+        profession = value["profession"];
+        interest = value["interest"];
+        avatarUrl = value["avatarUrl"];
+        baseName = value["baseName"];
+
+        onComplete?.call();
       }
-    } on FirebaseException catch (_) {
-      Get.dialog(const CustomAlertDialog(message: "알 수 없는 오류가 발생하였습니다."));
-    }
+    );
+  }
+
+  Future<void> signUp({void Function()? onComplete}) async {
+    if (email == null || password == null) return;
+
+    UserCredential credential = await _auth.createUserWithEmailAndPassword(
+      email: email!, 
+      password: password!
+    );
+
+    CollectionReference users = _firestore.collection("users");
+
+    users.doc(credential.user?.uid).set({
+      "name": name,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "profession": profession,
+      "interest": interest,
+      "avatar_url": null,
+      "base_name": null
+    }).then((_) => onComplete?.call());
+  }
+
+  Future<void> update({void Function()? onComplete}) async {
+    CollectionReference users = _firestore.collection("users");
+
+    users.doc(_auth.currentUser?.uid).update({
+      "name": name,
+      "email": email,
+      "phoneNumber": phoneNumber,
+      "profession": profession,
+      "interest": interest,
+      "avatar_url": avatarUrl,
+      "base_name": baseName
+    }).then((_) => onComplete?.call());
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -69,10 +70,21 @@ Widget _joinForm(MSIUser user) {
                 user.profession = professionTextController.text;
                 user.interest = interestTextController.text;
                 
-                user.signUp(() {
-                  Get.to(LoginPage());
-                  Get.dialog(const CustomAlertDialog(message: "회원가입이 완료되었습니다."));
-                });
+                try {
+                  user.signUp(onComplete: () async {
+                    Get.dialog(const CustomAlertDialog(message: "회원가입이 완료되었습니다.")).then(
+                      (_) => Get.to(LoginPage())
+                    );
+                  });
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == "email-already-in-use") {
+                    Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
+                  } else if (e.code == "invalid-email") {
+                    Get.dialog(const CustomAlertDialog(message: "올바르지 않은 이메일 주소입니다."));
+                  }
+                } on FirebaseException catch (_) {
+                  Get.dialog(const CustomAlertDialog(message: "알 수 없는 오류가 발생하였습니다."));
+                }
               }
             },
           ),
