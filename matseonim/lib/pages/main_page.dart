@@ -3,17 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/small_profile.dart';
-import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class MainPage extends StatelessWidget {
-  MSIUser user = MSIUser();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(),
-      drawer: DrawerPage(user: user),
+      drawer: DrawerPage(),
       drawerEnableOpenDragGesture: false,
       body: Padding(
         padding: const EdgeInsets.only(left: 20),
