@@ -13,7 +13,10 @@ class CustomAlertDialog extends StatelessWidget {
         "맞선임",
         textAlign: TextAlign.center,
       ),
-      content: Text(message),
+      content: Text(
+        message,
+        textAlign: TextAlign.center,
+      ),
       actions: <Widget>[
         TextButton(
           onPressed: () => Get.back(),

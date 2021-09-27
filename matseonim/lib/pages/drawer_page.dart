@@ -35,6 +35,7 @@ class DrawerPage extends StatelessWidget {
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           )),
+                      SizedBox(height: 8),
                       Text(user?.baseName ?? "(부대 명칭)",
                           style: const TextStyle(
                             fontSize: 16,

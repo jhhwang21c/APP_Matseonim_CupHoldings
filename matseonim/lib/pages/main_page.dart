@@ -7,9 +7,7 @@ import 'package:matseonim/database/msi_user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class MainPage extends StatelessWidget {
-  final MSIUser? user;
-
-  const MainPage({this.user});
+  MSIUser user = MSIUser();
 
   @override
   Widget build(BuildContext context) {
