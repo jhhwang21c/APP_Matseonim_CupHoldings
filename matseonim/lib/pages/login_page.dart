@@ -152,7 +152,7 @@ Widget _emailLoginForm() {
                 MSIUser(
                   email: _emailTextController.text, 
                   password: _passwordTextController.text
-                ).login(onComplete: () => Get.to(MainPage()));
+                ).login(onComplete: () => Get.to(MainPage()));    //로그인후 화면 안넘어감
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
                   Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다."));
