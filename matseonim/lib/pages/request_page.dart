@@ -5,7 +5,7 @@ import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/mid_profile.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
-class MyMHIPage extends StatelessWidget {
+class RequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class MyMHIPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
-            Text("의뢰 요청"),
+            Text("새로운 의뢰"),
             MidProfile(),
             MidProfile(),
           ],

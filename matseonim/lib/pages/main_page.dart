@@ -11,7 +11,6 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       appBar: CustomAppBar(),
       drawer: DrawerPage(),
-      drawerEnableOpenDragGesture: false,
       body: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: ListView(
@@ -123,6 +122,4 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
-
-  
 }

@@ -3,6 +3,11 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/database/msi_user.dart';
+import 'package:matseonim/pages/my_mhi_page.dart';
+import 'package:matseonim/pages/my_msi_page.dart';
+import 'package:matseonim/pages/my_profile_page.dart';
+import 'package:matseonim/pages/request_page.dart';
+import 'package:matseonim/pages/settings_page.dart';
 
 class DrawerPage extends StatelessWidget {
   final MSIUser user = MSIUser();
@@ -10,29 +15,23 @@ class DrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.2,
       child: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
             SizedBox(
-              height: 124.0,
               child: DrawerHeader(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
-                      CustomCircleAvatar(
-                        size: 84,
-                        url: user.avatarUrl ?? ""
-                      ),
+                      CustomCircleAvatar(size: 84, url: user.avatarUrl ?? ""),
                       SizedBox(width: 20),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(user.name ?? "(이름)",
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 32,
                               )),
                           SizedBox(height: 8),
                           Text(user.baseName ?? "(부대 명칭)",
@@ -40,12 +39,6 @@ class DrawerPage extends StatelessWidget {
                                 fontSize: 16,
                               )),
                         ],
-                      ),
-                      Expanded(child: Container()),
-                      IconButton(
-                        icon: const Icon(Icons.arrow_forward_ios),
-                        iconSize: 16.0,
-                        onPressed: () { Get.back(); },
                       )
                     ])
                   ],
@@ -53,27 +46,33 @@ class DrawerPage extends StatelessWidget {
               ),
             ),
             ListTile(
+              title: const Text('내 정보'),
+              onTap: () {
+                Get.to(MyProfilePage());
+              },
+            ),
+            ListTile(
               title: const Text('내 맞선임'),
               onTap: () {
-                Get.back();
+                Get.to(MyMSIPage());
               },
             ),
             ListTile(
               title: const Text('내 맞후임'),
               onTap: () {
-                Get.back();
+                Get.to(MyMHIPage());
               },
             ),
             ListTile(
               title: const Text('새로운 의뢰'),
               onTap: () {
-                Get.back();
+                Get.to(RequestPage());
               },
             ),
             ListTile(
               title: const Text('환경설정'),
               onTap: () {
-                Get.back();
+                Get.to(SettingsPage());
               },
             ),
           ],
