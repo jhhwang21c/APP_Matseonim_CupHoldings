@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
-import 'package:matseonim/database/msi_user.dart';
+import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/join_page1.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
@@ -145,12 +145,22 @@ Widget _emailLoginForm() {
         ),
         CustomElevatedButton(
           text: "로그인",
-          funPageRoute: () {
+          funPageRoute: () async {
             if (_formKey.currentState!.validate()) {
-              MSIUser(
+              AuthStatus status = await MSIUser(
                 email: _emailTextController.text, 
                 password: _passwordTextController.text
-              ).login(onComplete: () => Get.to(MainPage()));
+              ).login();
+
+              if (status == AuthStatus.success) {
+                Get.to(MainPage());
+              } else if (status == AuthStatus.userNotFound) {
+                Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
+              } else if (status == AuthStatus.wrongPassword) {
+                Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
+              } else {
+                Get.dialog(const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요."));
+              }
             }
           },
         ),

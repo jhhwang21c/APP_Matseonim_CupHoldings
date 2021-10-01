@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
-import 'package:matseonim/database/msi_user.dart';
+import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';
 
@@ -93,13 +93,12 @@ Widget _joinForm() {
             funPageRoute: () {
               if (_formKey.currentState!.validate()) {
                 Get.to(
-                  JoinPage2(
-                    user: MSIUser(
-                      name: nameTextController.text,
-                      phoneNumber: phoneNumberTextController.text,
-                      email: emailTextController.text,
-                      password: passwordTextController.text
-                    )
+                  JoinPage2(),
+                  arguments: MSIUser(
+                    name: nameTextController.text,
+                    phoneNumber: phoneNumberTextController.text,
+                    email: emailTextController.text,
+                    password: passwordTextController.text
                   )
                 );
               }

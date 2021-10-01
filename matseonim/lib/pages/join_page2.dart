@@ -4,14 +4,10 @@ import 'package:get/get.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/autocomplete_form.dart';
-import 'package:matseonim/database/msi_user.dart';
+import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/login_page.dart';
 
 class JoinPage2 extends StatelessWidget {
-  final MSIUser user;
-
-  const JoinPage2({Key? key, required this.user}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +24,7 @@ class JoinPage2 extends StatelessWidget {
                 style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
-            _joinForm(user)
+            _joinForm()
           ],
         ),
       ),
@@ -36,7 +32,7 @@ class JoinPage2 extends StatelessWidget {
   }
 }
 
-Widget _joinForm(MSIUser user) {
+Widget _joinForm() {
   final _formKey = GlobalKey<FormState>();
 
   final professionTextController = TextEditingController();
@@ -64,16 +60,24 @@ Widget _joinForm(MSIUser user) {
           padding: const EdgeInsets.only(top: 10),
           child: CustomElevatedButton(
             text: "회원가입",
-            funPageRoute: () {
+            funPageRoute: () async {
               if (_formKey.currentState!.validate()) {
+                final MSIUser user = Get.arguments;
+
                 user.profession = professionTextController.text;
                 user.interest = interestTextController.text;
                 
-                user.signUp(onComplete: () async {
+                AuthStatus status = await user.signUp();
+
+                if (status == AuthStatus.success) {
                   Get.dialog(const CustomAlertDialog(message: "회원가입이 완료되었습니다.")).then(
                     (_) => Get.to(LoginPage())
                   );
-                });
+                } else if (status == AuthStatus.emailAlreadyInUse) {
+                  Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
+                } else {
+                  Get.dialog(const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요."));
+                }
               }
             },
           ),
