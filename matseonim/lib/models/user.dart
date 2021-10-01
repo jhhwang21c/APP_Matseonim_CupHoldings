@@ -34,10 +34,12 @@ class MSIUser {
   }
 
   Future<void> delete() async {
+    String? _uid = _auth.currentUser?.uid;
+
     _auth.currentUser?.delete().then(
       (_) {
         CollectionReference users = _firestore.collection("users");
-        users.doc(uid ?? _auth.currentUser?.uid).delete();
+        users.doc(_uid).delete();
       }
     );
   }
@@ -89,9 +91,11 @@ class MSIUser {
   }
 
   Future<void> update() async {
+    if (uid == null && _auth.currentUser == null) return;
+
     CollectionReference users = _firestore.collection("users");
 
-    await users.doc(uid ?? _auth.currentUser?.uid).update({
+    await users.doc(uid ?? _auth.currentUser!.uid).update({
       "name": name,
       "email": email,
       "phoneNumber": phoneNumber,
