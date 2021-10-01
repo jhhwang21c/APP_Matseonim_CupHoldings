@@ -17,9 +17,8 @@ class MSIUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  String? uid, name, email, password;
-  String? phoneNumber, profession, interest;
-  String? avatarUrl, baseName;
+  String? uid, name, email, password, phoneNumber;
+  String? profession, interest, avatarUrl, baseName;
 
   MSIUser({
     this.uid,
