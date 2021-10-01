@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/// 사용자 계정의 로그인 또는 회원가입 결과를 나타내는 열거형.
 enum AuthStatus {
   success,
   emailAlreadyInUse,
@@ -11,6 +12,7 @@ enum AuthStatus {
   wrongPassword
 }
 
+/// 사용자의 계정 정보를 나타내는 클래스.
 class MSIUser {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -29,10 +31,18 @@ class MSIUser {
     this.interest,
     this.avatarUrl,
     this.baseName
-  }) {
-    _init();
+  });
+
+  /// 사용자 정보를 초기화한다.
+  static Future<MSIUser> init({String? uid}) async {
+    MSIUser result = MSIUser(uid: uid);
+
+    await result._init();
+
+    return result;
   }
 
+  /// 현재 로그인되어 있는 계정을 삭제하고 로그아웃한다.
   Future<void> delete() async {
     String? _uid = _auth.currentUser?.uid;
 
@@ -44,6 +54,7 @@ class MSIUser {
     );
   }
 
+  /// 이메일과 비밀번호로 로그인을 시도한다.
   Future<AuthStatus> login() async {
     try {
       UserCredential _ = await _auth.signInWithEmailAndPassword(
@@ -67,10 +78,12 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
+  /// 현재 로그인된 계정에서 로그아웃한다.
   Future<void> logout() async {
     await _auth.signOut();
   }
 
+  /// 이메일과 비밀번호로 회원가입을 진행한다.
   Future<AuthStatus> signUp() async {
     try {
       _auth.createUserWithEmailAndPassword(
@@ -90,6 +103,7 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
+  /// 서버에 저장된 사용자 정보를 업데이트한다.
   Future<void> update() async {
     if (uid == null && _auth.currentUser == null) return;
 
@@ -106,6 +120,7 @@ class MSIUser {
     });
   }
 
+  /// 사용자의 고유 ID를 이용하여, 사용자 정보를 서버에서 불러온다.
   Future<void> _init() async {
     if (uid == null && _auth.currentUser == null) return;
 
@@ -114,6 +129,7 @@ class MSIUser {
     await _initFromDocument(await users.doc(uid ?? _auth.currentUser!.uid).get());
   }
 
+  /// 문서 스냅샷을 이용하여, 사용자 정보를 불러온다.
   Future<void> _initFromDocument(DocumentSnapshot document) async {
     if (!document.exists) {
       await document.reference.set({

@@ -5,7 +5,9 @@ import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/models/user.dart';
 
 class MidProfile extends StatelessWidget {
-  final MSIUser user = MSIUser();
+  final MSIUser? user;
+  
+  const MidProfile({Key? key, this.user}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +18,21 @@ class MidProfile extends StatelessWidget {
           children: [
             Row(
               children: [
-                CustomCircleAvatar(size: 100, url: user.avatarUrl ?? ""),
+                CustomCircleAvatar(size: 100, url: user?.avatarUrl ?? ""),
                 const SizedBox(width: 20),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start, 
                   children: [
-                    Text(user.name ?? "(이름)",
+                    Text(user?.name ?? "(이름)",
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                         )),
-                    Text(user.baseName ?? "(부대 명칭)",
+                    Text(user?.baseName ?? "(부대 명칭)",
                         style: const TextStyle(
                           fontSize: 16,
                         )),
-                    Text("요청 분야: ${user.interest}",
+                    Text("요청 분야: ${user?.interest}",
                         style: const TextStyle(
                           fontSize: 16,
                         ))
@@ -38,7 +40,7 @@ class MidProfile extends StatelessWidget {
                 )
               ]
             ),
-            CustomElevatedButton(text: "채팅")
+            const CustomElevatedButton(text: "채팅")
           ]
         )
       ]
