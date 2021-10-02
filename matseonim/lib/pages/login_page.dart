@@ -114,7 +114,7 @@ class _EmailLoginPage extends StatelessWidget {
                 style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
-            _emailLoginForm(),
+            _EmailLoginForm(),
           ],
         ),
       ),
@@ -122,49 +122,52 @@ class _EmailLoginPage extends StatelessWidget {
   }
 }
 
-Widget _emailLoginForm() {
+class _EmailLoginForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _emailTextController = TextEditingController();
-  TextEditingController _passwordTextController = TextEditingController();
+  final _emailTextController = TextEditingController();
+  final _passwordTextController = TextEditingController();
 
-  return Form(
-    key: _formKey,
-    child: Column(
-      children: [
-        CustomFormField(
-            shouldObscure: false,
-            hintText: "이메일",
-            funValidator: validateEmail(),
-            textController: _emailTextController),
-        CustomFormField(
-          shouldObscure: true,
-          hintText: "비밀번호",
-          funValidator: validatePassword(),
-          textController: _passwordTextController,
-        ),
-        CustomElevatedButton(
-          text: "로그인",
-          funPageRoute: () async {
-            if (_formKey.currentState!.validate()) {
-              AuthStatus status = await MSIUser(
-                email: _emailTextController.text, 
-                password: _passwordTextController.text
-              ).login();
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          ObscurableFormField(
+              shouldObscure: false,
+              hintText: "이메일",
+              funValidator: validateEmail(),
+              textController: _emailTextController),
+          ObscurableFormField(
+            shouldObscure: true,
+            hintText: "비밀번호",
+            funValidator: validatePassword(),
+            textController: _passwordTextController,
+          ),
+          CustomElevatedButton(
+            text: "로그인",
+            funPageRoute: () async {
+              if (_formKey.currentState!.validate()) {
+                AuthStatus status = await MSIUser(
+                  email: _emailTextController.text, 
+                  password: _passwordTextController.text
+                ).login();
 
-              if (status == AuthStatus.success) {
-                Get.to(MainPage());
-              } else if (status == AuthStatus.userNotFound) {
-                Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
-              } else if (status == AuthStatus.wrongPassword) {
-                Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
-              } else {
-                Get.dialog(const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요."));
+                if (status == AuthStatus.success) {
+                  Get.to(MainPage());
+                } else if (status == AuthStatus.userNotFound) {
+                  Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
+                } else if (status == AuthStatus.wrongPassword) {
+                  Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
+                } else {
+                  Get.dialog(const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요."));
+                }
               }
             }
-          },
-        ),
-      ],
-    ),
-  );
+          )
+        ]
+      )
+    );
+  }
 }

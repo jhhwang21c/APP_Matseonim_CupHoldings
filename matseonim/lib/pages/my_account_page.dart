@@ -47,24 +47,7 @@ class _EditableProfile extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 32),
-                    Stack(
-                      children: [
-                        CustomCircleAvatar(size: 250, url: user.avatarUrl ?? ""),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: const Icon(Icons.edit),
-                            style: ElevatedButton.styleFrom(
-                              shape: const CircleBorder(),
-                              padding: const EdgeInsets.all(20),
-                              primary: Theme.of(context).primaryColor
-                            ),
-                          )
-                        )
-                      ]
-                    ),
+                    _EditableAvatar(user: user),
                     const SizedBox(height: 32)
                   ],                  
                 )
@@ -75,5 +58,37 @@ class _EditableProfile extends StatelessWidget {
       }
     );
   }
-  
+}
+
+class _EditableAvatar extends StatelessWidget {
+  final MSIUser user;
+
+  const _EditableAvatar({
+    Key? key,
+    required this.user
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        CustomCircleAvatar(size: 250, url: user.avatarUrl ?? ""),
+        Positioned(
+          right: 0,
+          bottom: 0,
+          child: ElevatedButton(
+            onPressed: () {
+              /* TODO: ... */
+            },
+            child: const Icon(Icons.edit),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),
+              padding: const EdgeInsets.all(20),
+              primary: Theme.of(context).primaryColor
+            ),
+          )
+        )
+      ]
+    );
+  }
 }

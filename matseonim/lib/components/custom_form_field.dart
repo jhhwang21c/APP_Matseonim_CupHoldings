@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 import 'package:matseonim/utils/validator.dart';
 
-class CustomFormFieldController extends GetxController {
+class ObscurableFormFieldController extends GetxController {
   bool obscureText = true;
   bool shouldObscure = false;
 
-  CustomFormFieldController(this.shouldObscure);
+  ObscurableFormFieldController(this.shouldObscure);
 
   void toggleObscureText() {
     if (shouldObscure) {
@@ -18,14 +17,14 @@ class CustomFormFieldController extends GetxController {
   }
 }
 
-class CustomFormField extends GetView<CustomFormFieldController> {
+class ObscurableFormField extends GetView<ObscurableFormFieldController> {
   final bool shouldObscure;
 
   final String? hintText;
   final Validator funValidator;
   final TextEditingController? textController;
 
-  const CustomFormField({
+  const ObscurableFormField({
     this.textController,
     required this.shouldObscure,
     required this.hintText, 
@@ -36,9 +35,9 @@ class CustomFormField extends GetView<CustomFormFieldController> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
-      child: GetBuilder<CustomFormFieldController>(
+      child: GetBuilder<ObscurableFormFieldController>(
         global: false,
-        init: CustomFormFieldController(shouldObscure),
+        init: ObscurableFormFieldController(shouldObscure),
         dispose: (_) => textController?.dispose(),
         builder: (_) => TextFormField(
           controller: textController,

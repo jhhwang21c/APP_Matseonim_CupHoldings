@@ -24,7 +24,7 @@ class JoinPage1 extends StatelessWidget {
                 style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
-            _joinForm()
+            _JoinForm1()
           ],
         ),
       ),
@@ -32,7 +32,7 @@ class JoinPage1 extends StatelessWidget {
   }
 }
 
-Widget _joinForm() {
+class _JoinForm1 extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   final nameTextController = TextEditingController();
@@ -41,71 +41,74 @@ Widget _joinForm() {
   final passwordTextController = TextEditingController();
   final confirmPasswordTextController = TextEditingController();
 
-  return Form(
-    key: _formKey,
-    child: Column(
-      children: [
-        CustomFormField(
-          shouldObscure: false,
-          hintText: "성명",
-          funValidator: validateName(),
-          textController: nameTextController,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: CustomFormField(
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          ObscurableFormField(
             shouldObscure: false,
-            hintText: "휴대폰 번호 (010-XXXX-XXXX)",
-            funValidator: validatePhoneNumber(),
-            textController: phoneNumberTextController,
+            hintText: "성명",
+            funValidator: validateName(),
+            textController: nameTextController,
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: CustomFormField(
-            shouldObscure: false,
-            hintText: "이메일",
-            funValidator: validateEmail(),
-            textController: emailTextController,
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: ObscurableFormField(
+              shouldObscure: false,
+              hintText: "휴대폰 번호 (010-XXXX-XXXX)",
+              funValidator: validatePhoneNumber(),
+              textController: phoneNumberTextController,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: CustomFormField(
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: ObscurableFormField(
+              shouldObscure: false,
+              hintText: "이메일",
+              funValidator: validateEmail(),
+              textController: emailTextController,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: ObscurableFormField(
+                shouldObscure: true,
+                hintText: "비밀번호",
+                funValidator: validatePassword(),
+                textController: passwordTextController),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 4.0),
+            child: ObscurableFormField(
               shouldObscure: true,
-              hintText: "비밀번호",
-              funValidator: validatePassword(),
-              textController: passwordTextController),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 4.0),
-          child: CustomFormField(
-            shouldObscure: true,
-            hintText: "비밀번호 확인",
-            funValidator: validateConfirmPassword(),
-            textController: confirmPasswordTextController,
+              hintText: "비밀번호 확인",
+              funValidator: validateConfirmPassword(),
+              textController: confirmPasswordTextController,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: CustomElevatedButton(
-            text: "다음",
-            funPageRoute: () {
-              if (_formKey.currentState!.validate()) {
-                Get.to(
-                  JoinPage2(),
-                  arguments: MSIUser(
-                    name: nameTextController.text,
-                    phoneNumber: phoneNumberTextController.text,
-                    email: emailTextController.text,
-                    password: passwordTextController.text
-                  )
-                );
-              }
-            },
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: CustomElevatedButton(
+              text: "다음",
+              funPageRoute: () {
+                if (_formKey.currentState!.validate()) {
+                  Get.to(
+                    JoinPage2(),
+                    arguments: MSIUser(
+                      name: nameTextController.text,
+                      phoneNumber: phoneNumberTextController.text,
+                      email: emailTextController.text,
+                      password: passwordTextController.text
+                    )
+                  );
+                }
+              },
+            ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }

@@ -8,13 +8,14 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-          if (snapshot.hasData) {
-            return MainPage();
-          } else {
-            return LoginPage();
-          }
-        });
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
+        if (snapshot.hasData) {
+          return MainPage();
+        } else {
+          return LoginPage();
+        }
+      }
+    );
   }
 }
