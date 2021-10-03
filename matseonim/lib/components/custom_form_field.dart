@@ -19,15 +19,15 @@ class ObscurableFormFieldController extends GetxController {
 
 class ObscurableFormField extends GetView<ObscurableFormFieldController> {
   final bool shouldObscure;
+  final Validator funValidator;
 
   final String? hintText;
-  final Validator funValidator;
   final TextEditingController? textController;
 
   const ObscurableFormField({
+    this.hintText,
     this.textController,
     required this.shouldObscure,
-    required this.hintText, 
     required this.funValidator
   });
 
@@ -54,8 +54,8 @@ class ObscurableFormField extends GetView<ObscurableFormFieldController> {
               ),
               onPressed: _.toggleObscureText,
             ) : null,
-            fillColor: Colors.white,
             filled: true,
+            fillColor: Colors.white,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20),
             ),

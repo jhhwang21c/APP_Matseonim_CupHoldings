@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-typedef _RouteCallback = void Function();
-
 class CustomElevatedButton extends StatelessWidget {
   final String text;
+
   final Color? color;
+  final TextStyle? textStyle;
+  final void Function()? funPageRoute;
 
-  final _RouteCallback? funPageRoute;
-
-  const CustomElevatedButton({required this.text, this.color, this.funPageRoute});
+  const CustomElevatedButton({required this.text, this.textStyle, this.color, this.funPageRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +24,7 @@ class CustomElevatedButton extends StatelessWidget {
         ),
         child: Text(
           text, 
-          style: const TextStyle(
-            fontSize: 16, 
+          style: textStyle ?? const TextStyle(
             color: Colors.black
           )
         ),
