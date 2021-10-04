@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matseonim/components/autocomplete_form.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
@@ -105,6 +106,8 @@ class _EditableForm extends StatelessWidget {
   var nameTextController = TextEditingController();
   var phoneNumberTextController = TextEditingController();
   var emailTextController = TextEditingController();
+  var professionTextController = TextEditingController();
+  var interestTextController = TextEditingController();
 
   _EditableForm({
     Key? key,
@@ -113,6 +116,8 @@ class _EditableForm extends StatelessWidget {
     nameTextController.text = user.name ?? "?";
     phoneNumberTextController.text = user.phoneNumber ?? "?";
     emailTextController.text = user.email ?? "?";
+    professionTextController.text = user.profession ?? "?";
+    interestTextController.text = user.interest ?? "?";
   }
 
   @override
@@ -183,10 +188,73 @@ class _EditableForm extends StatelessWidget {
             )
           ),
           Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "비밀번호",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                CustomElevatedButton(
+                  text: "비밀번호 변경",
+                  textStyle: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white
+                  ),
+                  color: Theme.of(context).primaryColor,
+                  funPageRoute: () {}
+                )
+              ]
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "전문 분야",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                AutocompleteForm(
+                  hintText: "전문 분야를 입력해 주세요",
+                  textController: professionTextController,
+                )
+              ]
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "관심 분야",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                AutocompleteForm(
+                  hintText: "관심 분야를 입력해 주세요",
+                  textController: interestTextController,
+                )
+              ]
+            )
+          ),
+          Padding(
             padding: const EdgeInsets.all(8.0),
             child: CustomElevatedButton(
               text: "저장",
               textStyle: const TextStyle(
+                fontSize: 16,
                 color: Colors.white
               ),
               color: Theme.of(context).primaryColor,

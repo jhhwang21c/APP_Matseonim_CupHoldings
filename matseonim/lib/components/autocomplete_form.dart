@@ -9,39 +9,44 @@ class AutocompleteForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TypeAheadFormField(
-      textFieldConfiguration: TextFieldConfiguration(
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TypeAheadFormField(
+        textFieldConfiguration: TextFieldConfiguration(
           controller: textController,
           decoration: InputDecoration(
-              hintText: hintText,
-              fillColor: Colors.white,
-              filled: true,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-              ))),
-      suggestionsCallback: (pattern) {
-        return Professions.getSuggestions(pattern);
-      },
-      itemBuilder: (context, String suggestion) {
-        return ListTile(
-          title: Text(suggestion),
-        );
-      },
-      transitionBuilder: (context, suggestionsBox, controller) {
-        return suggestionsBox;
-      },
-      onSuggestionSelected: (String suggestion) {
-        textController?.text = suggestion;
-      },
+            hintText: hintText,
+            fillColor: Colors.white,
+            filled: true,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20),
+            )
+          )
+        ),
+        suggestionsCallback: (pattern) {
+          return Professions.getSuggestions(pattern);
+        },
+        itemBuilder: (context, String suggestion) {
+          return ListTile(
+            title: Text(suggestion),
+          );
+        },
+        transitionBuilder: (context, suggestionsBox, controller) {
+          return suggestionsBox;
+        },
+        onSuggestionSelected: (String suggestion) {
+          textController?.text = suggestion;
+        },
+      )
     );
   }
 }
