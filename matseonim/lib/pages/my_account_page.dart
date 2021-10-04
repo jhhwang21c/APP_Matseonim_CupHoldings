@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:matseonim/components/autocomplete_form.dart';
 
+import 'package:matseonim/components/autocomplete_form.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
@@ -122,7 +122,6 @@ class _EditableForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: 비밀번호 변경은 다른 페이지에서, 나머지는 다 텍스트 필드?
     return Form(
       key: _formKey,
       child: Column(
@@ -258,7 +257,11 @@ class _EditableForm extends StatelessWidget {
                 color: Colors.white
               ),
               color: Theme.of(context).primaryColor,
-              funPageRoute: () {}
+              funPageRoute: () {
+                if (_formKey.currentState!.validate()) {
+                  // TODO: ...
+                }
+              }
             )
           )
         ]

@@ -22,7 +22,7 @@ class DrawerPage extends StatelessWidget {
             builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
               if (!snapshot.hasData) {
                 return SizedBox(
-                  height: 144,
+                  height: 160,
                   child: Container(
                     alignment: Alignment.center,
                     child: const CircularProgressIndicator()
@@ -74,8 +74,8 @@ class DrawerPage extends StatelessWidget {
               Get.back();
               await Get.to(SettingsPage());
             }
-          )
-        ]
+          ),
+        ],
       )
     );
   }

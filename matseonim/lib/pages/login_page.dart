@@ -74,13 +74,8 @@ class _MainLoginPage extends StatelessWidget {
                   Get.to(_EmailLoginPage());
                 },
               ),
-              const SizedBox(height: 10),
-              CustomElevatedButton(
-                text: "카카오로 로그인",
-                funPageRoute: () {},
-              ),
               const SizedBox(height: 80),
-              const Text("아직 계정이 없으신가요?"),
+              const Text("아직 계정이 없으신가요?", style: TextStyle(color: Colors.white)),
               const SizedBox(height: 10),
               CustomElevatedButton(
                 text: "회원가입",

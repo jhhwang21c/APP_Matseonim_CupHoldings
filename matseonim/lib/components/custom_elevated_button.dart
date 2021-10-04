@@ -5,9 +5,10 @@ class CustomElevatedButton extends StatelessWidget {
 
   final Color? color;
   final TextStyle? textStyle;
+  final Size? size;
   final void Function()? funPageRoute;
 
-  const CustomElevatedButton({required this.text, this.textStyle, this.color, this.funPageRoute});
+  const CustomElevatedButton({required this.text, this.textStyle, this.color, this.funPageRoute, this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class CustomElevatedButton extends StatelessWidget {
         onPressed: funPageRoute,
         style: ElevatedButton.styleFrom(
           primary: color ?? Colors.white,
-          minimumSize: const Size(double.infinity, 50),
+          minimumSize: size ?? const Size(double.infinity, 50),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),

@@ -15,7 +15,10 @@ class RequestPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: const [
-            Text("새로운 의뢰"),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              child: Text("새로운 의뢰", style: TextStyle(fontSize: 32)),
+            ),
             MidProfile(),
             MidProfile()
           ],
