@@ -66,23 +66,31 @@ class _MainLoginPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Column(
+                children: [
+                  const Text("ㅁㅅㅇ", style: TextStyle(color: Colors.white, fontSize: 48)),
+                  const Text("게임에 오신 여러분, 환영합니다.", style: TextStyle(color: Colors.white)),
+                ],
+              ),
               CustomElevatedButton(
                 text: "이메일로 로그인",
                 funPageRoute: () {
                   Get.to(_EmailLoginPage());
                 },
               ),
-              const SizedBox(height: 80),
-              const Text("아직 계정이 없으신가요?", style: TextStyle(color: Colors.white)),
-              const SizedBox(height: 10),
-              CustomElevatedButton(
-                text: "회원가입",
-                color: Colors.lightGreenAccent,
-                funPageRoute: () {
-                  Get.to(JoinPage1());
-                },
+              Column(
+                children: [
+                  const Text("아직 계정이 없으신가요?", style: TextStyle(color: Colors.white)),
+                  CustomElevatedButton(
+                    text: "회원가입",
+                    color: Colors.lightBlueAccent,
+                    funPageRoute: () {
+                      Get.to(JoinPage1());
+                    },
+                  ),
+                ],
               )
             ]
           ),
