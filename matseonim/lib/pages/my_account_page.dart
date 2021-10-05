@@ -141,7 +141,21 @@ class _MyAccountAvatar extends StatelessWidget {
           bottom: 0,
           child: ElevatedButton(
             onPressed: () async {
-              await MSIStorage.pickAvatar(user: user);
+              StorageStatus status = await MSIStorage.pickAvatar(user: user);
+
+              if (status == StorageStatus.success) {
+                Get.dialog(
+                  const CustomAlertDialog(
+                    message: "프로필 사진이 변경되었습니다."
+                  )
+                );
+              } else {
+                Get.dialog(
+                  const CustomAlertDialog(
+                    message: "오류가 발생하였습니다. 다시 시도해주세요."
+                  )
+                );
+              }
             },
             child: const Icon(Icons.edit),
             style: ElevatedButton.styleFrom(

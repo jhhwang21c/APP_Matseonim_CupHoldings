@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -21,7 +19,7 @@ class MSIStorage {
 
     if (image != null) {
       try {
-        await _storage.ref("avatars/${user.uid}.png").putFile(File(image.path));
+        await _storage.ref("avatars/${user.uid}.png").putData(await image.readAsBytes());
 
         user.avatarUrl = await _storage.ref("avatars/${user.uid}.png")
           .getDownloadURL();

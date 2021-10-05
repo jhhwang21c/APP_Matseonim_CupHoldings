@@ -50,7 +50,7 @@ class MSIUser {
         password: password ?? ""
       );
 
-      _init();
+      await _init();
 
       return AuthStatus.success;
     } on FirebaseAuthException catch (e) {
@@ -74,10 +74,12 @@ class MSIUser {
   /// 이메일과 비밀번호로 회원가입을 진행한다.
   Future<AuthStatus> signUp() async {
     try {
-      _auth.createUserWithEmailAndPassword(
+      await _auth.createUserWithEmailAndPassword(
         email: email ?? "", 
         password: password ?? ""
-      ).then((_) => _init());
+      );
+
+      await _init();
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
         return AuthStatus.emailAlreadyInUse;
@@ -124,11 +126,9 @@ class MSIUser {
 
   /// 서버에 저장된 사용자 정보를 업데이트한다.
   Future<void> update() async {
-    if (uid == null && _auth.currentUser == null) return;
-
     CollectionReference users = _firestore.collection("users");
 
-    await users.doc(uid ?? _auth.currentUser!.uid).update({
+    await users.doc(uid).update({
       "name": name,
       "email": email,
       "phoneNumber": phoneNumber,
@@ -141,23 +141,23 @@ class MSIUser {
 
   /// 현재 로그인되어 있는 계정을 삭제하고 로그아웃한다.
   Future<void> delete() async {
-    String? _uid = _auth.currentUser?.uid;
+    if (uid != _auth.currentUser!.uid) return;
 
     _auth.currentUser?.delete().then(
       (_) {
         CollectionReference users = _firestore.collection("users");
-        users.doc(_uid).delete();
+        users.doc(uid).delete();
       }
     );
   }
 
   /// 사용자의 고유 ID를 이용하여, 사용자 정보를 서버에서 불러온다.
   Future<void> _init() async {
-    if (uid == null && _auth.currentUser == null) return;
+    uid ??= _auth.currentUser!.uid;
 
     CollectionReference users = _firestore.collection("users");
 
-    await _initFromDocument(await users.doc(uid ?? _auth.currentUser!.uid).get());
+    await _initFromDocument(await users.doc(uid).get());
   }
 
   /// 문서 스냅샷을 이용하여, 사용자 정보를 불러온다.
