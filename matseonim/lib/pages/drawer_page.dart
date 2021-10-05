@@ -44,7 +44,7 @@ class DrawerPage extends StatelessWidget {
             title: const Text('내 정보'),
             onTap: () async {
               Get.back();
-              await Get.to(MyAccountPage());
+              await Get.to(MyAccountPage1());
             }
           ),
           ListTile(
@@ -59,13 +59,6 @@ class DrawerPage extends StatelessWidget {
             onTap: () async {
               Get.back();
               await Get.to(MyMHIPage());
-            }
-          ),
-          ListTile(
-            title: const Text('새로운 의뢰'),
-            onTap: () async {
-              Get.back();
-              await Get.to(RequestPage());
             }
           ),
           ListTile(

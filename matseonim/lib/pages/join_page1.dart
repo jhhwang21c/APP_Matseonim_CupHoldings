@@ -76,7 +76,7 @@ class _JoinForm1 extends StatelessWidget {
             child: ObscurableFormField(
                 shouldObscure: true,
                 hintText: "비밀번호",
-                funValidator: validatePassword(),
+                funValidator: validatePassword(saveValue: true),
                 textController: passwordTextController),
           ),
           Padding(

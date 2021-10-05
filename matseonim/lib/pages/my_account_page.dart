@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:matseonim/components/autocomplete_form.dart';
+import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
@@ -9,7 +11,7 @@ import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
-class MyAccountPage extends StatelessWidget {
+class MyAccountPage1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,13 +19,27 @@ class MyAccountPage extends StatelessWidget {
       drawer: DrawerPage(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: _EditableProfile()
+        child: _MyAccountWidget1()
       )
     );
   }
 }
 
-class _EditableProfile extends StatelessWidget {
+class MyAccountPage2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CustomAppBar(),
+      drawer: DrawerPage(),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: _MyAccountWidget2()
+      ),
+    );
+  }
+}
+
+class _MyAccountWidget1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -51,9 +67,9 @@ class _EditableProfile extends StatelessWidget {
                       )
                     ),
                     const SizedBox(height: 32),
-                    _EditableAvatar(user: user),
+                    _MyAccountAvatar(user: user),
                     const SizedBox(height: 32),
-                    _EditableForm(user: user)
+                    _MyAccountForm1(user: user)
                   ],                  
                 )
               )
@@ -65,10 +81,50 @@ class _EditableProfile extends StatelessWidget {
   }
 }
 
-class _EditableAvatar extends StatelessWidget {
+class _MyAccountWidget2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: MSIUser.init(),
+      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+        if (!snapshot.hasData) {
+          return SizedBox(
+            child: Container(
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator()
+            )
+          );
+        } else {
+          final MSIUser user = snapshot.data!;
+          
+          return ListView(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    const Text(
+                      "비밀번호 변경",
+                      style: TextStyle(
+                        fontSize: 32
+                      )
+                    ),
+                    const SizedBox(height: 32),
+                    _MyAccountForm2(user: user)
+                  ],                  
+                )
+              )
+            ]
+          );
+        }
+      }
+    );
+  }
+}
+
+class _MyAccountAvatar extends StatelessWidget {
   final MSIUser user;
 
-  const _EditableAvatar({
+  const _MyAccountAvatar({
     Key? key,
     required this.user
   }) : super(key: key);
@@ -98,7 +154,7 @@ class _EditableAvatar extends StatelessWidget {
   }
 }
 
-class _EditableForm extends StatelessWidget {
+class _MyAccountForm1 extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   final MSIUser user;
@@ -109,7 +165,7 @@ class _EditableForm extends StatelessWidget {
   var professionTextController = TextEditingController();
   var interestTextController = TextEditingController();
 
-  _EditableForm({
+  _MyAccountForm1({
     Key? key,
     required this.user
   }) : super(key: key) {
@@ -205,7 +261,9 @@ class _EditableForm extends StatelessWidget {
                     color: Colors.white
                   ),
                   color: Theme.of(context).primaryColor,
-                  funPageRoute: () {}
+                  funPageRoute: () {
+                    Get.to(MyAccountPage2());
+                  }
                 )
               ]
             )
@@ -257,9 +315,152 @@ class _EditableForm extends StatelessWidget {
                 color: Colors.white
               ),
               color: Theme.of(context).primaryColor,
-              funPageRoute: () {
+              funPageRoute: () async {
                 if (_formKey.currentState!.validate()) {
-                  // TODO: ...
+                  user.name = nameTextController.text;
+                  user.phoneNumber = phoneNumberTextController.text;
+                  user.email = emailTextController.text;
+                  user.profession = professionTextController.text;
+                  user.interest = interestTextController.text;
+
+                  await user.update();
+
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "계정 정보가 변경되었습니다."
+                    )
+                  ); 
+                }
+              }
+            )
+          )
+        ]
+      )
+    );
+  }
+}
+
+class _MyAccountForm2 extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+
+  final MSIUser user;
+
+  final passwordTextController = TextEditingController();
+  final newPasswordTextController = TextEditingController();
+  final confirmNewPasswordTextController = TextEditingController();
+
+  _MyAccountForm2({
+    Key? key,
+    required this.user
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "현재 비밀번호",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                ObscurableFormField(
+                  shouldObscure: true,
+                  textController: passwordTextController,
+                  funValidator: validatePassword()
+                )
+              ]
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "새 비밀번호",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                ObscurableFormField(
+                  shouldObscure: true,
+                  textController: newPasswordTextController,
+                  funValidator: validatePassword(saveValue: true)
+                )
+              ]
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "새 비밀번호 확인",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                ObscurableFormField(
+                  shouldObscure: true,
+                  textController: confirmNewPasswordTextController,
+                  funValidator: validateConfirmPassword()
+                )
+              ]
+            )
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomElevatedButton(
+              text: "저장",
+              textStyle: const TextStyle(
+                fontSize: 16,
+                color: Colors.white
+              ),
+              color: Theme.of(context).primaryColor,
+              funPageRoute: () async {
+                if (_formKey.currentState!.validate()) {
+                  AuthStatus status = await user.changePassword(
+                    oldPassword: passwordTextController.text,
+                    newPassword: newPasswordTextController.text
+                  );
+
+                  if (status == AuthStatus.success) {
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "비밀번호가 변경되었습니다."
+                      )
+                    );
+                  } else if (status == AuthStatus.userNotFound) {
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."
+                      )
+                    );
+                  } else if (status == AuthStatus.wrongPassword) {
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "현재 비밀번호가 틀렸습니다. 다시 시도해주세요."
+                      )
+                    );
+                  } else {
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "오류가 발생하였습니다. 다시 시도해주세요."
+                      )
+                    );
+                  }
                 }
               }
             )

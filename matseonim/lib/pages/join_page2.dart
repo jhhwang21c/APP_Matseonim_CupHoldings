@@ -72,13 +72,25 @@ class _JoinForm2 extends StatelessWidget {
                   AuthStatus status = await user.signUp();
 
                   if (status == AuthStatus.success) {
-                    Get.dialog(const CustomAlertDialog(message: "회원가입이 완료되었습니다.")).then(
-                      (_) => Get.to(LoginPage())
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "회원가입이 완료되었습니다."
+                      )
                     );
+
+                    Get.to(LoginPage());
                   } else if (status == AuthStatus.emailAlreadyInUse) {
-                    Get.dialog(const CustomAlertDialog(message: "이미 사용 중인 이메일 주소입니다."));
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "이미 사용 중인 이메일 주소입니다."
+                      )
+                    );
                   } else {
-                    Get.dialog(const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요."));
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "오류가 발생하였습니다. 다시 시도해주세요."
+                      )
+                    );
                   }
                 }
               },

@@ -83,6 +83,7 @@ class _MainLoginPage extends StatelessWidget {
               Column(
                 children: [
                   const Text("아직 계정이 없으신가요?", style: TextStyle(color: Colors.white)),
+                  SizedBox(height: 16),
                   CustomElevatedButton(
                     text: "회원가입",
                     color: Colors.lightBlueAccent,
@@ -160,11 +161,23 @@ class _EmailLoginForm extends StatelessWidget {
                 if (status == AuthStatus.success) {
                   Get.to(MainPage());
                 } else if (status == AuthStatus.userNotFound) {
-                  Get.dialog(const CustomAlertDialog(message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."
+                    )
+                  );
                 } else if (status == AuthStatus.wrongPassword) {
-                  Get.dialog(const CustomAlertDialog(message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "비밀번호가 틀렸습니다. 다시 시도해주세요."
+                    )
+                  );
                 } else {
-                  Get.dialog(const CustomAlertDialog(message: "오류가 발생하였습니다. 다시 시도해주세요."));
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "오류가 발생하였습니다. 다시 시도해주세요."
+                    )
+                  );
                 }
               }
             }

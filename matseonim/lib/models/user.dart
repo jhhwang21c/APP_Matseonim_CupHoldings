@@ -6,6 +6,7 @@ enum AuthStatus {
   success,
   emailAlreadyInUse,
   invalidEmail,
+  requiresRecentLogin,
   unknownError,
   userNotFound,
   weakPassword,
@@ -41,18 +42,6 @@ class MSIUser {
     return result;
   }
 
-  /// 현재 로그인되어 있는 계정을 삭제하고 로그아웃한다.
-  Future<void> delete() async {
-    String? _uid = _auth.currentUser?.uid;
-
-    _auth.currentUser?.delete().then(
-      (_) {
-        CollectionReference users = _firestore.collection("users");
-        users.doc(_uid).delete();
-      }
-    );
-  }
-
   /// 이메일과 비밀번호로 로그인을 시도한다.
   Future<AuthStatus> login() async {
     try {
@@ -77,7 +66,7 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
-  /// 현재 로그인된 계정에서 로그아웃한다.
+  /// 현재 로그인되어 있는 계정에서 로그아웃한다.
   Future<void> logout() async {
     await _auth.signOut();
   }
@@ -102,6 +91,37 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
+  /// 현재 로그인되어 있는 계정의 비밀번호를 변경한다.
+  Future<AuthStatus> changePassword({
+    required String oldPassword, 
+    required String newPassword
+  }) async {
+    try {
+      UserCredential _ = await _auth.signInWithEmailAndPassword(
+        email: email ?? "", 
+        password: oldPassword
+      );
+
+      await _auth.currentUser?.updatePassword(newPassword);
+
+      return AuthStatus.success;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == "invalid-email") {
+        return AuthStatus.invalidEmail;
+      } else if (e.code == 'requires-recent-login') {    
+        return AuthStatus.requiresRecentLogin;
+      } else if (e.code == 'user-not-found') {
+        return AuthStatus.userNotFound;
+      } else if (e.code == 'weak-password') {
+        return AuthStatus.weakPassword;
+      } else if (e.code == 'wrong-password') {
+        return AuthStatus.wrongPassword;
+      }
+    }
+
+    return AuthStatus.unknownError;
+  }
+
   /// 서버에 저장된 사용자 정보를 업데이트한다.
   Future<void> update() async {
     if (uid == null && _auth.currentUser == null) return;
@@ -117,6 +137,18 @@ class MSIUser {
       "avatarUrl": avatarUrl,
       "baseName": baseName
     });
+  }
+
+  /// 현재 로그인되어 있는 계정을 삭제하고 로그아웃한다.
+  Future<void> delete() async {
+    String? _uid = _auth.currentUser?.uid;
+
+    _auth.currentUser?.delete().then(
+      (_) {
+        CollectionReference users = _firestore.collection("users");
+        users.doc(_uid).delete();
+      }
+    );
   }
 
   /// 사용자의 고유 ID를 이용하여, 사용자 정보를 서버에서 불러온다.

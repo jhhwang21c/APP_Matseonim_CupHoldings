@@ -16,9 +16,11 @@ Validator validateEmail() {
   };
 }
 
-Validator validatePassword() {
+Validator validatePassword({bool saveValue = false}) {
   return (String? value) {
-    _passwordText = value;
+    if (saveValue) {
+      _passwordText = value;
+    }
 
     if (value!.isEmpty) {
       return "공백이 들어갈 수 없습니다";
