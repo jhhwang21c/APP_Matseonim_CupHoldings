@@ -1,10 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/pages/request_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  bool showBackButton;
+
+  CustomAppBar({Key? key, this.showBackButton = false}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -14,12 +17,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 1.0,
       leading: Builder(
         builder: (BuildContext context) {
-          return IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            }
-          );
+          if (!showBackButton) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              }
+            );
+          } else {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () {
+                Get.back();
+              }
+            );
+          }
         },
       ),
       actions: [
