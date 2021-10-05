@@ -6,6 +6,7 @@ import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/models/user.dart';
 
 import 'package:matseonim/pages/main_page.dart';
+import 'package:matseonim/pages/main_profile_page.dart';
 
 class MidProfile extends StatelessWidget {
   final String? uid;
@@ -39,16 +40,22 @@ class MidProfile extends StatelessWidget {
                                 style: const TextStyle(
                                   fontSize: 32,
                                 )),
-                            SizedBox(height:10),
+                            SizedBox(height: 10),
                             Text(user.baseName ?? "?",
                                 style: const TextStyle(
                                   fontSize: 16,
                                 )),
-                            SizedBox(height:10),
+                            SizedBox(height: 10),
                             Text("분야: ${user.interest ?? "(없음)"}",
                                 style: const TextStyle(
                                   fontSize: 16,
-                                ))
+                                )),
+                            TextButton(
+                              onPressed: () {
+                                Get.to(MainProfilePage());
+                              },
+                              child: Text("자세히 >>"),
+                            )
                           ])
                     ]),
                     SizedBox(height: 10),

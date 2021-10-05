@@ -20,7 +20,8 @@ class RequestPage extends StatelessWidget {
               child: Text("새로운 의뢰", style: TextStyle(fontSize: 32)),
             ),
             MidProfile(),
-            MidProfile()
+            SizedBox(height: 30),
+            MidProfile(),
           ],
         ),
       ),
