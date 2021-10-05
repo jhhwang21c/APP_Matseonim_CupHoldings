@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:matseonim/components/autocomplete_form.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';
@@ -7,6 +8,7 @@ import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
+import 'package:matseonim/models/storage.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 import 'package:matseonim/utils/validator.dart';
@@ -138,8 +140,8 @@ class _MyAccountAvatar extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: ElevatedButton(
-            onPressed: () {
-              /* TODO: ... */
+            onPressed: () async {
+              await MSIStorage.pickAvatar(user: user);
             },
             child: const Icon(Icons.edit),
             style: ElevatedButton.styleFrom(
@@ -437,11 +439,13 @@ class _MyAccountForm2 extends StatelessWidget {
                   );
 
                   if (status == AuthStatus.success) {
-                    Get.dialog(
+                    await Get.dialog(
                       const CustomAlertDialog(
                         message: "비밀번호가 변경되었습니다."
                       )
                     );
+
+                    Get.back();
                   } else if (status == AuthStatus.userNotFound) {
                     Get.dialog(
                       const CustomAlertDialog(

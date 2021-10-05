@@ -49,15 +49,16 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 ### [플러그인](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/matseonim/pubspec.yaml)
 
-- [`cached_network_image (^3.1.0)`](https://pub.dev/packages/cached_network_image)
-- [`cloud_firestore (^2.5.3)`](https://pub.dev/packages/cloud_firestore)
-- [`cupertino_icons (^1.0.2)`](https://pub.dev/packages/cupertino_icons)
-- [`get (^4.3.8)`](https://pub.dev/packages/get)
-- [`file_picker (^4.1.3)`](https://pub.dev/packages/file_picker)
-- [`firebase_auth (^3.1.1)`](https://pub.dev/packages/firebase_auth)
-- [`firebase_core (^1.6.0)`](https://pub.dev/packages/firebase_core)
-- [`flutter_typeahead (^3.2.1)`](https://pub.dev/packages/flutter_typeahead)
-- [`validators (^3.0.0)`](https://pub.dev/packages/validators)
+- [`cached_network_image: ^3.1.0`](https://pub.dev/packages/cached_network_image)
+- [`cloud_firestore: ^2.5.3`](https://pub.dev/packages/cloud_firestore)
+- [`cupertino_icons: ^1.0.2`](https://pub.dev/packages/cupertino_icons)
+- [`get: ^4.3.8`](https://pub.dev/packages/get)
+- [`image_picker: ^0.8.4+2`](https://pub.dev/packages/image_picker)
+- [`firebase_auth: ^3.1.1`](https://pub.dev/packages/firebase_auth)
+- [`firebase_core: ^1.6.0`](https://pub.dev/packages/firebase_core)
+- [`firebase_storage: ^10.0.4`](https://pub.dev/packages/firebase_storage)
+- [`flutter_typeahead: ^3.2.1`](https://pub.dev/packages/flutter_typeahead)
+- [`validators: ^3.0.0`](https://pub.dev/packages/validators)
 
 ## 백엔드
 

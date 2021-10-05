@@ -56,9 +56,9 @@ class MSIUser {
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
         return AuthStatus.invalidEmail;
-      } else if (e.code == 'user-not-found') {
+      } else if (e.code == "user-not-found") {
         return AuthStatus.userNotFound;
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == "wrong-password") {
         return AuthStatus.wrongPassword;
       }
     }
@@ -108,13 +108,13 @@ class MSIUser {
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
         return AuthStatus.invalidEmail;
-      } else if (e.code == 'requires-recent-login') {    
+      } else if (e.code == "requires-recent-login") {    
         return AuthStatus.requiresRecentLogin;
-      } else if (e.code == 'user-not-found') {
+      } else if (e.code == "user-not-found") {
         return AuthStatus.userNotFound;
-      } else if (e.code == 'weak-password') {
+      } else if (e.code == "weak-password") {
         return AuthStatus.weakPassword;
-      } else if (e.code == 'wrong-password') {
+      } else if (e.code == "wrong-password") {
         return AuthStatus.wrongPassword;
       }
     }
