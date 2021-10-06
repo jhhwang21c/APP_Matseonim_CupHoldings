@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:matseonim/components/autocomplete_form.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';

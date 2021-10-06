@@ -11,15 +11,18 @@ class CustomCircleAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: size,
-        height: size,
-        child: CachedNetworkImage(
-            imageUrl: url,
-            imageBuilder: (context, imageProvider) => CircleAvatar(
-                  backgroundImage: imageProvider,
-                ),
-            placeholder: (context, url) => const CircleAvatar(
-                backgroundImage: AssetImage("images/sampleAvatar.jpg")),
-            errorWidget: (context, url, error) => const Icon(Icons.error)));
+      width: size,
+      height: size,
+      child: CachedNetworkImage(
+        imageUrl: url,
+        imageBuilder: (context, imageProvider) => CircleAvatar(
+          backgroundImage: imageProvider,
+        ),
+        placeholder: (context, url) => const CircleAvatar(
+          backgroundImage: AssetImage("images/sampleAvatar.jpg")
+        ),
+        errorWidget: (context, url, error) => const Icon(Icons.error)
+      )
+    );
   }
 }

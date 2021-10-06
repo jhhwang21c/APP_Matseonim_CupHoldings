@@ -21,6 +21,7 @@ class MSIStorage {
       try {
         await _storage.ref("avatars/${user.uid}.png").putData(await image.readAsBytes());
 
+        // CORS 구성 필요 (https://firebase.google.com/docs/storage/web/download-files)
         user.avatarUrl = await _storage.ref("avatars/${user.uid}.png")
           .getDownloadURL();
 
