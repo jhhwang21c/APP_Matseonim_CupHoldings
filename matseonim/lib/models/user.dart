@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
 /// 사용자 계정의 로그인 또는 회원가입 결과를 나타내는 열거형.
 enum AuthStatus {
   success,
@@ -15,9 +18,6 @@ enum AuthStatus {
 
 /// 사용자의 계정 정보를 나타내는 클래스.
 class MSIUser {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
   String? uid, name, email, password, phoneNumber;
   String? profession, interest, avatarUrl, baseName;
 

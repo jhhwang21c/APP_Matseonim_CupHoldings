@@ -3,6 +3,8 @@ import 'package:image_picker/image_picker.dart';
 
 import 'package:matseonim/models/user.dart';
 
+final FirebaseStorage _storage = FirebaseStorage.instance;
+
 enum StorageStatus {
   canceled,
   permissionDenied,
@@ -12,7 +14,6 @@ enum StorageStatus {
 
 class MSIStorage {
   static Future<StorageStatus> pickAvatar({required MSIUser user}) async {
-    final FirebaseStorage _storage = FirebaseStorage.instance;
     final ImagePicker _picker = ImagePicker();
 
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
