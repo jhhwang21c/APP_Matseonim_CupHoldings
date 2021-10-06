@@ -42,7 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onPressed: () async {
             Get.back();
-            await Get.to(RequestPage());
+            await Get.to(NewRequestPage());
           },
         )
       ],

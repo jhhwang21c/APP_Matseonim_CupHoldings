@@ -5,7 +5,7 @@ import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/mid_profile.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
-class RequestPage extends StatelessWidget {
+class NewRequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

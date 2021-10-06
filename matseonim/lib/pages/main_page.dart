@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
         padding: const EdgeInsets.only(left: 20),
         child: ListView(
           children: [
-            const SizedBox(height: 20), // TODO: 검색창 넣기?
+            const SizedBox(height: 20),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

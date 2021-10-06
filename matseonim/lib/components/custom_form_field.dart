@@ -19,7 +19,7 @@ class ObscurableFormFieldController extends GetxController {
 
 class ObscurableFormField extends GetView<ObscurableFormFieldController> {
   final bool shouldObscure;
-  final Validator funValidator;
+  final Validator? funValidator;
 
   final String? hintText;
   final TextEditingController? textController;
@@ -28,7 +28,7 @@ class ObscurableFormField extends GetView<ObscurableFormFieldController> {
     this.hintText,
     this.textController,
     required this.shouldObscure,
-    required this.funValidator
+    this.funValidator
   });
 
   @override
