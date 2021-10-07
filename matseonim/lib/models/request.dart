@@ -2,11 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-enum RequestStatus {
-  success,
-  unknownError 
-}
-
 class MSIRequest {
   String requestId, uid, interest;
   String title, description;
@@ -51,7 +46,29 @@ class MSIRequests {
     );
   }
 
-  static Future<List<MSIRequest>> getAll({required String uid}) async {
+  static Future<List<MSIRequest>> getIncoming({required String interest}) async {
+    List<MSIRequest> result = [];
+
+    QuerySnapshot query = await _firestore.collection("requests")
+      .where("interest", isEqualTo: interest)
+      .get();
+
+    for (QueryDocumentSnapshot document in query.docs) {
+      result.add(
+        MSIRequest(
+          requestId: document.id,
+          uid: document["uid"],
+          interest: document["interest"],
+          title: document["title"],
+          description: document["description"]
+        )
+      );
+    }
+
+    return result;
+  }
+
+  static Future<List<MSIRequest>> getOutgoing({required String uid}) async {
     List<MSIRequest> result = [];
 
     QuerySnapshot query = await _firestore.collection("requests")
