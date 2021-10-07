@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:matseonim/components/autocomplete_form.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
@@ -9,6 +10,7 @@ import 'package:matseonim/components/multiline_textfield.dart';
 import 'package:matseonim/models/request.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
+import 'package:matseonim/pages/main_page.dart';
 
 class RequestPage extends StatelessWidget {
   var titleTextController = TextEditingController();
@@ -62,6 +64,7 @@ class RequestPage extends StatelessWidget {
                           description: descriptionTextController.text,
                           interest: interestTextController.text,
                         );
+                        Get.to(MainPage());
                       })
                 ],
               ),

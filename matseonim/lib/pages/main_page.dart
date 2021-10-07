@@ -1,9 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
+import 'package:matseonim/components/custom_elevated_button.dart';
+import 'package:matseonim/components/item_slider.dart';
 import 'package:matseonim/components/small_profile.dart';
 import 'package:matseonim/pages/drawer_page.dart';
+import 'package:matseonim/pages/request_page.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -19,6 +22,17 @@ class MainPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                itemSlider(),
+                SizedBox(height: 20),
+                CustomElevatedButton(
+                      text: "새 의뢰 요청하기",
+                      textStyle:
+                          const TextStyle(fontSize: 16, color: Colors.white),
+                      color: Theme.of(context).primaryColor,
+                      funPageRoute: () {
+                        Get.to(RequestPage());
+                      }),
+                SizedBox(height: 20),
                 const Text(
                   "내 맞선임",
                   style: TextStyle(
