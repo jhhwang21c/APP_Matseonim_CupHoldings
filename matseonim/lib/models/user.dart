@@ -21,6 +21,8 @@ class MSIUser {
   String? uid, name, email, password, phoneNumber;
   String? profession, interest, avatarUrl, baseName;
 
+  List<String>? msiList, mhiList;
+
   MSIUser({
     this.uid,
     this.name,
@@ -30,7 +32,9 @@ class MSIUser {
     this.profession,
     this.interest,
     this.avatarUrl,
-    this.baseName
+    this.baseName,
+    this.msiList,
+    this.mhiList
   });
 
   /// 사용자 정보를 초기화한다.
@@ -66,7 +70,7 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
-  /// 현재 로그인되어 있는 계정에서 로그아웃한다.
+  /// 현재 사용자 계정에서 로그아웃한다.
   Future<void> logout() async {
     await _auth.signOut();
   }
@@ -93,7 +97,7 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
-  /// 현재 로그인되어 있는 계정의 비밀번호를 변경한다.
+  /// 현재 사용자의 비밀번호를 변경한다.
   Future<AuthStatus> changePassword({
     required String oldPassword, 
     required String newPassword
@@ -124,6 +128,41 @@ class MSIUser {
     return AuthStatus.unknownError;
   }
 
+  // 현재 사용자가 등록된 사용자인지 확인한다.
+  Future<bool> exists() async {
+    CollectionReference users = _firestore.collection("users");
+
+    DocumentSnapshot document = await users.doc(uid).get();
+
+    return (uid != null && document.exists);
+  }
+
+  /// 사용자의 맞선임 목록에 주어진 고유 ID를 가진 사용자를 추가한다.
+  Future<void> addMatseonim({required String msiUid}) async {
+    if (msiList == null || !(await MSIUser(uid: msiUid).exists())) return;
+
+    MSIUser msi = await MSIUser.init(uid: msiUid);
+
+    msiList!.add(msiUid);
+    await update();
+
+    msi.mhiList!.add(uid!);
+    await msi.update();
+  }
+
+  /// 사용자의 맞선임 목록에서 주어진 고유 ID를 가진 사용자를 제거한다.
+  Future<void> removeMatseonim({required String msiUid}) async {
+    if (msiList == null || !(await MSIUser(uid: msiUid).exists())) return;
+
+    MSIUser msi = await MSIUser.init(uid: msiUid);
+
+    msiList!.remove(msiUid);
+    await update();
+
+    msi.mhiList!.remove(uid!);
+    await msi.update();
+  }
+
   /// 서버에 저장된 사용자 정보를 업데이트한다.
   Future<void> update() async {
     CollectionReference users = _firestore.collection("users");
@@ -135,15 +174,17 @@ class MSIUser {
       "profession": profession,
       "interest": interest,
       "avatarUrl": avatarUrl,
-      "baseName": baseName
+      "baseName": baseName,
+      "msiList": msiList,
+      "mhiList": mhiList
     });
   }
 
-  /// 현재 로그인되어 있는 계정을 삭제하고 로그아웃한다.
+  /// 현재 계정을 삭제하고 로그아웃한다.
   Future<void> delete() async {
-    if (uid != _auth.currentUser!.uid) return;
+    if (uid != _auth.currentUser?.uid) return;
 
-    _auth.currentUser?.delete().then(
+    _auth.currentUser!.delete().then(
       (_) {
         CollectionReference users = _firestore.collection("users");
         users.doc(uid).delete();
@@ -153,14 +194,14 @@ class MSIUser {
 
   /// 사용자의 고유 ID를 이용하여, 사용자 정보를 서버에서 불러온다.
   Future<void> _init() async {
-    uid ??= _auth.currentUser!.uid;
+    uid ??= _auth.currentUser?.uid;
 
     CollectionReference users = _firestore.collection("users");
 
     await _initFromDocument(await users.doc(uid).get());
   }
 
-  /// 문서 스냅샷을 이용하여, 사용자 정보를 불러온다.
+  /// 문서 스냅샷을 이용하여, 사용자 정보를 서버에서 불러온다.
   Future<void> _initFromDocument(DocumentSnapshot document) async {
     if (!document.exists) {
       await document.reference.set({
@@ -170,7 +211,9 @@ class MSIUser {
         "profession": profession,
         "interest": interest,
         "avatarUrl": null,
-        "baseName": null
+        "baseName": null,
+        "msiList": [],
+        "mhiList": []
       });
     }
 
@@ -181,5 +224,7 @@ class MSIUser {
     interest = document["interest"];
     avatarUrl = document["avatarUrl"];
     baseName = document["baseName"];
+    msiList = document["msiList"];
+    mhiList = document["mhiList"];
   }
 }

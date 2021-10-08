@@ -1,0 +1,3 @@
+class MSIChat {
+  /* TODO: ... */ 
+}

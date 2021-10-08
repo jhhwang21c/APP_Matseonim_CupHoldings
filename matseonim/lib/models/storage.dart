@@ -5,6 +5,7 @@ import 'package:matseonim/models/user.dart';
 
 final FirebaseStorage _storage = FirebaseStorage.instance;
 
+/// 사용자의 파일 업로드 또는 다운로드 결과를 나타내는 열거형.
 enum StorageStatus {
   canceled,
   permissionDenied,
@@ -12,7 +13,9 @@ enum StorageStatus {
   unknownError
 }
 
+/// 사용자의 파일 업로드와 다운로드를 관리하는 클래스.
 class MSIStorage {
+  /// 사용자의 프로필 사진을 서버에 업로드한다.
   static Future<StorageStatus> pickAvatar({required MSIUser user}) async {
     final ImagePicker _picker = ImagePicker();
 
