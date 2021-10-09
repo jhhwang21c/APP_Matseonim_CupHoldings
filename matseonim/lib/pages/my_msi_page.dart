@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
-import 'package:matseonim/components/mid_profile.dart';
+import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class MyMSIPage extends StatelessWidget {

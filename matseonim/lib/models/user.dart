@@ -7,8 +7,10 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 /// 사용자 계정의 로그인 또는 회원가입 결과를 나타내는 열거형.
 enum AuthStatus {
   success,
+  alreadyLoggedIn,
   emailAlreadyInUse,
   invalidEmail,
+  invalidUser,
   requiresRecentLogin,
   unknownError,
   userNotFound,
@@ -18,10 +20,12 @@ enum AuthStatus {
 
 /// 사용자의 계정 정보를 나타내는 클래스.
 class MSIUser {
+  final CollectionReference _users = _firestore.collection("users");
+  
   String? uid, name, email, password, phoneNumber;
   String? profession, interest, avatarUrl, baseName;
 
-  List<String>? msiList, mhiList;
+  List<dynamic>? msiList, mhiList;
 
   MSIUser({
     this.uid,
@@ -39,24 +43,26 @@ class MSIUser {
 
   /// 사용자 정보를 초기화한다.
   static Future<MSIUser> init({String? uid}) async {
-    MSIUser result = MSIUser(uid: uid);
+    if (uid == null && _auth.currentUser == null) {
+      throw Exception("고유 ID가 null 값인 사용자는 초기화할 수 없습니다.");
+    }
+
+    MSIUser result = MSIUser(uid: uid ?? _auth.currentUser!.uid);
 
     await result._init();
 
     return result;
   }
 
-  /// 이메일과 비밀번호로 로그인을 시도한다.
+  /// 사용자 계정에 로그인한다.
   Future<AuthStatus> login() async {
     try {
       UserCredential _ = await _auth.signInWithEmailAndPassword(
-        email: email ?? "", 
-        password: password ?? ""
+        email: email!, 
+        password: password!
       );
 
       await _init();
-
-      return AuthStatus.success;
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
         return AuthStatus.invalidEmail;
@@ -65,23 +71,41 @@ class MSIUser {
       } else if (e.code == "wrong-password") {
         return AuthStatus.wrongPassword;
       }
+    } catch (e) {
+      return AuthStatus.unknownError;
     }
 
-    return AuthStatus.unknownError;
+    return AuthStatus.success;
   }
 
-  /// 현재 사용자 계정에서 로그아웃한다.
-  Future<void> logout() async {
+  /// 사용자 계정에서 로그아웃한다.
+  Future<AuthStatus> logout() async {
+    if (_auth.currentUser == null) {
+      return AuthStatus.invalidUser;
+    }
+
     await _auth.signOut();
+
+    return AuthStatus.success;
   }
 
   /// 이메일과 비밀번호로 회원가입을 진행한다.
   Future<AuthStatus> signUp() async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-        email: email ?? "", 
-        password: password ?? ""
+      if (uid != null) {
+        return AuthStatus.alreadyLoggedIn;
+      }
+
+      /*
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+        email: email!, 
+        password: password!
       );
+
+      uid = credential.user!.uid;
+      */
+
+      uid = "test";
 
       await _init();
     } on FirebaseAuthException catch (e) {
@@ -92,25 +116,25 @@ class MSIUser {
       } else if (e.code == "weak-password") {
         return AuthStatus.weakPassword;
       }
+    } catch (e) {
+      return AuthStatus.unknownError;
     }
 
-    return AuthStatus.unknownError;
+    return AuthStatus.success;
   }
 
-  /// 현재 사용자의 비밀번호를 변경한다.
+  /// 사용자 계정의 비밀번호를 변경한다.
   Future<AuthStatus> changePassword({
     required String oldPassword, 
     required String newPassword
   }) async {
     try {
-      UserCredential _ = await _auth.signInWithEmailAndPassword(
+      UserCredential credential = await _auth.signInWithEmailAndPassword(
         email: email ?? "", 
         password: oldPassword
       );
 
-      await _auth.currentUser?.updatePassword(newPassword);
-
-      return AuthStatus.success;
+      await credential.user!.updatePassword(newPassword);
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
         return AuthStatus.invalidEmail;
@@ -123,51 +147,16 @@ class MSIUser {
       } else if (e.code == "wrong-password") {
         return AuthStatus.wrongPassword;
       }
+    } catch (e) {
+      return AuthStatus.unknownError;
     }
 
-    return AuthStatus.unknownError;
-  }
-
-  // 현재 사용자가 등록된 사용자인지 확인한다.
-  Future<bool> exists() async {
-    CollectionReference users = _firestore.collection("users");
-
-    DocumentSnapshot document = await users.doc(uid).get();
-
-    return (uid != null && document.exists);
-  }
-
-  /// 사용자의 맞선임 목록에 주어진 고유 ID를 가진 사용자를 추가한다.
-  Future<void> addMatseonim({required String msiUid}) async {
-    if (msiList == null || !(await MSIUser(uid: msiUid).exists())) return;
-
-    MSIUser msi = await MSIUser.init(uid: msiUid);
-
-    msiList!.add(msiUid);
-    await update();
-
-    msi.mhiList!.add(uid!);
-    await msi.update();
-  }
-
-  /// 사용자의 맞선임 목록에서 주어진 고유 ID를 가진 사용자를 제거한다.
-  Future<void> removeMatseonim({required String msiUid}) async {
-    if (msiList == null || !(await MSIUser(uid: msiUid).exists())) return;
-
-    MSIUser msi = await MSIUser.init(uid: msiUid);
-
-    msiList!.remove(msiUid);
-    await update();
-
-    msi.mhiList!.remove(uid!);
-    await msi.update();
+    return AuthStatus.success;
   }
 
   /// 서버에 저장된 사용자 정보를 업데이트한다.
-  Future<void> update() async {
-    CollectionReference users = _firestore.collection("users");
-
-    await users.doc(uid).update({
+  Future<AuthStatus> update() async {
+    await _users.doc(uid).update({
       "name": name,
       "email": email,
       "phoneNumber": phoneNumber,
@@ -175,36 +164,40 @@ class MSIUser {
       "interest": interest,
       "avatarUrl": avatarUrl,
       "baseName": baseName,
-      "msiList": msiList,
-      "mhiList": mhiList
+      "msiList": msiList ?? [],
+      "mhiList": mhiList ?? []
     });
+
+    return AuthStatus.success;
   }
 
-  /// 현재 계정을 삭제하고 로그아웃한다.
-  Future<void> delete() async {
-    if (uid != _auth.currentUser?.uid) return;
+  /// 사용자 계정을 삭제한다.
+  Future<AuthStatus> delete() async {
+    try {
+      UserCredential credential = await _auth.signInWithEmailAndPassword(
+        email: email!, 
+        password: password!
+      );
 
-    _auth.currentUser!.delete().then(
-      (_) {
-        CollectionReference users = _firestore.collection("users");
-        users.doc(uid).delete();
+      await credential.user!.delete();
+      await _users.doc(credential.user!.uid).delete();
+    } on FirebaseAuthException catch (e) {
+       if (e.code == "requires-recent-login") {    
+        return AuthStatus.requiresRecentLogin;
       }
-    );
+    } catch (e) {
+      return AuthStatus.unknownError;
+    }
+
+    return AuthStatus.success;
   }
 
-  /// 사용자의 고유 ID를 이용하여, 사용자 정보를 서버에서 불러온다.
+  /// 사용자 정보를 서버에서 불러온다.
   Future<void> _init() async {
-    uid ??= _auth.currentUser?.uid;
+    DocumentSnapshot snapshot = await _users.doc(uid).get();
 
-    CollectionReference users = _firestore.collection("users");
-
-    await _initFromDocument(await users.doc(uid).get());
-  }
-
-  /// 문서 스냅샷을 이용하여, 사용자 정보를 서버에서 불러온다.
-  Future<void> _initFromDocument(DocumentSnapshot document) async {
-    if (!document.exists) {
-      await document.reference.set({
+    if (!snapshot.exists) {
+      await snapshot.reference.set({
         "name": name,
         "email": email,
         "phoneNumber": phoneNumber,
@@ -215,16 +208,16 @@ class MSIUser {
         "msiList": [],
         "mhiList": []
       });
+    } else {
+      name = snapshot["name"];
+      email = snapshot["email"];
+      phoneNumber = snapshot["phoneNumber"];
+      profession = snapshot["profession"];
+      interest = snapshot["interest"];
+      avatarUrl = snapshot["avatarUrl"];
+      baseName = snapshot["baseName"];
+      msiList = snapshot["msiList"] ?? [];
+      mhiList = snapshot["mhiList"] ?? [];
     }
-
-    name = document["name"];
-    email = document["email"];
-    phoneNumber = document["phoneNumber"];
-    profession = document["profession"];
-    interest = document["interest"];
-    avatarUrl = document["avatarUrl"];
-    baseName = document["baseName"];
-    msiList = document["msiList"];
-    mhiList = document["mhiList"];
   }
 }

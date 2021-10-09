@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
-import 'custom_elevated_button.dart';
+import 'package:matseonim/components/custom_elevated_button.dart';
 
 final List<String> itemList = [
   'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
@@ -40,11 +40,9 @@ final List<Widget> itemSliders = itemList
         ))
     .toList();
 
-class itemSlider extends StatelessWidget {
-  
+class ItemSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final med = MediaQuery.of(context).size.width;
     return CarouselSlider(
       options: CarouselOptions(
         autoPlay: true,

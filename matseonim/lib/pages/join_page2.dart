@@ -72,13 +72,13 @@ class _JoinForm2 extends StatelessWidget {
                   AuthStatus status = await user.signUp();
 
                   if (status == AuthStatus.success) {
+                    Get.to(LoginPage());
+
                     Get.dialog(
                       const CustomAlertDialog(
                         message: "회원가입이 완료되었습니다."
                       )
                     );
-
-                    Get.to(LoginPage());
                   } else if (status == AuthStatus.emailAlreadyInUse) {
                     Get.dialog(
                       const CustomAlertDialog(

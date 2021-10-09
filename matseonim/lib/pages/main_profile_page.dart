@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
-import 'package:matseonim/components/mid_profile.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class MainProfilePage extends StatelessWidget {

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/item_slider.dart';
-import 'package:matseonim/components/small_profile.dart';
+import 'package:matseonim/components/custom_carousel_slider.dart';
+import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 import 'package:matseonim/pages/request_page.dart';
 
@@ -22,7 +22,7 @@ class MainPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                itemSlider(),
+                ItemSlider(),
                 SizedBox(height: 20),
                 CustomElevatedButton(
                       text: "새 의뢰 요청하기",

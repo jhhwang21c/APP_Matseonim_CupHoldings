@@ -54,42 +54,44 @@ class _MainLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue[900],
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+      backgroundColor: Colors.blue[900],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Image.asset(
+                'images/logo_w.png',
+                fit: BoxFit.contain,
+                width: 300,
+              ),
+              Column(
                 children: [
-                  Image.asset(
-                    'images/logo_w.png',
-                    fit: BoxFit.contain,
-                    width: 300,
+                  CustomElevatedButton(
+                    text: "이메일로 로그인",
+                    funPageRoute: () {
+                      Get.to(_EmailLoginPage());
+                    },
                   ),
-                  Column(
-                    children: [
-                      CustomElevatedButton(
-                        text: "이메일로 로그인",
-                        funPageRoute: () {
-                          Get.to(_EmailLoginPage());
-                        },
-                      ),
-                      const SizedBox(height: 30),
-                      const Text("아직 계정이 없으신가요?",
-                          style: TextStyle(color: Colors.white)),
-                      const SizedBox(height: 10),
-                      CustomElevatedButton(
-                        text: "회원가입",
-                        color: Colors.lightBlueAccent,
-                        funPageRoute: () {
-                          Get.to(JoinPage1());
-                        },
-                      ),
-                    ],
-                  )
-                ]),
+                  const SizedBox(height: 30),
+                  const Text("아직 계정이 없으신가요?",
+                      style: TextStyle(color: Colors.white)),
+                  const SizedBox(height: 10),
+                  CustomElevatedButton(
+                    text: "회원가입",
+                    color: Colors.lightBlueAccent,
+                    funPageRoute: () async {
+                      Get.to(JoinPage1());
+                    },
+                  ),
+                ],
+              )
+            ]
           ),
-        ));
+        ),
+      )
+    );
   }
 }
 
