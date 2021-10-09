@@ -25,7 +25,7 @@ class MSIUser {
   String? uid, name, email, password, phoneNumber;
   String? profession, interest, avatarUrl, baseName, resume;
 
-  List<dynamic>? msiList, mhiList;
+  List<dynamic>? msiList, mhiList, reqList;
 
   MSIUser({
     this.uid,
@@ -35,11 +35,12 @@ class MSIUser {
     this.phoneNumber,
     this.profession,
     this.interest,
+    this.resume,
     this.avatarUrl,
     this.baseName,
     this.msiList,
     this.mhiList,
-    this.resume,
+    this.reqList
   });
 
   /// 사용자 정보를 초기화한다.
@@ -73,7 +74,6 @@ class MSIUser {
         return AuthStatus.wrongPassword;
       }
     } catch (e) {
-      rethrow;
       return AuthStatus.unknownError;
     }
 
@@ -115,7 +115,8 @@ class MSIUser {
         "avatarUrl": null,
         "baseName": null,
         "msiList": [],
-        "mhiList": []
+        "mhiList": [],
+        "reqList": []
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
@@ -163,6 +164,28 @@ class MSIUser {
     return AuthStatus.success;
   }
 
+  /// 사용자의 맞선임 목록에 주어진 고유 ID를 가진 사용자를 추가한다.
+  Future<void> addMatseonim({required String msiUid}) async {
+    MSIUser msi = await MSIUser.init(uid: msiUid);
+
+    msiList!.add(msiUid);
+    await update();
+
+    msi.mhiList!.add(uid!);
+    await msi.update();
+  }
+
+  /// 사용자의 맞선임 목록에서 주어진 고유 ID를 가진 사용자를 제거한다.
+  Future<void> removeMatseonim({required String msiUid}) async {
+    MSIUser msi = await MSIUser.init(uid: msiUid);
+
+    msiList!.remove(msiUid);
+    await update();
+
+    msi.mhiList!.remove(uid!);
+    await msi.update();
+  }
+
   /// 서버에 저장된 사용자 정보를 업데이트한다.
   Future<AuthStatus> update() async {
     await _users.doc(uid).update({
@@ -175,7 +198,8 @@ class MSIUser {
       "avatarUrl": avatarUrl,
       "baseName": baseName,
       "msiList": msiList ?? [],
-      "mhiList": mhiList ?? []
+      "mhiList": mhiList ?? [],
+      "reqList": reqList ?? []
     });
 
     return AuthStatus.success;
@@ -217,6 +241,7 @@ class MSIUser {
       baseName = snapshot["baseName"];
       msiList = snapshot["msiList"] ?? [];
       mhiList = snapshot["mhiList"] ?? [];
+      reqList = snapshot["reqList"] ?? [];
     }
   }
 }

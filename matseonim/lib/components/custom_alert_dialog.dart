@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 class CustomAlertDialog extends StatelessWidget {
   final String message;
 
-  const CustomAlertDialog({required this.message});
+  const CustomAlertDialog({
+    Key? key, required this.message
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

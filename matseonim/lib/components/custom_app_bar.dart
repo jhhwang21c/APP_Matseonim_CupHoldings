@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/pages/new_request_page.dart';
+import 'package:matseonim/pages/new_requests_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   bool showBackButton;
@@ -42,7 +42,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onPressed: () async {
             Get.back();
-            await Get.to(NewRequestPage());
+            await Get.to(NewRequestsPage());
           },
         )
       ],

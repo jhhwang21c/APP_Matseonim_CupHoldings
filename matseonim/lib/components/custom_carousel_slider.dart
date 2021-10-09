@@ -15,36 +15,38 @@ final List<MainPageItem> itemList = [
 ];
 
 final List<Widget> itemSliders = itemList
-    .map((item) => Container(
-          child: Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Column(
-                      children: [
-                        Text('사연이 들어가는 부분', style: TextStyle(fontSize: 16.0),),
-                      ],
+  .map((item) => Container(
+        child: Container(
+          margin: EdgeInsets.all(5.0),
+          child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(5.0)),
+              child: Stack(
+                children: <Widget>[
+                  Column(
+                    children: [
+                      Text('사연이 들어가는 부분1', style: TextStyle(fontSize: 16.0),),
+                      Text('사연이 들어가는 부분2', style: TextStyle(fontSize: 16.0),),
+                      Text('사연이 들어가는 부분3', style: TextStyle(fontSize: 16.0),),
+                    ],
+                  ),
+                  Positioned(
+                    bottom: 0.0,
+                    left: 0.0,
+                    right: 0.0,
+                    child: SizedBox(width: 60, height: 40, 
+                      child: CustomElevatedButton(
+                          color: Colors.blue[900],
+                          text: "의뢰 수락하기",
+                          textStyle: const TextStyle(
+                              fontSize: 16, color: Colors.white),
+                          funPageRoute: () {}),
                     ),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: SizedBox(width: 60, height: 40, 
-                        child: CustomElevatedButton(
-                            color: Colors.blue[900],
-                            text: "자세히 보기",
-                            textStyle: const TextStyle(
-                                fontSize: 16, color: Colors.white),
-                            funPageRoute: () {}),
-                      ),
-                    ),
-                  ],
-                )),
-          ),
-        ))
-    .toList();
+                  ),
+                ],
+              )),
+        ),
+      ))
+  .toList();
 
 class ItemSlider extends StatelessWidget {
   @override

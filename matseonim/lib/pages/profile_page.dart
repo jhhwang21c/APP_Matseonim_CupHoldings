@@ -6,10 +6,11 @@ import 'package:matseonim/models/user.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
-class MainProfilePage extends StatelessWidget {
+class ProfilePage extends StatelessWidget {
   final String? uid;
 
-  const MainProfilePage({Key? key, this.uid}) : super(key: key);
+  const ProfilePage({Key? key, this.uid}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

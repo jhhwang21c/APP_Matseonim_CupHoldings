@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/pages/intro_page.dart';
-import 'package:matseonim/pages/main_page.dart';
-import 'package:matseonim/pages/request_page.dart';
 import 'package:matseonim/utils/theme.dart';
 
 void main() {

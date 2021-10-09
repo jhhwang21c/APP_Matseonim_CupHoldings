@@ -48,7 +48,7 @@ class RequestPage extends StatelessWidget {
                   MultiLineTextField(textController: descriptionTextController),
                   SizedBox(height: 20),
                   AutocompleteForm(
-                    hintText: "요청분야를 입력해주세요",
+                    hintText: "요청 분야를 입력해주세요",
                     textController: interestTextController,
                   ),
                   SizedBox(height: 20),
