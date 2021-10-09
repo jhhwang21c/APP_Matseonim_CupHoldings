@@ -9,9 +9,8 @@ import 'package:matseonim/pages/drawer_page.dart';
 
 class ReadRequestPage extends StatelessWidget {
   final MSIRequest request;
-  final MSIUser? user;
 
-  const ReadRequestPage({Key? key, required this.request, this.user}) : super(key: key);
+  const ReadRequestPage({Key? key, required this.request}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +27,11 @@ class ReadRequestPage extends StatelessWidget {
             ),
             MidProfile(uid: request.uid),
             SizedBox(height: 30),
-            //내용내용
+            Text("${request.title}", style: TextStyle(fontSize: 32),),
+            SizedBox(height: 10),
+            Text("요청분야: ${request.interest}", style: TextStyle(fontSize: 16),),
+            SizedBox(height: 10),
+            Text("${request.description}", style: TextStyle(fontSize: 16),),
           ],
         ),
       ),
