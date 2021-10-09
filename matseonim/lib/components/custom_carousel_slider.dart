@@ -34,7 +34,7 @@ final List<Widget> itemSliders = itemList
                       child: SizedBox(width: 60, height: 40, 
                         child: CustomElevatedButton(
                             color: Colors.blue[900],
-                            text: "의뢰 수락하기",
+                            text: "자세히 보기",
                             textStyle: const TextStyle(
                                 fontSize: 16, color: Colors.white),
                             funPageRoute: () {}),
