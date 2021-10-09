@@ -72,6 +72,7 @@ class MSIUser {
         return AuthStatus.wrongPassword;
       }
     } catch (e) {
+      rethrow;
       return AuthStatus.unknownError;
     }
 
@@ -96,18 +97,24 @@ class MSIUser {
         return AuthStatus.alreadyLoggedIn;
       }
 
-      /*
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
         email: email!, 
         password: password!
       );
 
       uid = credential.user!.uid;
-      */
 
-      uid = "test";
-
-      await _init();
+      await _users.doc(uid).set({
+        "name": name,
+        "email": email,
+        "phoneNumber": phoneNumber,
+        "profession": profession,
+        "interest": interest,
+        "avatarUrl": null,
+        "baseName": null,
+        "msiList": [],
+        "mhiList": []
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
         return AuthStatus.emailAlreadyInUse;
@@ -196,19 +203,7 @@ class MSIUser {
   Future<void> _init() async {
     DocumentSnapshot snapshot = await _users.doc(uid).get();
 
-    if (!snapshot.exists) {
-      await snapshot.reference.set({
-        "name": name,
-        "email": email,
-        "phoneNumber": phoneNumber,
-        "profession": profession,
-        "interest": interest,
-        "avatarUrl": null,
-        "baseName": null,
-        "msiList": [],
-        "mhiList": []
-      });
-    } else {
+    if (snapshot.exists) {
       name = snapshot["name"];
       email = snapshot["email"];
       phoneNumber = snapshot["phoneNumber"];

@@ -58,21 +58,19 @@ class _MyAccountWidget1 extends StatelessWidget {
           
           return ListView(
             children: [
-              Expanded(
-                child: Column(
-                  children: [
-                    const Text(
-                      "내 정보",
-                      style: TextStyle(
-                        fontSize: 32
-                      )
-                    ),
-                    const SizedBox(height: 32),
-                    _MyAccountAvatar(user: user),
-                    const SizedBox(height: 32),
-                    _MyAccountForm1(user: user)
-                  ],                  
-                )
+              Column(
+                children: [
+                  const Text(
+                    "내 정보",
+                    style: TextStyle(
+                      fontSize: 32
+                    )
+                  ),
+                  const SizedBox(height: 32),
+                  _MyAccountAvatar(user: user),
+                  const SizedBox(height: 32),
+                  _MyAccountForm1(user: user)
+                ],                  
               )
             ]
           );
@@ -122,6 +120,10 @@ class _MyAccountWidget2 extends StatelessWidget {
   }
 }
 
+class _MyAccountAvatarController extends GetxController {
+  _MyAccountAvatarController();
+}
+
 class _MyAccountAvatar extends StatelessWidget {
   final MSIUser user;
 
@@ -132,39 +134,44 @@ class _MyAccountAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        CustomCircleAvatar(size: 250, url: user.avatarUrl ?? ""),
-        Positioned(
-          right: 0,
-          bottom: 0,
-          child: ElevatedButton(
-            onPressed: () async {
-              StorageStatus status = await MSIStorage.pickAvatar(user: user);
+    return GetBuilder<_MyAccountAvatarController>(
+      init: _MyAccountAvatarController(),
+      builder: (_) => Stack(
+        children: [
+          CustomCircleAvatar(size: 250, url: user.avatarUrl ?? ""),
+          Positioned(
+            right: 0,
+            bottom: 0,
+            child: ElevatedButton(
+              onPressed: () async {
+                StorageStatus status = await MSIStorage.pickAvatar(user: user);
 
-              if (status == StorageStatus.success) {
-                Get.dialog(
-                  const CustomAlertDialog(
-                    message: "프로필 사진이 변경되었습니다."
-                  )
-                );
-              } else {
-                Get.dialog(
-                  const CustomAlertDialog(
-                    message: "오류가 발생하였습니다. 다시 시도해주세요."
-                  )
-                );
-              }
-            },
-            child: const Icon(Icons.edit),
-            style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),
-              padding: const EdgeInsets.all(20),
-              primary: Theme.of(context).primaryColor
-            ),
+                if (status == StorageStatus.success) {
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "프로필 사진이 변경되었습니다."
+                    )
+                  );
+                } else {
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "오류가 발생하였습니다. 다시 시도해주세요."
+                    )
+                  );
+                }
+
+                _.update();
+              },
+              child: const Icon(Icons.edit),
+              style: ElevatedButton.styleFrom(
+                shape: const CircleBorder(),
+                padding: const EdgeInsets.all(20),
+                primary: Theme.of(context).primaryColor
+              ),
+            )
           )
-        )
-      ]
+        ]
+      )
     );
   }
 }
