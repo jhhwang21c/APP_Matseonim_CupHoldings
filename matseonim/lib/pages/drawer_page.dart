@@ -8,6 +8,7 @@ import 'package:matseonim/pages/my_mhi_page.dart';
 import 'package:matseonim/pages/my_msi_page.dart';
 import 'package:matseonim/pages/my_account_page.dart';
 import 'package:matseonim/pages/new_request_page.dart';
+import 'package:matseonim/pages/request_page.dart';
 import 'package:matseonim/pages/settings_page.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -45,6 +46,13 @@ class DrawerPage extends StatelessWidget {
             onTap: () async {
               Get.back();
               await Get.to(MyAccountPage1());
+            }
+          ),
+          ListTile(
+            title: const Text('의뢰 요청하기'),
+            onTap: () async {
+              Get.back();
+              await Get.to(RequestPage());
             }
           ),
           ListTile(

@@ -22,17 +22,24 @@ class MainPage extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text(
+                  "새로운 사연들",
+                  style: TextStyle(
+                    fontSize: 32,
+                  ),
+                ),
+                const SizedBox(height: 10),
                 ItemSlider(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 CustomElevatedButton(
                       text: "새 의뢰 요청하기",
+                      color: Colors.lightBlue[300],
                       textStyle:
-                          const TextStyle(fontSize: 16, color: Colors.white),
-                      color: Theme.of(context).primaryColor,
+                          const TextStyle(fontSize: 16, color: Colors.black),
                       funPageRoute: () {
                         Get.to(RequestPage());
                       }),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 const Text(
                   "내 맞선임",
                   style: TextStyle(
@@ -43,11 +50,11 @@ class MainPage extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: [
+                    children: const [
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
                     ],
                   ),
@@ -68,15 +75,15 @@ class MainPage extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: [
+                    children: const[
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
                     ],
                   ),
@@ -97,9 +104,9 @@ class MainPage extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: [
+                    children: const[
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
                     ],
                   ),
@@ -120,11 +127,11 @@ class MainPage extends StatelessWidget {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
-                    children: [
+                    children: const [
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
-                      const SizedBox(width: 25),
+                      SizedBox(width: 25),
                       SmallProfile(),
                     ],
                   ),

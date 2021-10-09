@@ -7,6 +7,7 @@ import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_field.dart';
+import 'package:matseonim/components/multiline_textfield.dart';
 import 'package:matseonim/models/storage.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
@@ -186,6 +187,7 @@ class _MyAccountForm1 extends StatelessWidget {
   var emailTextController = TextEditingController();
   var professionTextController = TextEditingController();
   var interestTextController = TextEditingController();
+  var resumeTextController = TextEditingController();
 
   _MyAccountForm1({
     Key? key,
@@ -196,6 +198,7 @@ class _MyAccountForm1 extends StatelessWidget {
     emailTextController.text = user.email ?? "?";
     professionTextController.text = user.profession ?? "?";
     interestTextController.text = user.interest ?? "?";
+    resumeTextController.text = user.interest ?? "경력이 없습니다.";
   }
 
   @override
@@ -325,6 +328,22 @@ class _MyAccountForm1 extends StatelessWidget {
                   hintText: "관심 분야를 입력해 주세요",
                   textController: interestTextController,
                 )
+              ]
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
+                    "내 경력",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                 MultiLineTextField(textController: resumeTextController),
               ]
             )
           ),
