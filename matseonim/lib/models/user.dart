@@ -23,7 +23,7 @@ class MSIUser {
   final CollectionReference _users = _firestore.collection("users");
   
   String? uid, name, email, password, phoneNumber;
-  String? profession, interest, avatarUrl, baseName;
+  String? profession, interest, avatarUrl, baseName, resume;
 
   List<dynamic>? msiList, mhiList;
 
@@ -38,7 +38,8 @@ class MSIUser {
     this.avatarUrl,
     this.baseName,
     this.msiList,
-    this.mhiList
+    this.mhiList,
+    this.resume,
   });
 
   /// 사용자 정보를 초기화한다.
@@ -110,6 +111,7 @@ class MSIUser {
         "phoneNumber": phoneNumber,
         "profession": profession,
         "interest": interest,
+        "resume": resume,
         "avatarUrl": null,
         "baseName": null,
         "msiList": [],
@@ -169,6 +171,7 @@ class MSIUser {
       "phoneNumber": phoneNumber,
       "profession": profession,
       "interest": interest,
+      "resume": resume,
       "avatarUrl": avatarUrl,
       "baseName": baseName,
       "msiList": msiList ?? [],
@@ -209,6 +212,7 @@ class MSIUser {
       phoneNumber = snapshot["phoneNumber"];
       profession = snapshot["profession"];
       interest = snapshot["interest"];
+      resume = snapshot["resume"];
       avatarUrl = snapshot["avatarUrl"];
       baseName = snapshot["baseName"];
       msiList = snapshot["msiList"] ?? [];

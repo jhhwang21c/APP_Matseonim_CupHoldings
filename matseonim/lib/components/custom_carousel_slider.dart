@@ -25,8 +25,6 @@ final List<Widget> itemSliders = itemList
                     Column(
                       children: [
                         Text('사연이 들어가는 부분', style: TextStyle(fontSize: 16.0),),
-                        Text('사연이 들어가는 부분2', style: TextStyle(fontSize: 16.0),),
-                        Text('사연이 들어가는 부분3', style: TextStyle(fontSize: 16.0),),
                       ],
                     ),
                     Positioned(

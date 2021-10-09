@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
       appBar: CustomAppBar(),
       drawer: DrawerPage(),
       body: Padding(
-        padding: const EdgeInsets.only(left: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
             const SizedBox(height: 20),
@@ -93,49 +93,14 @@ class MainPage extends StatelessWidget {
             const SizedBox(height: 30),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "새로운 의뢰",
+              children: const [
+                Text(
+                  "후기",
                   style: TextStyle(
                     fontSize: 32,
                   ),
                 ),
-                const SizedBox(height: 10),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: const[
-                      SmallProfile(),
-                      SizedBox(width: 25),
-                      SmallProfile(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  "부대 상위 맞선임들",
-                  style: TextStyle(
-                    fontSize: 32,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: const [
-                      SmallProfile(),
-                      SizedBox(width: 25),
-                      SmallProfile(),
-                      SizedBox(width: 25),
-                      SmallProfile(),
-                    ],
-                  ),
-                ),
+                SizedBox(height: 10),
               ],
             ),
           ],
