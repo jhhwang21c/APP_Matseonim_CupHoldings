@@ -37,6 +37,7 @@ class _JoinForm2 extends StatelessWidget {
 
   final professionTextController = TextEditingController();
   final interestTextController = TextEditingController();
+  final baseTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +45,14 @@ class _JoinForm2 extends StatelessWidget {
       key: _formKey,
       child: Column(
         children: [
+           Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: AutocompleteForm(
+              hintText: "소속 비행단을 입력해주세요",
+              textController: baseTextController,
+              flag: "BaseName",
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: AutocompleteForm(
@@ -68,6 +77,7 @@ class _JoinForm2 extends StatelessWidget {
 
                   user.profession = professionTextController.text;
                   user.interest = interestTextController.text;
+                  user.baseName = baseTextController.text;
                   
                   AuthStatus status = await user.signUp();
 

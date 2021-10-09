@@ -185,6 +185,7 @@ class _MyAccountForm1 extends StatelessWidget {
   var nameTextController = TextEditingController();
   var phoneNumberTextController = TextEditingController();
   var emailTextController = TextEditingController();
+  var baseTextController = TextEditingController();
   var professionTextController = TextEditingController();
   var interestTextController = TextEditingController();
   var resumeTextController = TextEditingController();
@@ -196,6 +197,7 @@ class _MyAccountForm1 extends StatelessWidget {
     nameTextController.text = user.name ?? "?";
     phoneNumberTextController.text = user.phoneNumber ?? "?";
     emailTextController.text = user.email ?? "?";
+    baseTextController.text = user.baseName ?? "공군?비행단";
     professionTextController.text = user.profession ?? "?";
     interestTextController.text = user.interest ?? "?";
     resumeTextController.text = user.interest ?? "경력이 없습니다.";
@@ -301,6 +303,26 @@ class _MyAccountForm1 extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
                   child: const Text(
+                    "소속 비행단",
+                    style: TextStyle(fontSize: 16),
+                  )
+                ),
+                AutocompleteForm(
+                  hintText: "소속 비행단을 입력해 주세요",
+                  textController: baseTextController,
+                  flag: "BaseName",
+                )
+              ]
+            )
+          ),
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 4.0),
+                  child: const Text(
                     "전문 분야",
                     style: TextStyle(fontSize: 16),
                   )
@@ -363,6 +385,7 @@ class _MyAccountForm1 extends StatelessWidget {
                   user.email = emailTextController.text;
                   user.profession = professionTextController.text;
                   user.interest = interestTextController.text;
+                  user.baseName = baseTextController.text;
 
                   await user.update();
 
