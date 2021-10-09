@@ -23,7 +23,7 @@ class MSIUser {
   final CollectionReference _users = _firestore.collection("users");
   
   String? uid, name, email, password, phoneNumber;
-  String? profession, interest, avatarUrl, baseName, resume;
+  String? profession, interest, resume, avatarUrl, baseName;
 
   List<dynamic>? msiList, mhiList, reqList;
 
@@ -111,7 +111,7 @@ class MSIUser {
         "phoneNumber": phoneNumber,
         "profession": profession,
         "interest": interest,
-        "resume": resume,
+        "resume": "",
         "avatarUrl": null,
         "baseName": null,
         "msiList": [],

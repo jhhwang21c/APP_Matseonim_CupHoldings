@@ -194,13 +194,13 @@ class _MyAccountForm1 extends StatelessWidget {
     Key? key,
     required this.user
   }) : super(key: key) {
-    nameTextController.text = user.name ?? "?";
-    phoneNumberTextController.text = user.phoneNumber ?? "?";
-    emailTextController.text = user.email ?? "?";
-    baseTextController.text = user.baseName ?? "공군?비행단";
-    professionTextController.text = user.profession ?? "?";
-    interestTextController.text = user.interest ?? "?";
-    resumeTextController.text = user.interest ?? "경력이 없습니다.";
+    nameTextController.text = user.name ?? "";
+    phoneNumberTextController.text = user.phoneNumber ?? "";
+    emailTextController.text = user.email ?? "";
+    baseTextController.text = user.baseName ?? "";
+    professionTextController.text = user.profession ?? "";
+    interestTextController.text = user.interest ?? "";
+    resumeTextController.text = user.resume ?? "";
   }
 
   @override
@@ -365,7 +365,7 @@ class _MyAccountForm1 extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   )
                 ),
-                 MultiLineTextField(textController: resumeTextController),
+                MultiLineTextField(textController: resumeTextController),
               ]
             )
           ),
@@ -386,6 +386,7 @@ class _MyAccountForm1 extends StatelessWidget {
                   user.profession = professionTextController.text;
                   user.interest = interestTextController.text;
                   user.baseName = baseTextController.text;
+                  user.resume = resumeTextController.text;
 
                   await user.update();
 
