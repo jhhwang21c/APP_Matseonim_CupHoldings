@@ -53,10 +53,23 @@ class MSIRoom {
     return result;
   }
 
-  /// 채팅방의 메시지를 삭제한다.
-  Future<void> removeMessage(MSIMessage message) async {
+  /// 채팅방을 삭제한다.
+  Future<void> deleteRoom() async {
     if (roomId == null) {
-      throw Exception("고유 ID가 null 값인 채팅방의 메시지를 삭제할 수 없습니다.");
+      throw Exception("고유 ID가 null 값인 채팅방은 삭제할 수 없습니다.");
+    }
+
+    await _rooms.doc(roomId).delete();
+
+    roomId = null;
+    createdAt = null;
+    updatedAt = null;
+  }
+
+  /// 채팅방의 메시지를 삭제한다.
+  Future<void> deleteMessage(MSIMessage message) async {
+    if (roomId == null) {
+      throw Exception("고유 ID가 null 값인 채팅방의 메시지는 삭제할 수 없습니다.");
     } else if (roomId != message.roomId) {
       throw Exception(
         "메시지를 삭제하려면 현재 채팅방의 고유 ID와 " 
@@ -72,9 +85,31 @@ class MSIRoom {
 
   /// 채팅방의 모든 메시지를 반환한다. 
   Stream<List<MSIMessage>> getMessages() {
-    /* TODO: ... */
-    
-    throw UnimplementedError();
+    if (roomId == null) {
+      throw Exception("고유 ID가 null 값인 채팅방의 메시지는 불러올 수 없습니다.");
+    }
+
+    return _rooms.doc(roomId)
+      .collection("messages")
+      .snapshots()
+      .map(
+        (QuerySnapshot snapshot) {
+          return snapshot.docs.fold(
+            [], 
+            (List<MSIMessage> previousValues, QueryDocumentSnapshot element) {
+              MSIMessage message = MSIMessage(
+                messageId: element.id,
+                roomId: element["roomId"],
+                createdAt: element["createdAt"],
+                updatedAt: element["updatedAt"],
+                text: element["text"]
+              );
+
+              return [...previousValues, message];
+            }
+          );
+        }
+      );
   }
 
   /// 채팅방에 메시지를 전송한다.
@@ -95,7 +130,7 @@ class MSIRoom {
   /// 채팅방의 메시지를 수정한다.
   Future<void> updateMessage(MSIMessage message) async {
     if (roomId == null) {
-      throw Exception("고유 ID가 null 값인 채팅방의 메시지를 수정할 수 없습니다.");
+      throw Exception("고유 ID가 null 값인 채팅방의 메시지는 수정할 수 없습니다.");
     } else if (roomId != message.roomId) {
       throw Exception(
         "메시지를 수정하려면 현재 채팅방의 고유 ID와 " 
