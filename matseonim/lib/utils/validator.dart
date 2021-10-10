@@ -4,6 +4,16 @@ typedef Validator = String? Function(String?);
 
 String? _passwordText = "";
 
+Validator validateText() {
+  return (String? value) {
+    if (value!.isEmpty) {
+      return "공백이 들어갈 수 없습니다";
+    } else {
+      return null;
+    }
+  };
+}
+
 Validator validateEmail() {
   return (String? value) {
     if (value!.isEmpty) {

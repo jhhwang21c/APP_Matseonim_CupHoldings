@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/custom_form_field.dart';
+import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/join_page2.dart';
 import 'package:matseonim/utils/validator.dart';

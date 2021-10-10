@@ -4,13 +4,13 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 /// 사용자가 보낸 의뢰 요청을 나타내는 클래스.
 class MSIRequest {
-  String requestId, uid, interest;
+  String requestId, uid, field;
   String title, description;
 
   MSIRequest({
     required this.requestId,
     required this.uid,
-    required this.interest,
+    required this.field,
     required this.title,
     required this.description
   });
@@ -21,7 +21,7 @@ class MSIRequests {
   /// 새로운 의뢰를 생성한다.
   static Future<void> add({
     required String uid,
-    required String interest,
+    required String field,
     required String title,
     required String description
   }) async {
@@ -29,7 +29,7 @@ class MSIRequests {
 
     await requests.add({
       "uid": uid,
-      "interest": interest,
+      "field": field,
       "title": title,
       "description": description
     });
@@ -44,18 +44,18 @@ class MSIRequests {
     return MSIRequest(
       requestId: requestId,
       uid: document["uid"],
-      interest: document["interest"],
+      field: document["field"],
       title: document["title"],
       description: document["description"]
     );
   }
 
-  /// 주어진 관심 분야와 연관된 모든 의뢰를 서버에서 불러온다.
-  static Future<List<MSIRequest>> getIncoming({required String interest}) async {
+  /// 주어진 전문 분야와 연관된 모든 의뢰를 서버에서 불러온다.
+  static Future<List<MSIRequest>> getIncoming({required String profession}) async {
     List<MSIRequest> result = [];
 
     QuerySnapshot query = await _firestore.collection("requests")
-      .where("interest", isEqualTo: interest)
+      .where("profession", isEqualTo: profession)
       .get();
 
     for (QueryDocumentSnapshot document in query.docs) {
@@ -63,7 +63,7 @@ class MSIRequests {
         MSIRequest(
           requestId: document.id,
           uid: document["uid"],
-          interest: document["interest"],
+          field: document["field"],
           title: document["title"],
           description: document["description"]
         )
@@ -86,7 +86,7 @@ class MSIRequests {
         MSIRequest(
           requestId: document.id,
           uid: document["uid"],
-          interest: document["interest"],
+          field: document["field"],
           title: document["title"],
           description: document["description"]
         )

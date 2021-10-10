@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/custom_form_field.dart';
+import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/join_page1.dart';
 import 'package:matseonim/pages/main_page.dart';

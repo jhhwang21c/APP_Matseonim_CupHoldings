@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
+import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/models/request.dart';
-import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class ReadRequestPage extends StatelessWidget {
@@ -21,17 +21,41 @@ class ReadRequestPage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: ListView(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
-              child: Text("의뢰내용", style: TextStyle(fontSize: 32)),
+              child: Text(
+                "의뢰 내용", 
+                style: TextStyle(fontSize: 32)
+              ),
             ),
             MidProfile(uid: request.uid),
-            SizedBox(height: 30),
-            Text("${request.title}", style: TextStyle(fontSize: 32),),
-            SizedBox(height: 10),
-            Text("요청분야: ${request.interest}", style: TextStyle(fontSize: 16),),
-            SizedBox(height: 10),
-            Text("${request.description}", style: TextStyle(fontSize: 16),),
+            const SizedBox(height: 30),
+            Text(
+              request.title, 
+              style: const TextStyle(fontSize: 32)
+            ),
+            const SizedBox(height: 10),
+            Text(
+              "요청 분야: ${request.field}", 
+              style: const TextStyle(fontSize: 16)
+            ),
+            const SizedBox(height: 10),
+            Text(
+              request.description, 
+              style: const TextStyle(fontSize: 16)
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomElevatedButton(
+                text: "요청 수락",
+                textStyle: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white
+                ),
+                color: Theme.of(context).primaryColor,
+                funPageRoute: () {}
+              )
+            )
           ],
         ),
       ),

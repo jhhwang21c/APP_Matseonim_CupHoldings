@@ -25,7 +25,7 @@ class MSIUser {
   String? uid, name, email, password, phoneNumber;
   String? profession, interest, resume, avatarUrl, baseName;
 
-  List<dynamic>? msiList, mhiList, reqList;
+  List<dynamic>? msiList, mhiList;
 
   MSIUser({
     this.uid,
@@ -39,8 +39,7 @@ class MSIUser {
     this.avatarUrl,
     this.baseName,
     this.msiList,
-    this.mhiList,
-    this.reqList
+    this.mhiList
   });
 
   /// 사용자 정보를 초기화한다.
@@ -116,7 +115,6 @@ class MSIUser {
         "baseName": null,
         "msiList": [],
         "mhiList": [],
-        "reqList": []
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
@@ -199,7 +197,6 @@ class MSIUser {
       "baseName": baseName,
       "msiList": msiList ?? [],
       "mhiList": mhiList ?? [],
-      "reqList": reqList ?? []
     });
 
     return AuthStatus.success;
@@ -241,7 +238,6 @@ class MSIUser {
       baseName = snapshot["baseName"];
       msiList = snapshot["msiList"] ?? [];
       mhiList = snapshot["mhiList"] ?? [];
-      reqList = snapshot["reqList"] ?? [];
     }
   }
 }

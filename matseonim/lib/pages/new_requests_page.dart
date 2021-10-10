@@ -33,12 +33,15 @@ class NewRequestsPage extends StatelessWidget {
             body: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
-                children: [
-                  const Padding(
+                children: const [
+                  Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),
                     child: Text("새로운 의뢰", style: TextStyle(fontSize: 32)),
                   ),
-                  MidProfileListView(uidList: [])
+                  SizedBox(height: 32),
+                  MidProfileListView(
+                    uidList: []
+                  )
                 ],
               ),
             ),

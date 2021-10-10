@@ -6,8 +6,8 @@ import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_carousel_slider.dart';
 import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/models/user.dart';
+import 'package:matseonim/pages/create_request_page.dart';
 import 'package:matseonim/pages/drawer_page.dart';
-import 'package:matseonim/pages/request_page.dart';
 
 class MainPage extends StatelessWidget {
   @override
@@ -48,7 +48,9 @@ class MainPage extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      ItemSlider(),
+                      CustomCarouselSlider(
+                        items: []
+                      ),
                       const SizedBox(height: 20),
                       CustomElevatedButton(
                         text: "의뢰 요청하기",
@@ -58,7 +60,7 @@ class MainPage extends StatelessWidget {
                         ),
                          color: Colors.lightBlue[300],
                         funPageRoute: () {
-                          Get.to(RequestPage());
+                          Get.to(CreateRequestPage());
                         }
                       ),
                       const SizedBox(height: 20),
@@ -89,15 +91,13 @@ class MainPage extends StatelessWidget {
                   const SizedBox(height: 30),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "새로운 의뢰",
+                    children: const [
+                      Text(
+                        "후기",
                         style: TextStyle(
                           fontSize: 32,
                         ),
-                      ),
-                      const SizedBox(height: 10),
-                      SmallProfileListView(uidList: user.reqList ?? [])
+                      )
                     ],
                   ),
                 ],

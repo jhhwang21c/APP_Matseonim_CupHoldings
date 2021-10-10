@@ -8,7 +8,14 @@ class CustomElevatedButton extends StatelessWidget {
   final Size? size;
   final void Function()? funPageRoute;
 
-  const CustomElevatedButton({required this.text, this.textStyle, this.color, this.funPageRoute, this.size});
+  const CustomElevatedButton({
+    Key? key,
+    required this.text, 
+    this.textStyle, 
+    this.color, 
+    this.funPageRoute, 
+    this.size
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

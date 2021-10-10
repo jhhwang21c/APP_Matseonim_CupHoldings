@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/components/autocomplete_form.dart';
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/custom_form_field.dart';
-import 'package:matseonim/components/multiline_textfield.dart';
+import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/models/storage.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
@@ -309,8 +307,8 @@ class _MyAccountForm1 extends StatelessWidget {
                 ),
                 AutocompleteForm(
                   hintText: "소속 비행단을 입력해 주세요",
+                  formFlag: AutocompleteFormFlag.baseNames,
                   textController: baseTextController,
-                  flag: "BaseName",
                 )
               ]
             )
@@ -365,7 +363,10 @@ class _MyAccountForm1 extends StatelessWidget {
                     style: TextStyle(fontSize: 16),
                   )
                 ),
-                MultiLineTextField(textController: resumeTextController),
+                MultilineFormField(
+                  textController: resumeTextController,
+                  funValidator: validateText()
+                ),
               ]
             )
           ),

@@ -37,6 +37,7 @@ class MyMSIPage extends StatelessWidget {
                     padding: EdgeInsets.symmetric(vertical: 20),
                     child: Text("내 맞선임", style: TextStyle(fontSize: 32)),
                   ),
+                  const SizedBox(height: 28),
                   MidProfileListView(uidList: user.msiList ?? [])
                 ],
               ),

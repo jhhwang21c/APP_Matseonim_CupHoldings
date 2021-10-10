@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/autocomplete_form.dart';
+import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/login_page.dart';
 
@@ -49,8 +49,8 @@ class _JoinForm2 extends StatelessWidget {
             padding: const EdgeInsets.only(top: 8.0),
             child: AutocompleteForm(
               hintText: "소속 비행단을 입력해주세요",
+              formFlag: AutocompleteFormFlag.baseNames,
               textController: baseTextController,
-              flag: "BaseName",
             ),
           ),
           Padding(

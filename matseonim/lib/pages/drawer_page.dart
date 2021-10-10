@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_drawer_header.dart';
 import 'package:matseonim/models/user.dart';
+import 'package:matseonim/pages/create_request_page.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/pages/my_mhi_page.dart';
 import 'package:matseonim/pages/my_msi_page.dart';
 import 'package:matseonim/pages/my_account_page.dart';
-import 'package:matseonim/pages/request_page.dart';
 import 'package:matseonim/pages/settings_page.dart';
 
 class DrawerPage extends StatelessWidget {
@@ -51,7 +51,7 @@ class DrawerPage extends StatelessWidget {
             title: const Text('의뢰하기'),
             onTap: () async {
               Get.back();
-              await Get.to(RequestPage());
+              await Get.to(CreateRequestPage());
             }
           ),
           ListTile(
