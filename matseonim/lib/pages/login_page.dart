@@ -146,17 +146,17 @@ class _EmailLoginForm extends StatelessWidget {
               text: "로그인",
               funPageRoute: () async {
                 if (_formKey.currentState!.validate()) {
-                  AuthStatus status = await MSIUser(
+                  MSIAuthStatus status = await MSIUser(
                           email: _emailTextController.text,
                           password: _passwordTextController.text)
                       .login();
 
-                  if (status == AuthStatus.success) {
+                  if (status == MSIAuthStatus.success) {
                     Get.to(MainPage());
-                  } else if (status == AuthStatus.userNotFound) {
+                  } else if (status == MSIAuthStatus.userNotFound) {
                     Get.dialog(const CustomAlertDialog(
                         message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."));
-                  } else if (status == AuthStatus.wrongPassword) {
+                  } else if (status == MSIAuthStatus.wrongPassword) {
                     Get.dialog(const CustomAlertDialog(
                         message: "비밀번호가 틀렸습니다. 다시 시도해주세요."));
                   } else {

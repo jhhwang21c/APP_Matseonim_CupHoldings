@@ -79,9 +79,9 @@ class _JoinForm2 extends StatelessWidget {
                   user.interest = interestTextController.text;
                   user.baseName = baseTextController.text;
                   
-                  AuthStatus status = await user.signUp();
+                  MSIAuthStatus status = await user.signUp();
 
-                  if (status == AuthStatus.success) {
+                  if (status == MSIAuthStatus.success) {
                     Get.to(LoginPage());
 
                     Get.dialog(
@@ -89,7 +89,7 @@ class _JoinForm2 extends StatelessWidget {
                         message: "회원가입이 완료되었습니다."
                       )
                     );
-                  } else if (status == AuthStatus.emailAlreadyInUse) {
+                  } else if (status == MSIAuthStatus.emailAlreadyInUse) {
                     Get.dialog(
                       const CustomAlertDialog(
                         message: "이미 사용 중인 이메일 주소입니다."

@@ -5,7 +5,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 /// 사용자 계정의 로그인 또는 회원가입 결과를 나타내는 열거형.
-enum AuthStatus {
+enum MSIAuthStatus {
   success,
   alreadyLoggedIn,
   emailAlreadyInUse,
@@ -56,7 +56,7 @@ class MSIUser {
   }
 
   /// 사용자 계정에 로그인한다.
-  Future<AuthStatus> login() async {
+  Future<MSIAuthStatus> login() async {
     try {
       UserCredential _ = await _auth.signInWithEmailAndPassword(
         email: email!, 
@@ -66,35 +66,35 @@ class MSIUser {
       await _init();
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
-        return AuthStatus.invalidEmail;
+        return MSIAuthStatus.invalidEmail;
       } else if (e.code == "user-not-found") {
-        return AuthStatus.userNotFound;
+        return MSIAuthStatus.userNotFound;
       } else if (e.code == "wrong-password") {
-        return AuthStatus.wrongPassword;
+        return MSIAuthStatus.wrongPassword;
       }
     } catch (e) {
-      return AuthStatus.unknownError;
+      return MSIAuthStatus.unknownError;
     }
 
-    return AuthStatus.success;
+    return MSIAuthStatus.success;
   }
 
   /// 사용자 계정에서 로그아웃한다.
-  Future<AuthStatus> logout() async {
+  Future<MSIAuthStatus> logout() async {
     if (_auth.currentUser == null) {
-      return AuthStatus.invalidUser;
+      return MSIAuthStatus.invalidUser;
     }
 
     await _auth.signOut();
 
-    return AuthStatus.success;
+    return MSIAuthStatus.success;
   }
 
   /// 이메일과 비밀번호로 회원가입을 진행한다.
-  Future<AuthStatus> signUp() async {
+  Future<MSIAuthStatus> signUp() async {
     try {
       if (uid != null) {
-        return AuthStatus.alreadyLoggedIn;
+        return MSIAuthStatus.alreadyLoggedIn;
       }
 
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
@@ -118,21 +118,21 @@ class MSIUser {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
-        return AuthStatus.emailAlreadyInUse;
+        return MSIAuthStatus.emailAlreadyInUse;
       } else if (e.code == "invalid-email") {
-        return AuthStatus.invalidEmail;
+        return MSIAuthStatus.invalidEmail;
       } else if (e.code == "weak-password") {
-        return AuthStatus.weakPassword;
+        return MSIAuthStatus.weakPassword;
       }
     } catch (e) {
-      return AuthStatus.unknownError;
+      return MSIAuthStatus.unknownError;
     }
 
-    return AuthStatus.success;
+    return MSIAuthStatus.success;
   }
 
   /// 사용자 계정의 비밀번호를 변경한다.
-  Future<AuthStatus> changePassword({
+  Future<MSIAuthStatus> changePassword({
     required String oldPassword, 
     required String newPassword
   }) async {
@@ -145,47 +145,25 @@ class MSIUser {
       await credential.user!.updatePassword(newPassword);
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
-        return AuthStatus.invalidEmail;
+        return MSIAuthStatus.invalidEmail;
       } else if (e.code == "requires-recent-login") {    
-        return AuthStatus.requiresRecentLogin;
+        return MSIAuthStatus.requiresRecentLogin;
       } else if (e.code == "user-not-found") {
-        return AuthStatus.userNotFound;
+        return MSIAuthStatus.userNotFound;
       } else if (e.code == "weak-password") {
-        return AuthStatus.weakPassword;
+        return MSIAuthStatus.weakPassword;
       } else if (e.code == "wrong-password") {
-        return AuthStatus.wrongPassword;
+        return MSIAuthStatus.wrongPassword;
       }
     } catch (e) {
-      return AuthStatus.unknownError;
+      return MSIAuthStatus.unknownError;
     }
 
-    return AuthStatus.success;
-  }
-
-  /// 사용자의 맞선임 목록에 주어진 고유 ID를 가진 사용자를 추가한다.
-  Future<void> addMatseonim({required String msiUid}) async {
-    MSIUser msi = await MSIUser.init(uid: msiUid);
-
-    msiList!.add(msiUid);
-    await update();
-
-    msi.mhiList!.add(uid!);
-    await msi.update();
-  }
-
-  /// 사용자의 맞선임 목록에서 주어진 고유 ID를 가진 사용자를 제거한다.
-  Future<void> removeMatseonim({required String msiUid}) async {
-    MSIUser msi = await MSIUser.init(uid: msiUid);
-
-    msiList!.remove(msiUid);
-    await update();
-
-    msi.mhiList!.remove(uid!);
-    await msi.update();
+    return MSIAuthStatus.success;
   }
 
   /// 서버에 저장된 사용자 정보를 업데이트한다.
-  Future<AuthStatus> update() async {
+  Future<MSIAuthStatus> update() async {
     await _users.doc(uid).update({
       "name": name,
       "email": email,
@@ -199,11 +177,11 @@ class MSIUser {
       "mhiList": mhiList ?? [],
     });
 
-    return AuthStatus.success;
+    return MSIAuthStatus.success;
   }
 
   /// 사용자 계정을 삭제한다.
-  Future<AuthStatus> delete() async {
+  Future<MSIAuthStatus> delete() async {
     try {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
         email: email!, 
@@ -214,13 +192,13 @@ class MSIUser {
       await _users.doc(credential.user!.uid).delete();
     } on FirebaseAuthException catch (e) {
        if (e.code == "requires-recent-login") {    
-        return AuthStatus.requiresRecentLogin;
+        return MSIAuthStatus.requiresRecentLogin;
       }
     } catch (e) {
-      return AuthStatus.unknownError;
+      return MSIAuthStatus.unknownError;
     }
 
-    return AuthStatus.success;
+    return MSIAuthStatus.success;
   }
 
   /// 사용자 정보를 서버에서 불러온다.

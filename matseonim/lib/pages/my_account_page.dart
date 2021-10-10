@@ -146,9 +146,9 @@ class _MyAccountAvatar extends StatelessWidget {
             bottom: 0,
             child: ElevatedButton(
               onPressed: () async {
-                StorageStatus status = await MSIStorage.pickAvatar(user: user);
+                MSIStorageStatus status = await MSIStorage.pickAvatar(user: user);
 
-                if (status == StorageStatus.success) {
+                if (status == MSIStorageStatus.success) {
                   Get.dialog(
                     const CustomAlertDialog(
                       message: "프로필 사진이 변경되었습니다."
@@ -499,12 +499,12 @@ class _MyAccountForm2 extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               funPageRoute: () async {
                 if (_formKey.currentState!.validate()) {
-                  AuthStatus status = await user.changePassword(
+                  MSIAuthStatus status = await user.changePassword(
                     oldPassword: passwordTextController.text,
                     newPassword: newPasswordTextController.text
                   );
 
-                  if (status == AuthStatus.success) {
+                  if (status == MSIAuthStatus.success) {
                     await Get.dialog(
                       const CustomAlertDialog(
                         message: "비밀번호가 변경되었습니다."
@@ -512,13 +512,13 @@ class _MyAccountForm2 extends StatelessWidget {
                     );
 
                     Get.back();
-                  } else if (status == AuthStatus.userNotFound) {
+                  } else if (status == MSIAuthStatus.userNotFound) {
                     Get.dialog(
                       const CustomAlertDialog(
                         message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."
                       )
                     );
-                  } else if (status == AuthStatus.wrongPassword) {
+                  } else if (status == MSIAuthStatus.wrongPassword) {
                     Get.dialog(
                       const CustomAlertDialog(
                         message: "현재 비밀번호가 틀렸습니다. 다시 시도해주세요."
