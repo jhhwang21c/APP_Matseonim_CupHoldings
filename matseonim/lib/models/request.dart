@@ -50,12 +50,15 @@ class MSIRequests {
     );
   }
 
-  /// 주어진 전문 분야와 연관된 모든 의뢰를 서버에서 불러온다.
-  static Future<List<MSIRequest>> getIncoming({required String profession}) async {
+  /// 주어진 분야와 연관된 모든 의뢰를 서버에서 불러온다.
+  static Future<List<MSIRequest>> getIncoming({
+    required String field,
+    required String uid
+  }) async {
     List<MSIRequest> result = [];
 
     QuerySnapshot query = await _firestore.collection("requests")
-      .where("profession", isEqualTo: profession)
+      .where("field", isEqualTo: field)
       .get();
 
     for (QueryDocumentSnapshot document in query.docs) {

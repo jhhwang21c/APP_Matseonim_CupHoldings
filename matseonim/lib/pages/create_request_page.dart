@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:matseonim/components/custom_alert_dialog.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
@@ -64,7 +65,7 @@ class _CreateRequestForm extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Text(
-              "의뢰하기", 
+              "의뢰 요청", 
               style: TextStyle(fontSize: 32)
             ),
           ),
@@ -86,7 +87,7 @@ class _CreateRequestForm extends StatelessWidget {
           ),
           SizedBox(height: 20),
           CustomElevatedButton(
-            text: "요청하기",
+            text: "저장",
             textStyle: const TextStyle(
               fontSize: 16, 
               color: Colors.white
@@ -99,6 +100,12 @@ class _CreateRequestForm extends StatelessWidget {
                   field: fieldTextController.text,
                   title: titleTextController.text,
                   description: descriptionTextController.text,
+                );
+
+                await Get.dialog(
+                  const CustomAlertDialog(
+                    message: "의뢰 요청이 완료되었습니다."
+                  )
                 );
 
                 Get.to(MainPage());

@@ -47,13 +47,14 @@ class MainPage extends StatelessWidget {
                           fontSize: 32,
                         ),
                       ),
-                      const SizedBox(height: 10),
+                      const SizedBox(height: 16),
                       CustomCarouselSlider(
-                        items: []
+                        field: user.profession!,
+                        user: user
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 12),
                       CustomElevatedButton(
-                        text: "의뢰 요청하기",
+                        text: "의뢰 요청",
                         textStyle: const TextStyle(
                           fontSize: 16, 
                           color: Colors.black

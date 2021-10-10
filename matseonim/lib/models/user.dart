@@ -110,7 +110,7 @@ class MSIUser {
         "phoneNumber": phoneNumber,
         "profession": profession,
         "interest": interest,
-        "resume": "",
+        "resume": "(없음)",
         "avatarUrl": null,
         "baseName": null,
         "msiList": [],

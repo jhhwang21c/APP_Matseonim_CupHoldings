@@ -137,7 +137,10 @@ class _MyAccountAvatar extends StatelessWidget {
       init: _MyAccountAvatarController(),
       builder: (_) => Stack(
         children: [
-          CustomCircleAvatar(size: 250, url: user.avatarUrl ?? ""),
+          CustomCircleAvatar(
+            size: 250, 
+            url: user.avatarUrl ?? ""
+          ),
           Positioned(
             right: 0,
             bottom: 0,
@@ -365,7 +368,6 @@ class _MyAccountForm1 extends StatelessWidget {
                 ),
                 MultilineFormField(
                   textController: resumeTextController,
-                  funValidator: validateText()
                 ),
               ]
             )
