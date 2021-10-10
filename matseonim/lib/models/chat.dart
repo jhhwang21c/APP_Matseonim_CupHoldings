@@ -6,11 +6,14 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 /// 메시지를 나타내는 클래스.
 class MSIMessage {
-  String? messageId, roomId, createdAt, updatedAt, text;
+  String messageId, roomId;
+
+  String? text;
+  int? createdAt, updatedAt;
 
   MSIMessage({
-    this.messageId,
-    this.roomId,
+    required this.messageId,
+    required this.roomId,
     this.createdAt,
     this.updatedAt,
     this.text
@@ -23,7 +26,8 @@ class MSIRoom {
 
   List<MSIUser> users;
 
-  String? roomId, createdAt, updatedAt;
+  String? roomId;
+  int? createdAt, updatedAt;
 
   MSIRoom({
     required this.users,
@@ -49,6 +53,23 @@ class MSIRoom {
     return result;
   }
 
+  /// 채팅방의 메시지를 삭제한다.
+  Future<void> removeMessage(MSIMessage message) async {
+    if (roomId == null) {
+      throw Exception("고유 ID가 null 값인 채팅방의 메시지를 삭제할 수 없습니다.");
+    } else if (roomId != message.roomId) {
+      throw Exception(
+        "메시지를 삭제하려면 현재 채팅방의 고유 ID와 " 
+        "메시지의 채팅방 고유 ID가 같아야 합니다."
+      );
+    }
+
+    await _rooms.doc(roomId)
+      .collection("messages")
+      .doc(message.messageId)
+      .delete();
+  }
+
   /// 채팅방의 모든 메시지를 반환한다. 
   Stream<List<MSIMessage>> getMessages() {
     /* TODO: ... */
@@ -57,17 +78,43 @@ class MSIRoom {
   }
 
   /// 채팅방에 메시지를 전송한다.
-  Future<void> sendMessage() async {
-    /* TODO: ... */
+  Future<void> sendMessage(String text) async {
+    if (roomId == null) {
+      throw Exception("고유 ID가 null 값인 채팅방에 메시지를 보낼 수 없습니다.");
+    }
 
-    throw UnimplementedError();
+    await _rooms.doc(roomId)
+      .collection("messages")
+      .add({
+        "createdAt": _getCurrentTime(),
+        "updatedAt": _getCurrentTime(),
+        "text": text
+      });
   }
 
   /// 채팅방의 메시지를 수정한다.
-  Future<void> updateMessage() async {
-    /* TODO: ... */
+  Future<void> updateMessage(MSIMessage message) async {
+    if (roomId == null) {
+      throw Exception("고유 ID가 null 값인 채팅방의 메시지를 수정할 수 없습니다.");
+    } else if (roomId != message.roomId) {
+      throw Exception(
+        "메시지를 수정하려면 현재 채팅방의 고유 ID와 " 
+        "메시지의 채팅방 고유 ID가 같아야 합니다."
+      );
+    }
 
-    throw UnimplementedError();
+    await _rooms.doc(roomId)
+      .collection("messages")
+      .doc(message.messageId)
+      .update({
+        "updatedAt": _getCurrentTime(),
+        "text": message.text
+      });
+  }
+
+  /// 현재 시간을 밀리초 단위로 반환한다.
+  int _getCurrentTime() {
+    return Timestamp.now().millisecondsSinceEpoch;
   }
 
   /// 채팅방 정보를 서버에서 불러온다.
@@ -83,13 +130,10 @@ class MSIRoom {
       createdAt = snapshot["createdAt"];
       updatedAt = snapshot["updatedAt"];
     } else {
-      int currentTime = Timestamp.now()
-        .millisecondsSinceEpoch;
-
       DocumentReference reference = await _rooms.add({
         "users": users,
-        "createdAt": currentTime,
-        "updatedAt": currentTime
+        "createdAt": _getCurrentTime(),
+        "updatedAt": _getCurrentTime()
       });
 
       roomId = reference.id;
