@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/models/user.dart';
+import 'package:matseonim/pages/chat_page.dart';
 import 'package:matseonim/pages/profile_page.dart';
 
 class LargeProfile extends StatelessWidget {
@@ -143,7 +144,9 @@ class MidProfile extends StatelessWidget {
                     CustomElevatedButton(
                       text: "채팅하기",
                       color: Colors.lightBlue,
-                      funPageRoute: () {}
+                      funPageRoute: () {
+                        Get.to(ChatPage(recipient: user));
+                      }
                     )
                   ]
                 )

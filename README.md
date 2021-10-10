@@ -58,6 +58,7 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 - [`firebase_auth: ^3.1.1`](https://pub.dev/packages/firebase_auth)
 - [`firebase_core: ^1.6.0`](https://pub.dev/packages/firebase_core)
 - [`firebase_storage: ^10.0.4`](https://pub.dev/packages/firebase_storage)
+- [`flutter_chat_ui: ^1.4.4](https://pub.dev/packages/flutter_chat_ui)
 - [`flutter_typeahead: ^3.2.1`](https://pub.dev/packages/flutter_typeahead)
 - [`validators: ^3.0.0`](https://pub.dev/packages/validators)
 

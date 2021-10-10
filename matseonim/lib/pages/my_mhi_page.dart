@@ -8,28 +8,24 @@ import 'package:matseonim/pages/drawer_page.dart';
 class MyMHIPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: MSIUser.init(),
-      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-        if (!snapshot.hasData) {
-          return Scaffold(
-            appBar: CustomAppBar(),
-            drawer: DrawerPage(),
-            body: Padding(
+    return Scaffold(
+      appBar: CustomAppBar(),
+      drawer: DrawerPage(),
+      body: FutureBuilder(
+        future: MSIUser.init(),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Container(
                 alignment: Alignment.center,
                 child: const CircularProgressIndicator()
               )
-            )
-          );
-        } else {
-          final MSIUser user = snapshot.data!;
-
-          return Scaffold(
-            appBar: CustomAppBar(),
-            drawer: DrawerPage(),
-            body: Padding(
+            );
+          } else {
+            final MSIUser user = snapshot.data!;
+            
+            return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
@@ -40,10 +36,10 @@ class MyMHIPage extends StatelessWidget {
                   MidProfileListView(uidList: user.mhiList ?? [])
                 ],
               ),
-            ),
-          );
+            );
+          }
         }
-      }
+      )
     );
   }
 }

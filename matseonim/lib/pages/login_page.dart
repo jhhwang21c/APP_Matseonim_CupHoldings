@@ -14,16 +14,17 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Firebase.initializeApp(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.hasError) {
-            return _ErrorPage();
-          } else {
-            return (snapshot.connectionState != ConnectionState.done)
-                ? _LoadingPage()
-                : _MainLoginPage();
-          }
-        });
+      future: Firebase.initializeApp(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasError) {
+          return _ErrorPage();
+        } else {
+          return (snapshot.connectionState != ConnectionState.done)
+            ? _LoadingPage()
+            : _MainLoginPage();
+        }
+      }
+    );
   }
 }
 
@@ -62,7 +63,7 @@ class _MainLoginPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Image.asset(
-                'images/logo_w.png',
+                'images/logo_white.png',
                 fit: BoxFit.contain,
                 width: 300,
               ),

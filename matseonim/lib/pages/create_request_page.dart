@@ -16,7 +16,7 @@ class CreateRequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(showBackButton: true),
       drawer: DrawerPage(),
       body: FutureBuilder(
         future: MSIUser.init(),
