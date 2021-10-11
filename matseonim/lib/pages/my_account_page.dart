@@ -286,9 +286,9 @@ class _MyAccountForm1 extends StatelessWidget {
                   text: "비밀번호 변경",
                   textStyle: const TextStyle(
                     fontSize: 16,
-                    color: Colors.white
+                    color: Colors.black
                   ),
-                  color: Theme.of(context).primaryColor,
+                  color: Colors.lightBlue[300],
                   funPageRoute: () {
                     Get.to(MyAccountPage2());
                   }

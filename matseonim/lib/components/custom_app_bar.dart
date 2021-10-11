@@ -40,10 +40,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Icons.notifications_outlined,
             color: Colors.white,
           ),
-          onPressed: () async {
-            Get.back();
-            await Get.to(NewRequestsPage());
-          },
+          onPressed: () {},
         )
       ],
     );

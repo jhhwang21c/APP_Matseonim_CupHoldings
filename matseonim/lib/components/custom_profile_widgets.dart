@@ -30,7 +30,7 @@ class LargeProfile extends StatelessWidget {
           return Column(
             children: [
               CustomCircleAvatar(
-                size: 250, 
+                size: 180, 
                 url: user.avatarUrl ?? ""
               ),
               const SizedBox(height: 40),
@@ -45,7 +45,7 @@ class LargeProfile extends StatelessWidget {
                   )),
               SizedBox(height: 16),
               Text(
-                "분야: ${user.interest ?? "(없음)"}",
+                "관심분야: ${user.profession ?? "(없음)"}",
                 style: const TextStyle(
                   fontSize: 16,
                 )
@@ -141,13 +141,16 @@ class MidProfile extends StatelessWidget {
                       ]
                     ),
                     SizedBox(height: 10),
-                    CustomElevatedButton(
-                      text: "채팅하기",
-                      color: Colors.lightBlue,
-                      funPageRoute: () {
-                        Get.to(ChatPage(recipient: user));
-                      }
-                    )
+                    Container(height: 52, width: 150,
+                      child: CustomElevatedButton(
+                        text: "채팅하기",
+                        color: Colors.lightBlue[300],
+                        funPageRoute: () {
+                          //Get.to(ChatPage(recipient: user));
+                        }
+                      ),
+                    ),
+                    SizedBox(height: 15),
                   ]
                 )
               ]
@@ -179,26 +182,33 @@ class SmallProfile extends StatelessWidget {
         } else {
           final MSIUser user = snapshot.data!;
 
-          return Container(
-            margin: EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              children: [
-                CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
-                SizedBox(height: 10),
-                Text(
-                  user.name ?? "",
-                  style: const TextStyle(
-                    fontSize: 16
-                  )
-                ),
-                Text(
-                  user.profession ?? "",
-                  style: TextStyle(
-                    fontSize: 16
+          return GestureDetector(
+            onTap: () {Get.to(ProfilePage(uid: user.uid));},
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 12.0),
+              child: Column(
+                children: [
+                  CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
+                  SizedBox(height: 10),
+                  Text(
+                    user.name ?? "",
+                    style: const TextStyle(
+                      fontSize: 16, 
+                      //fontWeight: FontWeight.bold,
+                    )
                   ),
-                ),
-              ],
-            )
+                  /*
+                  SizedBox(height: 2),
+                  Text(
+                    user.profession ?? "",
+                    style: TextStyle(
+                      fontSize: 16
+                    ),
+                  ),
+                  */
+                ],
+              )
+            ),
           );
         }
       }

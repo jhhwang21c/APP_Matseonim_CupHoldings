@@ -68,13 +68,14 @@ class DrawerPage extends StatelessWidget {
               await Get.to(MyMHIPage());
             }
           ),
+          /*
           ListTile(
             title: const Text('환경설정'),
             onTap: () async {
               Get.back();
               await Get.to(SettingsPage());
             }
-          ),
+          ),*/
         ],
       )
     );

@@ -18,7 +18,7 @@ class ReadRequestPage extends StatelessWidget {
       appBar: CustomAppBar(showBackButton: true),
       drawer: DrawerPage(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: ListView(
           children: [
             const Padding(
@@ -29,7 +29,6 @@ class ReadRequestPage extends StatelessWidget {
               ),
             ),
             MidProfile(uid: request.uid),
-            const SizedBox(height: 30),
             Text(
               request.title, 
               style: const TextStyle(fontSize: 32)
@@ -42,7 +41,8 @@ class ReadRequestPage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               request.description, 
-              style: const TextStyle(fontSize: 16)
+              style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.justify,
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),

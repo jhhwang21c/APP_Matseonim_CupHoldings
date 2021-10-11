@@ -21,7 +21,7 @@ class ProfilePage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(
-                "맞선임 정보", 
+                "프로필 페이지", 
                 style: TextStyle(fontSize: 32)
               ),
             ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
+//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -203,7 +204,8 @@ class MSIUser {
   }
 
   // 사용자 클래스를 `types.User` 형태로 변환한다.
-  types.User toChatUser() {
+ /* 
+ types.User toChatUser() {
     return types.User(
       id: "$uid",
       firstName: "$name",
@@ -211,7 +213,7 @@ class MSIUser {
       imageUrl: "$avatarUrl"
     );
   }
-
+*/
   /// 사용자 정보를 서버에서 불러온다.
   Future<void> _init() async {
     DocumentSnapshot snapshot = await _users.doc(uid).get();
