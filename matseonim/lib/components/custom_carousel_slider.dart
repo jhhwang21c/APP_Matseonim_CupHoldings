@@ -79,7 +79,7 @@ class CustomCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: MSIRequests.getIncoming(uid: user.uid!, field: field),
+        future: MSIRequests.getIncoming(field: field),
         builder:
             (BuildContext context, AsyncSnapshot<List<MSIRequest>> snapshot) {
           if (!snapshot.hasData) {

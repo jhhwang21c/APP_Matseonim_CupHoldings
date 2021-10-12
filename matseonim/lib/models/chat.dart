@@ -54,6 +54,7 @@ class MSIRoom {
         },
         "createdAt": _getCurrentTime(),
         "updatedAt": _getCurrentTime(),
+        "status": types.Status.sent.index,
         "text": message.text,
       });
   }
@@ -71,6 +72,12 @@ class MSIRoom {
       .snapshots()
       .map(
         (QuerySnapshot snapshot) {
+          for (var element in snapshot.docs) {
+            element.reference.update({
+              "status": types.Status.seen.index
+            });
+          }
+
           return snapshot.docs.fold(
             [], 
             (List<types.TextMessage> previousValues, QueryDocumentSnapshot element) {
@@ -79,6 +86,7 @@ class MSIRoom {
                 id: element.id,
                 text: element["text"],
                 roomId: roomId,
+                status: types.Status.values[element["status"]],
                 createdAt: element["createdAt"],
                 updatedAt: element["updatedAt"],
               );

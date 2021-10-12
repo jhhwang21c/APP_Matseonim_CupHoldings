@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_profile_widgets.dart';
+import 'package:matseonim/models/request.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
@@ -26,17 +27,36 @@ class NewRequestsPage extends StatelessWidget {
           } else {
             final MSIUser user = snapshot.data!;
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView(
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Text("새로운 의뢰", style: TextStyle(fontSize: 32)),
-                  ),
-                  MidProfileListView(uidList: /* TODO: 새로운 의뢰 목록 보여주기 */ [])
-                ],
-              ),
+            return FutureBuilder(
+              future: MSIRequests.getIncoming(field: user.profession!),
+              builder: (BuildContext context, AsyncSnapshot<List<MSIRequest>> snapshot) {
+                if (!snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const CircularProgressIndicator()
+                    )
+                  );
+                } else {
+                  final List<String> uidList = snapshot.data!
+                    .map((MSIRequest request) => request.uid)
+                    .toList();
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ListView(
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16),
+                          child: Text("새로운 의뢰", style: TextStyle(fontSize: 32)),
+                        ),
+                        MidProfileListView(uidList: uidList)
+                      ],
+                    ),
+                  );
+                }
+              }
             );
           }
         }

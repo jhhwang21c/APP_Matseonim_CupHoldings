@@ -51,10 +51,7 @@ class MSIRequests {
   }
 
   /// 주어진 분야와 연관된 모든 의뢰를 서버에서 불러온다.
-  static Future<List<MSIRequest>> getIncoming({
-    required String field,
-    required String uid
-  }) async {
+  static Future<List<MSIRequest>> getIncoming({required String field}) async {
     List<MSIRequest> result = [];
 
     QuerySnapshot query = await _firestore.collection("requests")
