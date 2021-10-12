@@ -61,7 +61,9 @@ class LargeProfile extends StatelessWidget {
               CustomElevatedButton(
                 text: "채팅하기",
                 color: Colors.lightBlue,
-                funPageRoute: () {}
+                funPageRoute: () {
+                  Get.to(ChatPage(recipient: user));
+                }
               ),
             ]
           );
@@ -146,11 +148,10 @@ class MidProfile extends StatelessWidget {
                         text: "채팅하기",
                         color: Colors.lightBlue[300],
                         funPageRoute: () {
-                          //Get.to(ChatPage(recipient: user));
+                          Get.to(ChatPage(recipient: user));
                         }
                       ),
                     ),
-                    SizedBox(height: 15),
                   ]
                 )
               ]

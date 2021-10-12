@@ -1,7 +1,5 @@
-/*
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
 import 'package:matseonim/models/user.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -28,8 +26,6 @@ class MSIRoom {
   }) async {
     if (users.isEmpty || users.length != 2) {
       throw Exception("채팅방을 초기화하려면 총 2명의 사용자가 필요합니다.");
-    } else if (users[0].uid == null || users[1].uid == null) {
-      throw Exception("고유 ID가 null 값인 사용자는 채팅에 참여할 수 없습니다.");
     }
 
     MSIRoom result = MSIRoom(users: users);
@@ -40,18 +36,25 @@ class MSIRoom {
   }
 
   /// 채팅방에 메시지를 전송한다.
-  Future<void> sendMessage({required String uid, required String text}) async {
+  Future<void> sendMessage({required MSIUser user, required types.PartialText message}) async {
     if (roomId == null) {
       throw Exception("고유 ID가 null 값인 채팅방에 메시지를 보낼 수 없습니다.");
+    } else if (user.uid != users[0].uid && user.uid != users[1].uid) {
+      throw Exception("주어진 고유 ID를 가진 사용자를 찾을 수 없습니다.");
     }
 
     await _rooms.doc(roomId)
       .collection("messages")
       .add({
+        "author": {
+          "id": user.uid,
+          "firstName": user.name,
+          "lastName": "(${user.baseName})",
+          "imageUrl": user.avatarUrl
+        },
         "createdAt": _getCurrentTime(),
         "updatedAt": _getCurrentTime(),
-        "text": text,
-        "uid": uid
+        "text": message.text,
       });
   }
 
@@ -61,8 +64,10 @@ class MSIRoom {
       throw Exception("고유 ID가 null 값인 채팅방의 메시지는 불러올 수 없습니다.");
     }
 
+    /// 메시지를 보낸 시간을 기준으로 정렬한다.
     return _rooms.doc(roomId)
       .collection("messages")
+      .orderBy("createdAt", descending: true)
       .snapshots()
       .map(
         (QuerySnapshot snapshot) {
@@ -70,7 +75,7 @@ class MSIRoom {
             [], 
             (List<types.TextMessage> previousValues, QueryDocumentSnapshot element) {
               types.TextMessage message = types.TextMessage(
-                author: /* TODO: ... */,
+                author: types.User.fromJson(element["author"]),
                 id: element.id,
                 text: element["text"],
                 roomId: roomId,
@@ -146,11 +151,10 @@ class MSIRoom {
       .map(
         (QuerySnapshot snapshot) {
           return snapshot.docs.where(
-            (QueryDocumentSnapshot documentSnapshot) {
-              List<dynamic> value = documentSnapshot["users"];
+            (QueryDocumentSnapshot snapshot) {
+              List<dynamic> value = snapshot["users"];
 
-              return value.contains(users[0].uid) 
-                || value.contains(users[1].uid);
+              return value.contains(users[0].uid) && value.contains(users[1].uid);
             }
           );
         }
@@ -161,8 +165,18 @@ class MSIRoom {
     if (queryList.isNotEmpty) {
       QueryDocumentSnapshot snapshot = queryList[0];
 
+      users = (snapshot["users"] as List<dynamic>)
+        .map((uid) => MSIUser(uid: uid))
+        .toList();
+
+      for (MSIUser user in users) { 
+        await user.reload(); 
+      }
+
       createdAt = snapshot["createdAt"];
       updatedAt = snapshot["updatedAt"];
+
+      roomId = snapshot.id;
     } else {
       DocumentReference reference = await _rooms.add({
         "users": [users[0].uid, users[1].uid],
@@ -174,5 +188,3 @@ class MSIRoom {
     }
   }
 }
-
-*/

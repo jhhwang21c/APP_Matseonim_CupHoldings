@@ -1,4 +1,3 @@
-/* 
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -77,8 +76,18 @@ class _ChatWidget extends StatelessWidget {
 
                   return Chat(
                     messages: messages,
-                    onSendPressed: /* TODO: ... */,
-                    user: users[0].toChatUser(),
+                    onSendPressed: (types.PartialText message) { 
+                      room.sendMessage(
+                        user: users[0], 
+                        message: message
+                      );
+                    },
+                    user: types.User(
+                      id: users[0].uid!,
+                      firstName: users[0].name,
+                      lastName: "(${users[0].baseName})",
+                      imageUrl: users[0].avatarUrl
+                    )
                   );
                 }
               },
@@ -89,4 +98,3 @@ class _ChatWidget extends StatelessWidget {
     );
   }
 } 
-*/

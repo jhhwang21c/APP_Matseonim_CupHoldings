@@ -33,7 +33,7 @@ class ReadRequestPage extends StatelessWidget {
               request.title, 
               style: const TextStyle(fontSize: 32)
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
             Text(
               "요청 분야: ${request.field}", 
               style: const TextStyle(fontSize: 16)
