@@ -6,6 +6,7 @@ import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/models/chat.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
+import 'package:matseonim/utils/theme.dart';
 
 class ChatPage extends StatelessWidget {
   final MSIUser recipient;
@@ -75,6 +76,9 @@ class _ChatWidget extends StatelessWidget {
                   List<types.TextMessage> messages = snapshot.data!;
 
                   return Chat(
+                    theme: const MSIChatTheme(),
+                    l10n: const ChatL10nKo(),
+                    showUserNames: true,
                     messages: messages,
                     onSendPressed: (types.PartialText message) { 
                       room.sendMessage(
