@@ -7,6 +7,8 @@ import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/chat_page.dart';
 import 'package:matseonim/pages/profile_page.dart';
 
+import 'custom_rating_bar.dart';
+
 class LargeProfile extends StatelessWidget {
   final String? uid;
 
@@ -15,24 +17,18 @@ class LargeProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: MSIUser.init(uid: uid),
-      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-        if (!snapshot.hasData) {
-          return SizedBox(
-            child: Container(
-              alignment: Alignment.center,
-              child: const CircularProgressIndicator()
-            )
-          );
-        } else {
-          final MSIUser user = snapshot.data!;
+        future: MSIUser.init(uid: uid),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return SizedBox(
+                child: Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator()));
+          } else {
+            final MSIUser user = snapshot.data!;
 
-          return Column(
-            children: [
-              CustomCircleAvatar(
-                size: 180, 
-                url: user.avatarUrl ?? ""
-              ),
+            return Column(children: [
+              CustomCircleAvatar(size: 180, url: user.avatarUrl ?? ""),
               const SizedBox(height: 40),
               Text(user.name ?? "",
                   style: const TextStyle(
@@ -44,32 +40,33 @@ class LargeProfile extends StatelessWidget {
                     fontSize: 32,
                   )),
               SizedBox(height: 16),
-              Text(
-                "관심분야: ${user.profession ?? "(없음)"}",
-                style: const TextStyle(
-                  fontSize: 16,
-                )
-              ),
+              Text("관심분야: ${user.profession ?? "(없음)"}",
+                  style: const TextStyle(
+                    fontSize: 16,
+                  )),
               SizedBox(height: 10),
+              Text("경력",
+                  style: TextStyle(
+                    fontSize: 16,
+                    decoration: TextDecoration.underline,
+                  )),
+              SizedBox(height: 3),
               Text(
-                "경력: ${user.resume ?? "(없음)"}",
-                style: const TextStyle(
-                  fontSize: 16,
-                )
+                user.resume ?? "(없음)",
+                style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 10),
               CustomElevatedButton(
-                text: "채팅하기",
-                color: Colors.lightBlue,
-                funPageRoute: () {
-                  Get.to(ChatPage(recipient: user));
-                }
-              ),
-            ]
-          );
-        }
-      }
-    );
+                  text: "채팅하기",
+                  color: Colors.lightBlue,
+                  funPageRoute: () {
+                    Get.to(ChatPage(recipient: user));
+                  }),
+              SizedBox(height: 12),
+              CustomRatingBar(),
+            ]);
+          }
+        });
   }
 }
 
@@ -81,126 +78,106 @@ class MidProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: MSIUser.init(uid: uid),
-      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-        if (!snapshot.hasData) {
-          return SizedBox(
-            child: Container(
-              alignment: Alignment.center,
-              child: const CircularProgressIndicator()
-            )
-          );
-        } else {
-          final MSIUser user = snapshot.data!;
+        future: MSIUser.init(uid: uid),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return SizedBox(
+                child: Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator()));
+          } else {
+            final MSIUser user = snapshot.data!;
 
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                    Row(
-                      children: [
-                        CustomCircleAvatar(size: 120, url: user.avatarUrl ?? ""),
-                        const SizedBox(width: 40),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              user.name ?? "?",
-                              style: const TextStyle(
-                                fontSize: 32,
-                              )
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              user.baseName ?? "?",
-                              style: const TextStyle(
-                                fontSize: 16,
-                              )
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              "분야: ${user.interest ?? ""}",
-                              style: const TextStyle(
-                                fontSize: 16,
-                              )
-                            ),
-                            SizedBox(height: 4),
-                            TextButton(
-                              onPressed: () {
-                                Get.to(
-                                  ProfilePage(
-                                    uid: user.uid
-                                  )
-                                );
-                              },
-                              child: Text("자세히 >>"),
-                            )
-                          ]
-                        )
-                      ]
-                    ),
-                    SizedBox(height: 10),
-                    Container(height: 52, width: 150,
-                      child: CustomElevatedButton(
-                        text: "채팅하기",
-                        color: Colors.lightBlue[300],
-                        funPageRoute: () {
-                          Get.to(ChatPage(recipient: user));
-                        }
-                      ),
-                    ),
-                  ]
-                )
-              ]
-            )
-          );
-        }
-      }
-    );
+            return Container(
+                margin: EdgeInsets.symmetric(vertical: 12.0),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(children: [
+                        Row(children: [
+                          CustomCircleAvatar(
+                              size: 120, url: user.avatarUrl ?? ""),
+                          const SizedBox(width: 40),
+                          Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(user.name ?? "?",
+                                    style: const TextStyle(
+                                      fontSize: 32,
+                                    )),
+                                SizedBox(height: 10),
+                                Text(user.baseName ?? "?",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    )),
+                                SizedBox(height: 10),
+                                Text("분야: ${user.interest ?? ""}",
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    )),
+                                SizedBox(height: 4),
+                                TextButton(
+                                  onPressed: () {
+                                    Get.to(ProfilePage(uid: user.uid));
+                                  },
+                                  child: Text("자세히 >>"),
+                                )
+                              ])
+                        ]),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 55,
+                          width: 150,
+                          child: CustomElevatedButton(
+                              text: "채팅하기",
+                              color: Colors.lightBlue[300],
+                              funPageRoute: () {
+                                Get.to(ChatPage(recipient: user));
+                              }),
+                        ),
+                        SizedBox(height: 5),
+                        Divider( thickness: 1, color: Colors.grey, ),
+                      ])
+                    ]));
+          }
+        });
   }
 }
 
 class SmallProfile extends StatelessWidget {
   final String? uid;
-  
+
   const SmallProfile({Key? key, this.uid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: MSIUser.init(uid: uid),
-      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {  
-        if (!snapshot.hasData) {
-          return SizedBox(
-            child: Container(
-              alignment: Alignment.center,
-              child: const CircularProgressIndicator()
-            )
-          );
-        } else {
-          final MSIUser user = snapshot.data!;
+        future: MSIUser.init(uid: uid),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return SizedBox(
+                child: Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator()));
+          } else {
+            final MSIUser user = snapshot.data!;
 
-          return GestureDetector(
-            onTap: () {
-              Get.to(ProfilePage(uid: user.uid));
-            },
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 12.0),
-              child: Column(
-                children: [
-                  CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
-                  SizedBox(height: 10),
-                  Text(
-                    user.name ?? "",
-                    style: const TextStyle(
-                      fontSize: 16, 
-                      //fontWeight: FontWeight.bold,
-                    )
-                  ),
-                  /*
+            return GestureDetector(
+              onTap: () {
+                Get.to(ProfilePage(uid: user.uid));
+              },
+              child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Column(
+                    children: [
+                      CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
+                      SizedBox(height: 10),
+                      Text(user.name ?? "",
+                          style: const TextStyle(
+                            fontSize: 16,
+                            //fontWeight: FontWeight.bold,
+                          )),
+                      /*
                   SizedBox(height: 2),
                   Text(
                     user.profession ?? "",
@@ -209,84 +186,70 @@ class SmallProfile extends StatelessWidget {
                     ),
                   ),
                   */
-                ],
-              )
-            ),
-          );
-        }
-      }
-    );
+                    ],
+                  )),
+            );
+          }
+        });
   }
 }
 
 class MidProfileListView extends StatelessWidget {
   final List<dynamic> uidList;
 
-  const MidProfileListView({
-    Key? key, 
-    required this.uidList
-  }) : super(key: key);
+  const MidProfileListView({Key? key, required this.uidList}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: uidList.length,
-        itemBuilder: (context, i) {
-          return FutureBuilder(
-            future: MSIUser.init(uid: uidList[i]),
-            builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-              if (!snapshot.hasData) {
-                return SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator()
-                  )
-                );
-              } else {
-                return MidProfile(uid: snapshot.data!.uid);
-              }
-            }
-          );
-        }
-      )
-    );
+        height: MediaQuery.of(context).size.height,
+        child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            itemCount: uidList.length,
+            itemBuilder: (context, i) {
+              return FutureBuilder(
+                  future: MSIUser.init(uid: uidList[i]),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+                    if (!snapshot.hasData) {
+                      return SizedBox(
+                          child: Container(
+                              alignment: Alignment.center,
+                              child: const CircularProgressIndicator()));
+                    } else {
+                      return MidProfile(uid: snapshot.data!.uid);
+                    }
+                  });
+            }));
   }
 }
 
 class SmallProfileListView extends StatelessWidget {
   final List<dynamic> uidList;
 
-  const SmallProfileListView({
-    Key? key, 
-    required this.uidList
-  }) : super(key: key);
+  const SmallProfileListView({Key? key, required this.uidList})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 108,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: uidList.length,
-        itemBuilder: (context, i) {
-          return FutureBuilder(
-            future: MSIUser.init(uid: uidList[i]),
-            builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-              if (!snapshot.hasData) {
-                return Container(
-                  alignment: Alignment.center,
-                  child: const CircularProgressIndicator()
-                );
-              } else {
-                return SmallProfile(uid: snapshot.data!.uid);
-              }
-            }
-          );
-        }
-      )
-    );
+        height: 108,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: uidList.length,
+            itemBuilder: (context, i) {
+              return FutureBuilder(
+                  future: MSIUser.init(uid: uidList[i]),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container(
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator());
+                    } else {
+                      return SmallProfile(uid: snapshot.data!.uid);
+                    }
+                  });
+            }));
   }
 }

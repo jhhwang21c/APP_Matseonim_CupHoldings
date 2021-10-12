@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 const Color msiPrimaryColor = Color(0xFF0D47A1);
-const Color msiSecondaryColor = Color(0xFFEDEDED);
+const Color msiSecondaryColor =  Color(0xFFD6D6D6);
 const Color msiBackgroundColor = Color(0xFF0D47A1);
 const Color msiInputTextColor = Color(0xFF171717);
 

@@ -30,7 +30,7 @@ class ReadRequestPage extends StatelessWidget {
             ),
             MidProfile(uid: request.uid),
             Text(
-              request.title, 
+              "의뢰제목: ${request.title}", 
               style: const TextStyle(fontSize: 32)
             ),
             const SizedBox(height: 20),

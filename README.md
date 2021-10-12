@@ -6,7 +6,7 @@
 ![codefactor badge](https://img.shields.io/codefactor/grade/github/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
 ![code size badge](https://img.shields.io/github/languages/code-size/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
   
-'맞선임'은 군부대 내에서 특정 분야에 대해 도움이 필요한 사람들을 위한 전문가 매칭 플랫폼입니다.
+'맞선임'은 군생활 동안 특정 분야에 도움이 필요할 때 마치 맞선임 같은 전문가를 연결해주어 도움을 주는 군생활의 동반자 서비스 입니다.
 
 [주요 기능](#주요-기능) &mdash;
 [필수 조건](#필수-조건) &mdash;
