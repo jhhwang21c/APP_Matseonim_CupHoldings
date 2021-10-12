@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 
 const Color msiPrimaryColor = Color(0xFF0D47A1);
+const Color msiSecondaryColor = Color(0xFFEDEDED);
 const Color msiBackgroundColor = Color(0xFF0D47A1);
+const Color msiInputTextColor = Color(0xFF171717);
 
 /*
   "글꼴의 크기는 16픽셀의 배수로 맞추어 주시기 바랍니다. 글꼴의 크기가 16픽셀의 배수가 아닌 경우에는 
@@ -46,10 +48,10 @@ class MSIChatTheme extends ChatTheme {
     ),
     Color errorColor = error,
     Widget? errorIcon,
-    Color inputBackgroundColor = neutral0,
+    Color inputBackgroundColor = msiSecondaryColor,
     BorderRadius inputBorderRadius = const BorderRadius.all(Radius.zero),
     EdgeInsetsGeometry inputPadding = EdgeInsets.zero,
-    Color inputTextColor = neutral7,
+    Color inputTextColor = msiInputTextColor,
     Color? inputTextCursorColor,
     InputDecoration inputTextDecoration = const InputDecoration(
       border: InputBorder.none,
@@ -95,7 +97,7 @@ class MSIChatTheme extends ChatTheme {
       fontWeight: FontWeight.w800,
       height: 1.375,
     ),
-    Color secondaryColor = secondary,
+    Color secondaryColor = msiSecondaryColor,
     Widget? seenIcon,
     Widget? sendButtonIcon,
     Widget? sendingIcon,

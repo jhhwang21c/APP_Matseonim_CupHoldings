@@ -184,7 +184,9 @@ class SmallProfile extends StatelessWidget {
           final MSIUser user = snapshot.data!;
 
           return GestureDetector(
-            onTap: () {Get.to(ProfilePage(uid: user.uid));},
+            onTap: () {
+              Get.to(ProfilePage(uid: user.uid));
+            },
             child: Container(
               margin: EdgeInsets.symmetric(horizontal: 12.0),
               child: Column(

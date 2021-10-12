@@ -1,26 +1,20 @@
 <div align="center">
 
-# 맞선임
+<img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/matseonim.png" alt="osamhack2021/APP_Matseonim_CupHoldings"><br>
 
-![license badge](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings)
-![pre-release version badge](https://img.shields.io/github/v/release/osamhack2021/APP_Matseonim_CupHoldings?include_prereleases)
-![issues badge](https://img.shields.io/github/issues/osamhack2021/APP_Matseonim_CupHoldings)
-![repo-size badge](https://img.shields.io/github/repo-size/osamhack2021/APP_Matseonim_CupHoldings)
+![license badge](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
+![codefactor badge](https://img.shields.io/codefactor/grade/github/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
+![code size badge](https://img.shields.io/github/languages/code-size/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
   
 '맞선임'은 군부대 내에서 특정 분야에 대해 도움이 필요한 사람들을 위한 전문가 매칭 플랫폼입니다.
 
+[주요 기능](#주요-기능) &mdash;
+[필수 조건](#필수-조건) &mdash;
+[빌드 방법](#빌드-방법) &mdash;
+[기술 스택](#기술-스택) &mdash;
+[팀원 정보](#팀원-정보)
+
 </div>
-
------
-
-군에는 신기하게도 자타공인 “전문가”들이 많이 숨어있습니다. 저희 생활관만 하더라도 소묘 전문가, 스타트업 UI/UX 디자이너, 천재 해커, 물리치료사, 하버드대 재학생, 풋살 신동, 각종 석·박사 등 사회에서 이름을 날릴 만한 여러 전문가들이 있습니다. 이런 인재들을 그냥 썩히기는 너무 아깝습니다. 만약 이런 전문가들이 여러분들이 도움이 필요할 때 무료로 도와줄 수 있다면 어떨까요? 맞선임은 군부대 내에서 특정 분야에 대해 도움이 필요한 사람들을 위한 전문가 매칭 플랫폼으로, 마치 "맞선임"처럼 열정적이고 친절하게 자신의 전문 분야나 특기와 관련된 지식으로 여러분을 가르쳐주기도 하고, 의뢰를 적극적으로 해결해주는 사람을 찾아주는 전문가 매칭 서비스 입니다. 저희 서비스의 테마에 맞게 전문가는 "맞선임", 요청자는 "맞후임"으로 불릴 예정입니다!
-
------
-
-# 팀원 정보
-
-- [John Hwang (h.jungho21c@gmail.com)](https://github.com/jhhwang21c)
-- [Jaedeok Kim (jdeokkim@protonmail.com)](https://github.com/jdeokkim)
 
 # 주요 기능
 
@@ -28,11 +22,91 @@
 
 # 필수 조건
 
+## Flutter 설치하기
+
+'맞선임' 앱을 빌드하기 위해서는 Flutter 2.5.0 이상의 버전이 필요합니다. [여기](https://flutter.dev/docs/get-started/install)를 클릭하여 Flutter를 설치하세요.
+
+## Git 저장소 복제하기
+
+```console
+$ git clone https://github.com/osamhack2021/APP_Matseonim_CupHoldings.git
+```
+
+## Firebase 설정하기
+
+1. [Firebase 콘솔 페이지](https://console.firebase.google.com/)에서 새로운 Firebase 프로젝트를 생성합니다.
+- "이 프로젝트에서 Google 애널리틱스 사용 설정" 버튼은 체크 해제하고 "프로젝트 만들기" 버튼을 클릭합니다.
+
+2. 프로젝트의 "빌드" 탭에서 "Authentication"을 클릭하고, "시작하기" 버튼을 클릭하세요.
+- "첫 번째 로그인 방법을 추가하여 Firebase 인증 시작하기"에서 "이메일/비밀번호"를 체크합니다.
+- "이메일/비밀번호"의 "사용 설정" 버튼을 클릭합니다.
+
+3. 프로젝트의 "빌드" 탭에서 "Firestore Database"를 클릭하고, "데이터베이스 만들기" 버튼을 클릭합니다.
+- "Cloud Firestore의 보안 규칙"은 "테스트 모드에서 시작"에 체크합니다.
+- "Cloud Firestore 위치 설정"은 ["asia-northeast3"](https://firebase.google.com/docs/firestore/locations?hl=ko)로 설정합니다.
+
+### 안드로이드 앱에 Firebase 추가하기
+
 (추가 예정)
+
+### 웹 앱에 Firebase 추가하기
+
+1. Firebase 프로젝트 메인 화면에서 "Web"을 클릭하고, 앱 닉네임을 설정합니다.
+
+2. "Firebase SDK 추가"에서 "`<script>` 태그 사용"을 클릭하고, `const firebaseConfig`로 시작하는 코드를 복사하세요.
+
+```javascript
+const firebaseConfig = {
+    apiKey: /* ... */,
+    authDomain: /* ... */,
+    projectId: /* ... */,
+    storageBucket: /* ... */,
+    messagingSenderId: /* ... */,
+    appId: /* ... */
+};
+```
+
+3. 아까 복제했던 Git 저장소의 `matseonim/web` 디렉토리로 이동합니다.
+
+4. `index.html` 파일에서 `<body>`로 시작하는 줄을 찾고, 그 다음 줄에 아래 내용을 그대로 붙여넣습니다.
+
+```html
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+
+  <script>
+    // 2번에서 복사했던 코드를 여기에 붙여넣을 것!
+    const firebaseConfig = {
+        apiKey: /* ... */,
+        authDomain: /* ... */,
+        projectId: /* ... */,
+        storageBucket: /* ... */,
+        messagingSenderId: /* ... */,
+        appId: /* ... */
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+```
+
+## Flutter 패키지 업데이트하기 
+
+```console
+$ flutter pub get
+```
 
 # 빌드 방법
 
 ## GNU/Linux (Ubuntu 18.04.1 LTS)
+
+### 안드로이드 앱으로 빌드하기
+
+(추가 예정)
+
+### 웹 앱으로 빌드하기
 
 ```console
 $ git clone https://github.com/osamhack2021/APP_Matseonim_CupHoldings.git
@@ -58,13 +132,18 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 - [`firebase_auth: ^3.1.1`](https://pub.dev/packages/firebase_auth)
 - [`firebase_core: ^1.6.0`](https://pub.dev/packages/firebase_core)
 - [`firebase_storage: ^10.0.4`](https://pub.dev/packages/firebase_storage)
-- [`flutter_chat_ui: ^1.4.4](https://pub.dev/packages/flutter_chat_ui)
+- [`flutter_chat_ui: ^1.4.4`](https://pub.dev/packages/flutter_chat_ui)
 - [`flutter_typeahead: ^3.2.1`](https://pub.dev/packages/flutter_typeahead)
 - [`validators: ^3.0.0`](https://pub.dev/packages/validators)
 
 ## 백엔드
 
 - [Firebase](https://firebase.google.com/?hl=en)
+
+# 팀원 정보
+
+- [John Hwang (h.jungho21c@gmail.com)](https://github.com/jhhwang21c)
+- [Jaedeok Kim (jdeokkim@protonmail.com)](https://github.com/jdeokkim)
 
 # 라이선스
 
