@@ -7,6 +7,7 @@ import 'package:matseonim/components/custom_rating_bar.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/chat_page.dart';
 import 'package:matseonim/pages/profile_page.dart';
+import 'package:matseonim/pages/review_page.dart';
 
 class LargeProfile extends StatelessWidget {
   final String? uid;
@@ -76,15 +77,30 @@ class LargeProfile extends StatelessWidget {
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 10),
-              CustomElevatedButton(
-                  text: "채팅하기",
-                  color: Colors.lightBlue,
-                  funPageRoute: () {
-                    Get.to(ChatPage(recipient: user));
-                  }),
-              SizedBox(height: 12),
-              CustomRatingBar(uid: uid!)
-            ]);
+              Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(width: 150, height: 55,
+                    child: CustomElevatedButton(
+                        text: "채팅하기",
+                        color: Colors.lightBlue,
+                        funPageRoute: () {
+                          Get.to(ChatPage(recipient: user));
+                        }),
+                  ),
+                  SizedBox(width: 10),
+                  Container(width: 150, height: 55,
+                    child: CustomElevatedButton(
+                        text: "리뷰쓰기",
+                        color: Colors.cyan[200],
+                        funPageRoute: () {
+                          Get.to(ReviewPage());
+                        }),
+                  ),
+                ],
+              ),
+            ],
+            );
           }
         });
   }
@@ -249,6 +265,44 @@ class SmallProfile extends StatelessWidget {
                   ],
                 )
               ),
+            );
+          }
+        });
+  }
+}
+
+class ReviewProfile extends StatelessWidget {
+  final String? uid;
+
+  const ReviewProfile({Key? key, this.uid}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: MSIUser.init(uid: uid),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return SizedBox(
+                child: Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator()));
+          } else {
+            final MSIUser user = snapshot.data!;
+
+            return Container(
+                margin: EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomCircleAvatar(size: 80, url: user.avatarUrl ?? ""),
+                    SizedBox(width: 10),
+                    Text(user.name ?? "",
+                      style: const TextStyle(
+                        fontSize: 32,
+                      )
+                    ),
+                  ],
+                ),
             );
           }
         });

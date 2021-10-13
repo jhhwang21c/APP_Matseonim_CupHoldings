@@ -29,9 +29,7 @@ class CustomRatingBar extends StatelessWidget {
 
           double newRating = 3.0;
 
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+          return 
               RatingBar.builder(
                 initialRating: 3,
                 minRating: 1,
@@ -47,31 +45,7 @@ class CustomRatingBar extends StatelessWidget {
                 onRatingUpdate: (rating) {
                   newRating = rating;
                 },
-              ),
-              SizedBox(width: 8),
-              Container(
-                height: 55,
-                width: 120,
-                child: CustomElevatedButton(
-                  text: "평점 제출",
-                  textStyle: TextStyle(color: Colors.white, fontSize: 16),
-                  color: Colors.blue[900],
-                  funPageRoute: () async { 
-                    await users[1].vote(
-                      rating: newRating,
-                      voter: users[0]
-                    );
-
-                    await Get.dialog(
-                      const CustomAlertDialog(
-                        message: "평점이 저장되었습니다."
-                      )
-                    );
-                  }
-                ),
-              ),
-            ],
-          );
+              );
         }
       },
     );
