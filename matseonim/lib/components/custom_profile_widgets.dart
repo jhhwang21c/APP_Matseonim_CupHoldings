@@ -213,32 +213,42 @@ class SmallProfile extends StatelessWidget {
                 Get.to(ProfilePage(uid: user.uid));
               },
               child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 12.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
-                      SizedBox(height: 10),
-                      Text(user.name ?? "",
-                          style: const TextStyle(
-                            fontSize: 16,
-                          )),
-                      Text.rich(TextSpan(
-                          style: const TextStyle(
-                            fontSize: 16,
+                margin: EdgeInsets.symmetric(horizontal: 12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
+                    SizedBox(height: 10),
+                    Text(user.name ?? "",
+                      style: const TextStyle(
+                        fontSize: 16,
+                      )
+                    ),
+                    Text.rich(
+                      TextSpan(
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                        children: [
+                          const WidgetSpan(
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 4.0),
+                              child: Icon(
+                                Icons.star,
+                                size: 16.0,
+                                color: Colors.amber,
+                              )
+                            )
                           ),
-                          children: [
-                            const WidgetSpan(
-                                child: Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            )),
-                            TextSpan(
-                                text:
-                                    user.getAverageRating().toStringAsFixed(1))
-                          ]))
-                    ],
-                  )),
+                          TextSpan(
+                            text: user.getAverageRating().toStringAsFixed(1)
+                          )
+                        ]
+                      )
+                    )
+                  ],
+                )
+              ),
             );
           }
         });

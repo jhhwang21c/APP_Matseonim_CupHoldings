@@ -72,12 +72,6 @@ class MSIRoom {
       .snapshots()
       .map(
         (QuerySnapshot snapshot) {
-          for (var element in snapshot.docs) {
-            element.reference.update({
-              "status": types.Status.seen.index
-            });
-          }
-
           return snapshot.docs.fold(
             [], 
             (List<types.TextMessage> previousValues, QueryDocumentSnapshot element) {
