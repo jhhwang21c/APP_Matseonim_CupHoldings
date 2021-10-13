@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:matseonim/models/request.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-/// 사용자 계정의 로그인 또는 회원가입 결과를 나타내는 열거형.
-enum MSIAuthStatus {
+/// 사용자 계정 관련 작업의 결과를 나타내는 열거형.
+enum MSIUserStatus {
   success,
   alreadyLoggedIn,
   emailAlreadyInUse,
@@ -58,45 +59,47 @@ class MSIUser {
   }
 
   /// 사용자 계정에 로그인한다.
-  Future<MSIAuthStatus> login() async {
+  Future<MSIUserStatus> login() async {
     try {
-      UserCredential _ = await _auth.signInWithEmailAndPassword(
+      UserCredential credential = await _auth.signInWithEmailAndPassword(
         email: email!, 
         password: password!
       );
 
+      uid = credential.user!.uid;
+
       await _init();
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
-        return MSIAuthStatus.invalidEmail;
+        return MSIUserStatus.invalidEmail;
       } else if (e.code == "user-not-found") {
-        return MSIAuthStatus.userNotFound;
+        return MSIUserStatus.userNotFound;
       } else if (e.code == "wrong-password") {
-        return MSIAuthStatus.wrongPassword;
+        return MSIUserStatus.wrongPassword;
       }
     } catch (e) {
-      return MSIAuthStatus.unknownError;
+      return MSIUserStatus.unknownError;
     }
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
   }
 
   /// 사용자 계정에서 로그아웃한다.
-  Future<MSIAuthStatus> logout() async {
+  Future<MSIUserStatus> logout() async {
     if (_auth.currentUser == null) {
-      return MSIAuthStatus.invalidUser;
+      return MSIUserStatus.invalidUser;
     }
 
     await _auth.signOut();
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
   }
 
   /// 이메일과 비밀번호로 회원가입을 진행한다.
-  Future<MSIAuthStatus> signUp() async {
+  Future<MSIUserStatus> signUp() async {
     try {
       if (uid != null) {
-        return MSIAuthStatus.alreadyLoggedIn;
+        return MSIUserStatus.alreadyLoggedIn;
       }
 
       UserCredential credential = await _auth.createUserWithEmailAndPassword(
@@ -106,7 +109,7 @@ class MSIUser {
 
       uid = credential.user!.uid;
 
-      await _users.doc(uid).set({
+      await _users.doc(uid!).set({
         "name": name,
         "email": email,
         "phoneNumber": phoneNumber,
@@ -121,21 +124,21 @@ class MSIUser {
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
-        return MSIAuthStatus.emailAlreadyInUse;
+        return MSIUserStatus.emailAlreadyInUse;
       } else if (e.code == "invalid-email") {
-        return MSIAuthStatus.invalidEmail;
+        return MSIUserStatus.invalidEmail;
       } else if (e.code == "weak-password") {
-        return MSIAuthStatus.weakPassword;
+        return MSIUserStatus.weakPassword;
       }
     } catch (e) {
-      return MSIAuthStatus.unknownError;
+      return MSIUserStatus.unknownError;
     }
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
   }
 
   /// 사용자 계정의 비밀번호를 변경한다.
-  Future<MSIAuthStatus> changePassword({
+  Future<MSIUserStatus> changePassword({
     required String oldPassword, 
     required String newPassword
   }) async {
@@ -148,21 +151,42 @@ class MSIUser {
       await credential.user!.updatePassword(newPassword);
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-email") {
-        return MSIAuthStatus.invalidEmail;
+        return MSIUserStatus.invalidEmail;
       } else if (e.code == "requires-recent-login") {    
-        return MSIAuthStatus.requiresRecentLogin;
+        return MSIUserStatus.requiresRecentLogin;
       } else if (e.code == "user-not-found") {
-        return MSIAuthStatus.userNotFound;
+        return MSIUserStatus.userNotFound;
       } else if (e.code == "weak-password") {
-        return MSIAuthStatus.weakPassword;
+        return MSIUserStatus.weakPassword;
       } else if (e.code == "wrong-password") {
-        return MSIAuthStatus.wrongPassword;
+        return MSIUserStatus.wrongPassword;
       }
     } catch (e) {
-      return MSIAuthStatus.unknownError;
+      return MSIUserStatus.unknownError;
     }
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
+  }
+
+  /// 다른 사용자의 의뢰 요청을 수락한다.
+  Future<MSIUserStatus> acceptRequest({required MSIRequest request}) async {
+    if (uid == null) {
+      return MSIUserStatus.invalidUser;
+    }
+
+    MSIUser mhi = MSIUser(uid: request.uid);
+
+    if (mhiList != null && !mhiList!.contains(request.uid)) {
+      mhiList!.add(request.uid);
+      await update();
+    }
+
+    if (mhi.msiList != null && !mhi.msiList!.contains(uid)) {
+      mhi.msiList!.add(uid);
+      await mhi.update();
+    }
+
+    return MSIUserStatus.success;
   }
 
   /// 사용자의 평균 평점을 반환한다.
@@ -181,21 +205,21 @@ class MSIUser {
   }
 
   /// 사용자의 평점 데이터에 새로운 평점을 추가한다.
-  Future<MSIAuthStatus> vote({required MSIUser voter, required double rating}) async {
+  Future<MSIUserStatus> vote({required MSIUser voter, required double rating}) async {
     if (uid == null || voter.uid == null) {
-      return MSIAuthStatus.invalidUser;
+      return MSIUserStatus.invalidUser;
     } else if (uid == voter.uid) {
-      return MSIAuthStatus.unknownError;
+      return MSIUserStatus.unknownError;
     }
 
     votes = votes ?? {};
     votes![voter.uid!] = rating;
 
-    await _users.doc(uid).update({
+    await _users.doc(uid!).update({
       "votes": votes
     });
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
   }
 
   /// 사용자 정보를 서버에서 다시 불러온다.
@@ -204,8 +228,12 @@ class MSIUser {
   }
 
   /// 서버에 저장된 사용자 정보를 업데이트한다.
-  Future<MSIAuthStatus> update() async {
-    await _users.doc(uid).update({
+  Future<MSIUserStatus> update() async {
+    if (uid == null) {
+      return MSIUserStatus.invalidUser;
+    } 
+
+    await _users.doc(uid!).update({
       "name": name,
       "email": email,
       "phoneNumber": phoneNumber,
@@ -219,11 +247,11 @@ class MSIUser {
       "votes": votes ?? {}
     });
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
   }
 
   /// 사용자 계정을 삭제한다.
-  Future<MSIAuthStatus> delete() async {
+  Future<MSIUserStatus> delete() async {
     try {
       UserCredential credential = await _auth.signInWithEmailAndPassword(
         email: email!, 
@@ -234,18 +262,18 @@ class MSIUser {
       await _users.doc(credential.user!.uid).delete();
     } on FirebaseAuthException catch (e) {
        if (e.code == "requires-recent-login") {    
-        return MSIAuthStatus.requiresRecentLogin;
+        return MSIUserStatus.requiresRecentLogin;
       }
     } catch (e) {
-      return MSIAuthStatus.unknownError;
+      return MSIUserStatus.unknownError;
     }
 
-    return MSIAuthStatus.success;
+    return MSIUserStatus.success;
   }
 
   /// 사용자 정보를 서버에서 불러온다.
   Future<void> _init() async {
-    DocumentSnapshot snapshot = await _users.doc(uid).get();
+    DocumentSnapshot snapshot = await _users.doc(uid!).get();
 
     if (snapshot.exists) {
       name = snapshot["name"];

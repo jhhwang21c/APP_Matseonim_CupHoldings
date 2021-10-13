@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:matseonim/pages/new_requests_page.dart';
-
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  bool showBackButton;
+  final bool showBackButton;
 
   CustomAppBar({Key? key, this.showBackButton = false}) : super(key: key);
 

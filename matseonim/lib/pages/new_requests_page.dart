@@ -28,7 +28,7 @@ class NewRequestsPage extends StatelessWidget {
             final MSIUser user = snapshot.data!;
 
             return FutureBuilder(
-              future: MSIRequests.getIncoming(field: user.profession!),
+              future: MSIRequests.getIncoming(user: user),
               builder: (BuildContext context, AsyncSnapshot<List<MSIRequest>> snapshot) {
                 if (!snapshot.hasData) {
                   return Padding(

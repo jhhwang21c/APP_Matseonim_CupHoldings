@@ -79,7 +79,7 @@ class CustomCarouselSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: MSIRequests.getIncoming(field: field),
+        future: MSIRequests.getIncoming(user: user),
         builder:
             (BuildContext context, AsyncSnapshot<List<MSIRequest>> snapshot) {
           if (!snapshot.hasData) {
@@ -96,7 +96,8 @@ class CustomCarouselSlider extends StatelessWidget {
                 height: 200,
               ),
               items: buildItemsFromRequests(
-                  context: context, requests: snapshot.data!, user: user),
+                context: context, requests: snapshot.data!, user: user
+              ),
             );
           }
         });
