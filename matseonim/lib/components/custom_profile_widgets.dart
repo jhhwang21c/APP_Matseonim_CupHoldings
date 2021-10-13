@@ -3,11 +3,10 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
+import 'package:matseonim/components/custom_rating_bar.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/chat_page.dart';
 import 'package:matseonim/pages/profile_page.dart';
-
-import 'custom_rating_bar.dart';
 
 class LargeProfile extends StatelessWidget {
   final String? uid;
@@ -30,17 +29,40 @@ class LargeProfile extends StatelessWidget {
             return Column(children: [
               CustomCircleAvatar(size: 180, url: user.avatarUrl ?? ""),
               const SizedBox(height: 40),
-              Text(user.name ?? "",
-                  style: const TextStyle(
-                    fontSize: 48,
-                  )),
+              Row(
+                children: [
+                  Text(user.name ?? "",
+                      style: const TextStyle(
+                        fontSize: 48,
+                      )),
+                  Text.rich(
+                    TextSpan(
+                      style: const TextStyle(
+                        fontSize: 16,
+                      ),
+                      children: [
+                        const WidgetSpan(
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                          )
+                        ),
+                        TextSpan(
+                          text: user.getAverageRating()
+                            .toStringAsFixed(1)
+                        )
+                      ]
+                    )
+                  )
+                ],
+              ),
               SizedBox(height: 16),
               Text(user.baseName ?? "",
                   style: const TextStyle(
                     fontSize: 32,
                   )),
               SizedBox(height: 16),
-              Text("관심분야: ${user.profession ?? "(없음)"}",
+              Text("전문 분야: ${user.profession ?? "(없음)"}",
                   style: const TextStyle(
                     fontSize: 16,
                   )),
@@ -63,7 +85,7 @@ class LargeProfile extends StatelessWidget {
                     Get.to(ChatPage(recipient: user));
                   }),
               SizedBox(height: 12),
-              CustomRatingBar(),
+              CustomRatingBar(uid: uid!)
             ]);
           }
         });
@@ -125,9 +147,9 @@ class MidProfile extends StatelessWidget {
                               ])
                         ]),
                         SizedBox(height: 10),
-                        Container(
-                          height: 55,
+                        SizedBox(
                           width: 150,
+                          height: 55,
                           child: CustomElevatedButton(
                               text: "채팅하기",
                               color: Colors.lightBlue[300],
@@ -173,19 +195,10 @@ class SmallProfile extends StatelessWidget {
                       CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
                       SizedBox(height: 10),
                       Text(user.name ?? "",
-                          style: const TextStyle(
-                            fontSize: 16,
-                            //fontWeight: FontWeight.bold,
-                          )),
-                      /*
-                  SizedBox(height: 2),
-                  Text(
-                    user.profession ?? "",
-                    style: TextStyle(
-                      fontSize: 16
-                    ),
-                  ),
-                  */
+                        style: const TextStyle(
+                          fontSize: 16,
+                        )
+                      ),
                     ],
                   )),
             );

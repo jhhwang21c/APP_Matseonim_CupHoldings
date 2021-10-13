@@ -6,7 +6,7 @@
 ![codefactor badge](https://img.shields.io/codefactor/grade/github/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
 ![code size badge](https://img.shields.io/github/languages/code-size/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
   
-'맞선임'은 군생활 동안 특정 분야에 도움이 필요할 때 마치 맞선임 같은 전문가를 연결해주어 도움을 주는 군생활의 동반자 서비스 입니다.
+'맞선임'은 군생활 중 특정 분야에 도움이 필요할 때 맞선임 같은 전문가를 매칭시켜주는 군생활의 동반자 서비스입니다.
 
 [주요 기능](#주요-기능) &mdash;
 [필수 조건](#필수-조건) &mdash;
@@ -133,6 +133,7 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 - [`firebase_core: ^1.6.0`](https://pub.dev/packages/firebase_core)
 - [`firebase_storage: ^10.0.4`](https://pub.dev/packages/firebase_storage)
 - [`flutter_chat_ui: ^1.4.4`](https://pub.dev/packages/flutter_chat_ui)
+- [`flutter_rating_bar: ^4.0.0`](https://pub.dev/packages/flutter_rating_bar)
 - [`flutter_typeahead: ^3.2.1`](https://pub.dev/packages/flutter_typeahead)
 - [`validators: ^3.0.0`](https://pub.dev/packages/validators)
 
