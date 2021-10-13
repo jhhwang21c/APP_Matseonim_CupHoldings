@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
-
-//import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -29,6 +26,8 @@ class MSIUser {
   String? profession, interest, resume, avatarUrl, baseName;
 
   List<dynamic>? msiList, mhiList;
+
+  Map<String, dynamic>? votes;
 
   MSIUser({
     this.uid,
@@ -118,6 +117,7 @@ class MSIUser {
         "baseName": null,
         "msiList": [],
         "mhiList": [],
+        "votes": []
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
@@ -165,6 +165,39 @@ class MSIUser {
     return MSIAuthStatus.success;
   }
 
+  /// 사용자의 평균 평점을 반환한다.
+  double getAverageRating() {
+    if (votes == null || votes!.isEmpty) {
+      return 0.0;
+    }
+
+    double result = 0.0;
+
+    for (double value in votes!.values) {
+      result += value;
+    }
+
+    return result / (votes!.length);
+  }
+
+  /// 사용자의 평점 데이터에 새로운 평점을 추가한다.
+  Future<MSIAuthStatus> vote({required MSIUser voter, required double rating}) async {
+    if (uid == null || voter.uid == null) {
+      return MSIAuthStatus.invalidUser;
+    } else if (uid == voter.uid) {
+      return MSIAuthStatus.unknownError;
+    }
+
+    votes = votes ?? {};
+    votes![voter.uid!] = rating;
+
+    await _users.doc(uid).update({
+      "votes": votes
+    });
+
+    return MSIAuthStatus.success;
+  }
+
   /// 사용자 정보를 서버에서 다시 불러온다.
   Future<void> reload() async {
     await _init();
@@ -183,6 +216,7 @@ class MSIUser {
       "baseName": baseName,
       "msiList": msiList ?? [],
       "mhiList": mhiList ?? [],
+      "votes": votes ?? {}
     });
 
     return MSIAuthStatus.success;
@@ -224,6 +258,7 @@ class MSIUser {
       baseName = snapshot["baseName"];
       msiList = snapshot["msiList"] ?? [];
       mhiList = snapshot["mhiList"] ?? [];
+      votes = snapshot["votes"] ?? [];
     }
   }
 }
