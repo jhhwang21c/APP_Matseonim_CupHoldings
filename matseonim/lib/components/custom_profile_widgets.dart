@@ -30,30 +30,28 @@ class LargeProfile extends StatelessWidget {
               CustomCircleAvatar(size: 180, url: user.avatarUrl ?? ""),
               const SizedBox(height: 40),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(user.name ?? "",
                       style: const TextStyle(
                         fontSize: 48,
                       )),
-                  Text.rich(
-                    TextSpan(
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text.rich(TextSpan(
                       style: const TextStyle(
                         fontSize: 16,
                       ),
                       children: [
                         const WidgetSpan(
-                          child: Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                          )
-                        ),
+                            child: Icon(
+                          Icons.star,
+                          color: Colors.amber,
+                        )),
                         TextSpan(
-                          text: user.getAverageRating()
-                            .toStringAsFixed(1)
-                        )
-                      ]
-                    )
-                  )
+                            text: user.getAverageRating().toStringAsFixed(1))
+                      ]))
                 ],
               ),
               SizedBox(height: 16),
@@ -123,10 +121,33 @@ class MidProfile extends StatelessWidget {
                           Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(user.name ?? "?",
-                                    style: const TextStyle(
-                                      fontSize: 32,
-                                    )),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(user.name ?? "",
+                                        style: const TextStyle(
+                                          fontSize: 32,
+                                        )),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text.rich(TextSpan(
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                        children: [
+                                          const WidgetSpan(
+                                              child: Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          )),
+                                          TextSpan(
+                                              text: user
+                                                  .getAverageRating()
+                                                  .toStringAsFixed(1))
+                                        ]))
+                                  ],
+                                ),
                                 SizedBox(height: 10),
                                 Text(user.baseName ?? "?",
                                     style: const TextStyle(
@@ -158,7 +179,10 @@ class MidProfile extends StatelessWidget {
                               }),
                         ),
                         SizedBox(height: 5),
-                        Divider( thickness: 1, color: Colors.grey, ),
+                        Divider(
+                          thickness: 1,
+                          color: Colors.grey,
+                        ),
                       ])
                     ]));
           }
@@ -191,14 +215,28 @@ class SmallProfile extends StatelessWidget {
               child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 12.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
                       SizedBox(height: 10),
                       Text(user.name ?? "",
-                        style: const TextStyle(
-                          fontSize: 16,
-                        )
-                      ),
+                          style: const TextStyle(
+                            fontSize: 16,
+                          )),
+                      Text.rich(TextSpan(
+                          style: const TextStyle(
+                            fontSize: 16,
+                          ),
+                          children: [
+                            const WidgetSpan(
+                                child: Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                            )),
+                            TextSpan(
+                                text:
+                                    user.getAverageRating().toStringAsFixed(1))
+                          ]))
                     ],
                   )),
             );
@@ -246,7 +284,7 @@ class SmallProfileListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 108,
+        height: 115,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: uidList.length,

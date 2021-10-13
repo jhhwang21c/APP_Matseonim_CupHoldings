@@ -16,8 +16,8 @@ final List<Widget> imageSliders = imgList
                 child: Stack(
                   children: <Widget>[
                     Container(
-                      height: 295.0,
-                      width: 400.0,
+                      height: 262.5,
+                      width: 350.0,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: item,
