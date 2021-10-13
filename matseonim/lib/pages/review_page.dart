@@ -1,32 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:matseonim/components/custom_alert_dialog.dart';
 
+import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/components/custom_rating_bar.dart';
+import 'package:matseonim/models/review.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
+import 'package:matseonim/pages/profile_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class ReviewPage extends StatelessWidget {
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
+  final String revieweeId;
+
+  const ReviewPage({
+    Key? key, 
+    required this.revieweeId
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(showBackButton: true),
       drawer: DrawerPage(),
       body: FutureBuilder(
-        future: MSIUser.init(),
-        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+        future: Future.wait([
+          MSIUser.init(),
+          MSIUser.init(uid: revieweeId)
+        ]),
+        builder: (BuildContext context, AsyncSnapshot<List<MSIUser>> snapshot) {
           if (!snapshot.hasData) {
             return SizedBox(
               child: Container(
@@ -35,11 +41,14 @@ class ReviewPage extends StatelessWidget {
               )
             );
           } else {
-            final MSIUser user = snapshot.data!;
+            final List<MSIUser> users = snapshot.data!;
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: _CreateRequestForm(user: user)
+              child: _CreateReviewForm(
+                reviewer: users[0],
+                reviewee: users[1]
+              )
             );
           }
         },
@@ -48,26 +57,23 @@ class ReviewPage extends StatelessWidget {
   }
 }
 
-class _CreateRequestForm extends StatelessWidget {
+class _CreateReviewForm extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
-  final descriptionTextController = TextEditingController();
+  final valueTextController = TextEditingController();
 
-  final MSIUser user;
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
-  //백엔드 부분은 알아서 할 것
+  final MSIUser reviewer, reviewee;
 
-  _CreateRequestForm({
+  _CreateReviewForm({
     Key? key,
-    required this.user
+    required this.reviewer,
+    required this.reviewee
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double newRating = 3.0;
+
     return Form(
       key: _formKey,
       child: ListView(
@@ -75,21 +81,28 @@ class _CreateRequestForm extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 20),
             child: Text(
-              "리뷰쓰기",
+              "리뷰 쓰기",
               style: TextStyle(fontSize: 32)
             ),
           ),
-          ReviewProfile(),
-          SizedBox(height: 20),  //내가 평가하는 사람 uid 넘기기
-          Center(child: CustomRatingBar(uid: user.uid!)),    //밑에 "작성완료" 버튼하고 연동하기
+          ReviewProfile(uid: reviewee.uid!),
+          SizedBox(height: 20),
+          Center(
+            child: CustomRatingBar(
+              initialValue: 3.0,
+              onUpdate: (double rating) {
+                newRating = rating;
+              }
+            )
+          ),
           SizedBox(height: 15),
           MultilineFormField(
-            textController: descriptionTextController,
+            textController: valueTextController,
             funValidator: validateText()
           ),
           SizedBox(height: 20),
           CustomElevatedButton(
-            text: "작성완료",
+            text: "작성 완료",
             textStyle: const TextStyle(
               fontSize: 16, 
               color: Colors.white
@@ -97,6 +110,12 @@ class _CreateRequestForm extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             funPageRoute: () async {
               if (_formKey.currentState!.validate()) {
+                await MSIReviews.add(
+                  reviewerId: reviewer.uid!, 
+                  revieweeId: reviewee.uid!, 
+                  rating: newRating, 
+                  value: valueTextController.text
+                );
 
                 await Get.dialog(
                   const CustomAlertDialog(
@@ -104,7 +123,7 @@ class _CreateRequestForm extends StatelessWidget {
                   )
                 );
 
-                Get.back();
+                Get.to(ProfilePage(uid: reviewee.uid));
               }
             }
           )

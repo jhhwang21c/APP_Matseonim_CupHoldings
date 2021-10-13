@@ -36,21 +36,6 @@ class MSIRequests {
     });
   }
 
-  /// 의뢰의 고유 ID를 통해 의뢰 내용을 서버에서 불러온다.
-  static Future<MSIRequest> get({required String requestId}) async {
-    CollectionReference requests = _firestore.collection("requests");
-
-    DocumentSnapshot document = await requests.doc(requestId).get(); 
-
-    return MSIRequest(
-      requestId: requestId,
-      uid: document["uid"],
-      field: document["field"],
-      title: document["title"],
-      description: document["description"]
-    );
-  }
-
   /// 주어진 사용자의 전문 분야와 연관된 모든 의뢰를 서버에서 불러온다.
   static Future<List<MSIRequest>> getIncoming({required MSIUser user}) async {
     List<MSIRequest> result = [];

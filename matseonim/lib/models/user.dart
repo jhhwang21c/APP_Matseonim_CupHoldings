@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:matseonim/models/request.dart';
+import 'package:matseonim/models/review.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -28,7 +29,7 @@ class MSIUser {
 
   List<dynamic>? msiList, mhiList;
 
-  Map<String, dynamic>? votes;
+  double? rating;
 
   MSIUser({
     this.uid,
@@ -42,7 +43,8 @@ class MSIUser {
     this.avatarUrl,
     this.baseName,
     this.msiList,
-    this.mhiList
+    this.mhiList,
+    this.rating
   });
 
   /// 사용자 정보를 초기화한다.
@@ -120,7 +122,7 @@ class MSIUser {
         "baseName": null,
         "msiList": [],
         "mhiList": [],
-        "votes": []
+        "rating": 0.0
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
@@ -189,39 +191,6 @@ class MSIUser {
     return MSIUserStatus.success;
   }
 
-  /// 사용자의 평균 평점을 반환한다.
-  double getAverageRating() {
-    if (votes == null || votes!.isEmpty) {
-      return 0.0;
-    }
-
-    double result = 0.0;
-
-    for (double value in votes!.values) {
-      result += value;
-    }
-
-    return result / (votes!.length);
-  }
-
-  /// 사용자의 평점 데이터에 새로운 평점을 추가한다.
-  Future<MSIUserStatus> vote({required MSIUser voter, required double rating}) async {
-    if (uid == null || voter.uid == null) {
-      return MSIUserStatus.invalidUser;
-    } else if (uid == voter.uid) {
-      return MSIUserStatus.unknownError;
-    }
-
-    votes = votes ?? {};
-    votes![voter.uid!] = rating;
-
-    await _users.doc(uid!).update({
-      "votes": votes
-    });
-
-    return MSIUserStatus.success;
-  }
-
   /// 사용자 정보를 서버에서 다시 불러온다.
   Future<void> reload() async {
     await _init();
@@ -244,7 +213,7 @@ class MSIUser {
       "baseName": baseName,
       "msiList": msiList ?? [],
       "mhiList": mhiList ?? [],
-      "votes": votes ?? {}
+      "rating": rating
     });
 
     return MSIUserStatus.success;
@@ -286,7 +255,8 @@ class MSIUser {
       baseName = snapshot["baseName"];
       msiList = snapshot["msiList"] ?? [];
       mhiList = snapshot["mhiList"] ?? [];
-      votes = snapshot["votes"] ?? [];
+      
+      rating = await MSIReviews.getAverageRatingFor(reviewee: this);
     }
   }
 }

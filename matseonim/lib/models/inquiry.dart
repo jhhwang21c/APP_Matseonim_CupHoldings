@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-/// 사용자가 보낸 의뢰 요청을 나타내는 클래스.
+/// 사용자가 보낸 문의를 나타내는 클래스.
 class MSIInquiry {
   String requestId, uid;
   String title, description;
@@ -15,7 +15,7 @@ class MSIInquiry {
   });
 }
 
-/// 사용자의 의뢰 요청을 관리하는 클래스.
+/// 사용자의 문의를 관리하는 클래스.
 class MSIInquiries {
   /// 새로운 문의를 생성한다.
   static Future<void> add({

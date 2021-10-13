@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_circle_avatar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
-import 'package:matseonim/components/custom_rating_bar.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/chat_page.dart';
 import 'package:matseonim/pages/profile_page.dart';
@@ -51,7 +50,7 @@ class LargeProfile extends StatelessWidget {
                           color: Colors.amber,
                         )),
                         TextSpan(
-                            text: user.getAverageRating().toStringAsFixed(1))
+                            text: user.rating!.toStringAsFixed(1))
                       ]))
                 ],
               ),
@@ -91,10 +90,14 @@ class LargeProfile extends StatelessWidget {
                   SizedBox(width: 10),
                   Container(width: 150, height: 55,
                     child: CustomElevatedButton(
-                        text: "리뷰쓰기",
+                        text: "리뷰 쓰기",
                         color: Colors.cyan[200],
                         funPageRoute: () {
-                          Get.to(ReviewPage());
+                          Get.to(
+                            ReviewPage(
+                              revieweeId: uid!,
+                            )
+                          );
                         }),
                   ),
                 ],
@@ -159,7 +162,7 @@ class MidProfile extends StatelessWidget {
                                           )),
                                           TextSpan(
                                               text: user
-                                                  .getAverageRating()
+                                                  .rating!
                                                   .toStringAsFixed(1))
                                         ]))
                                   ],
@@ -257,7 +260,7 @@ class SmallProfile extends StatelessWidget {
                             )
                           ),
                           TextSpan(
-                            text: user.getAverageRating().toStringAsFixed(1)
+                            text: user.rating!.toStringAsFixed(1)
                           )
                         ]
                       )
@@ -272,9 +275,12 @@ class SmallProfile extends StatelessWidget {
 }
 
 class ReviewProfile extends StatelessWidget {
-  final String? uid;
+  final String uid;
 
-  const ReviewProfile({Key? key, this.uid}) : super(key: key);
+  const ReviewProfile({
+    Key? key, 
+    required this.uid
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
