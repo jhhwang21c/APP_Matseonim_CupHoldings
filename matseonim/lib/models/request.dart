@@ -1,4 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';  
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:matseonim/models/user.dart';  
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -50,15 +51,19 @@ class MSIRequests {
     );
   }
 
-  /// 주어진 분야와 연관된 모든 의뢰를 서버에서 불러온다.
-  static Future<List<MSIRequest>> getIncoming({required String field}) async {
+  /// 주어진 사용자의 전문 분야와 연관된 모든 의뢰를 서버에서 불러온다.
+  static Future<List<MSIRequest>> getIncoming({required MSIUser user}) async {
     List<MSIRequest> result = [];
 
     QuerySnapshot query = await _firestore.collection("requests")
-      .where("field", isEqualTo: field)
+      .where("field", isEqualTo: user.profession)
       .get();
 
     for (QueryDocumentSnapshot document in query.docs) {
+      if (user.mhiList!.contains(document["uid"])) {
+        continue;
+      }
+
       result.add(
         MSIRequest(
           requestId: document.id,

@@ -499,12 +499,12 @@ class _MyAccountForm2 extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               funPageRoute: () async {
                 if (_formKey.currentState!.validate()) {
-                  MSIAuthStatus status = await user.changePassword(
+                  MSIUserStatus status = await user.changePassword(
                     oldPassword: passwordTextController.text,
                     newPassword: newPasswordTextController.text
                   );
 
-                  if (status == MSIAuthStatus.success) {
+                  if (status == MSIUserStatus.success) {
                     await Get.dialog(
                       const CustomAlertDialog(
                         message: "비밀번호가 변경되었습니다."
@@ -512,13 +512,13 @@ class _MyAccountForm2 extends StatelessWidget {
                     );
 
                     Get.back();
-                  } else if (status == MSIAuthStatus.userNotFound) {
+                  } else if (status == MSIUserStatus.userNotFound) {
                     Get.dialog(
                       const CustomAlertDialog(
                         message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."
                       )
                     );
-                  } else if (status == MSIAuthStatus.wrongPassword) {
+                  } else if (status == MSIUserStatus.wrongPassword) {
                     Get.dialog(
                       const CustomAlertDialog(
                         message: "현재 비밀번호가 틀렸습니다. 다시 시도해주세요."
