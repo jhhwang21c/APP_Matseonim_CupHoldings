@@ -8,7 +8,7 @@ import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/pages/my_mhi_page.dart';
 import 'package:matseonim/pages/my_msi_page.dart';
 import 'package:matseonim/pages/my_account_page.dart';
-import 'package:matseonim/pages/settings_page.dart';
+import 'package:matseonim/pages/inquiry_page.dart';
 
 class DrawerPage extends StatelessWidget {
   @override
@@ -68,14 +68,13 @@ class DrawerPage extends StatelessWidget {
               await Get.to(MyMHIPage());
             }
           ),
-          /*
           ListTile(
-            title: const Text('환경설정'),
+            title: const Text('문의하기'),
             onTap: () async {
               Get.back();
-              await Get.to(SettingsPage());
+              await Get.to(InquiryPage());
             }
-          ),*/
+          ),
         ],
       )
     );
