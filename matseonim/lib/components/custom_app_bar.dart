@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:matseonim/pages/notification_page.dart';
+
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
 
@@ -38,7 +40,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             Icons.notifications_outlined,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () { 
+            Get.to(NotificationPage());
+          },
         )
       ],
     );

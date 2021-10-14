@@ -30,14 +30,12 @@ class ReviewWidget extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(height:5),
+                      SizedBox(height: 6),
                       Text(user.name ?? "",
                           style: const TextStyle(
                             fontSize: 16,
                           )),
-                      SizedBox(
-                        width: 8,
-                      ),
+                      SizedBox(width: 8),
                       Text.rich(
                         TextSpan(
                           style: const TextStyle(
@@ -56,11 +54,12 @@ class ReviewWidget extends StatelessWidget {
                       )
                     ]
                   ),
+                  SizedBox(height: 6),
                   Text(
                     review.value,
                     style: TextStyle(fontSize: 16),
                   ),
-                  SizedBox(height:5),
+                  SizedBox(height: 6),
                   Divider(
                     thickness: 1,
                     color: Colors.grey,
@@ -92,7 +91,7 @@ class ReviewListView extends StatelessWidget {
           final List<MSIReview> reviews = snapshot.data!;
 
           return SizedBox(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height * 0.25,
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: reviews.length,

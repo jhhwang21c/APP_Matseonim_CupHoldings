@@ -6,12 +6,12 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 /// 사용자의 평가를 나타내는 클래스.
 class MSIReview {
-  String reviewId, reviewerId, revieweeId, value;
+  String id, reviewerId, revieweeId, value;
 
   double rating;
 
   MSIReview({
-    required this.reviewId,
+    required this.id,
     required this.reviewerId,
     required this.revieweeId,
     required this.rating,
@@ -72,7 +72,7 @@ class MSIReviews {
     for (QueryDocumentSnapshot document in query.docs) {
       result.add(
         MSIReview(
-          reviewId: document.id,
+          id: document.id,
           reviewerId: document["reviewerId"],
           revieweeId: document["revieweeId"],
           rating: document["rating"],
@@ -95,7 +95,7 @@ class MSIReviews {
     for (QueryDocumentSnapshot document in query.docs) {
       result.add(
         MSIReview(
-          reviewId: document.id,
+          id: document.id,
           reviewerId: document["reviewerId"],
           revieweeId: document["revieweeId"],
           rating: document["rating"],
@@ -108,10 +108,10 @@ class MSIReviews {
   }
 
   /// 주어진 고유 ID를 가진 평가를 서버에서 삭제한다.
-  static Future<void> delete({required String reviewId}) async {
+  static Future<void> delete({required String id}) async {
     CollectionReference requests = _firestore.collection("reviews");
 
-    await requests.doc(reviewId).delete();
+    await requests.doc(id).delete();
   }
 
   /// 주어진 사용자가 생성한 모든 평가를 서버에서 삭제한다.

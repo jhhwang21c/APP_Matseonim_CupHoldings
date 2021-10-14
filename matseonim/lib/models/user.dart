@@ -21,6 +21,26 @@ enum MSIUserStatus {
   wrongPassword
 }
 
+/// 사용자가 받은 알림의 종류를 나타내는 열거형.
+enum MSINotificationType {
+  acceptedRequest,
+  newChatMessages,
+  newReview
+}
+
+/// 사용자가 받은 알림을 나타내는 클래스.
+class MSINotification {
+  String id, message;
+
+  MSINotificationType type;
+
+  MSINotification({
+    required this.id,
+    required this.type,
+    required this.message
+  });
+}
+
 /// 사용자의 계정 정보를 나타내는 클래스.
 class MSIUser {
   final CollectionReference _users = _firestore.collection("users");
@@ -189,9 +209,64 @@ class MSIUser {
       await mhi.update();
     }
 
-    await MSIRequests.delete(requestId: request.requestId);
+    await MSIRequests.delete(id: request.id);
 
     return MSIUserStatus.success;
+  }
+
+  /// 사용자에게 새로운 알림을 보낸다.
+  Future<void> addNotification({
+    required MSINotificationType type,
+    required String message
+  }) async {
+    await _users.doc(uid!)
+      .collection("notifications")
+      .add({
+        "type": type.index,
+        "message": message,
+      });
+  }
+
+  /// 사용자가 받은 모든 알림을 반환한다.
+  Future<List<MSINotification>> getNotifications() async {
+    List<MSINotification> result = [];
+
+    QuerySnapshot query = await _users.doc(uid!)
+      .collection("notifications")
+      .get();
+
+    for (QueryDocumentSnapshot document in query.docs) {
+      result.add(
+        MSINotification(
+          id: document.id,
+          type: document["type"],
+          message: document["message"]
+        )
+      );
+    }
+
+    return result;
+  }
+
+  /// 사용자가 받은 알림을 삭제한다.
+  Future<void> removeNotification({
+    required String id
+  }) async {
+    await _users.doc(uid!)
+      .collection("notifications")
+      .doc(id)
+      .delete();
+  }
+
+  /// 사용자가 받은 모든 알림을 삭제한다.
+  Future<void> removeNotifications() async {
+    QuerySnapshot query = await _users.doc(uid!)
+      .collection("notifications")
+      .get();
+
+    for (QueryDocumentSnapshot document in query.docs) {
+      await document.reference.delete();
+    }
   }
 
   /// 사용자 정보를 서버에서 다시 불러온다.
