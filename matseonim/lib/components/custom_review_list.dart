@@ -24,13 +24,13 @@ class ReviewWidget extends StatelessWidget {
             final MSIUser user = snapshot.data!;
 
             return Container(
-              margin: EdgeInsets.symmetric(vertical: 12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      SizedBox(height:5),
                       Text(user.name ?? "",
                           style: const TextStyle(
                             fontSize: 16,
@@ -59,6 +59,7 @@ class ReviewWidget extends StatelessWidget {
                     review.value,
                     style: TextStyle(fontSize: 16),
                   ),
+                  SizedBox(height:5),
                   Divider(
                     thickness: 1,
                     color: Colors.grey,
@@ -92,7 +93,7 @@ class ReviewListView extends StatelessWidget {
           return SizedBox(
             height: MediaQuery.of(context).size.height,
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.vertical,
               itemCount: reviews.length,
               itemBuilder: (context, i) {
                 return ReviewWidget(review: reviews[i]);
