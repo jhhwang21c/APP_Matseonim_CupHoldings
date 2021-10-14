@@ -6,6 +6,7 @@ import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_carousel_slider.dart';
 import 'package:matseonim/components/custom_image_slider.dart';
 import 'package:matseonim/components/custom_profile_widgets.dart';
+import 'package:matseonim/components/custom_review_slider.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/create_request_page.dart';
 import 'package:matseonim/pages/drawer_page.dart';
@@ -74,12 +75,13 @@ class MainPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "후기",
+                          "실시간 후기",
                           style: TextStyle(
                             fontSize: 32,
                           ),
                         ),
-                        CommentsAboutMSI(),
+                        const SizedBox(height: 15),
+                        CustomReviewSlider(),
                       ],
                     ),
                   ],

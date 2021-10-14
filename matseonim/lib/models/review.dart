@@ -84,6 +84,27 @@ class MSIReviews {
     return result;
   }
 
+  static Future<List<MSIReview>> getAll() async {
+    List<MSIReview> result = [];
+
+    QuerySnapshot query = await _firestore.collection("reviews").limit(5)
+      .get();
+
+    for (QueryDocumentSnapshot document in query.docs) {
+      result.add(
+        MSIReview(
+          reviewId: document.id,
+          reviewerId: document["reviewerId"],
+          revieweeId: document["revieweeId"],
+          rating: document["rating"],
+          value: document["value"]
+        )
+      );
+    }
+
+    return result;
+  }
+
   /// 주어진 사용자를 대상으로 작성된 모든 평가를 서버에서 불러온다.
   static Future<List<MSIReview>> getFrom({required MSIUser reviewer}) async {
     List<MSIReview> result = [];
