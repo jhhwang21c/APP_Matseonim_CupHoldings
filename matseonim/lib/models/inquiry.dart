@@ -4,11 +4,11 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 /// 사용자가 보낸 문의를 나타내는 클래스.
 class MSIInquiry {
-  String requestId, uid;
+  String id, uid;
   String title, description;
 
   MSIInquiry({
-    required this.requestId,
+    required this.id,
     required this.uid,
     required this.title,
     required this.description
@@ -33,13 +33,13 @@ class MSIInquiries {
   }
 
   /// 의뢰의 고유 ID를 통해 문의 내용을 서버에서 불러온다.
-  static Future<MSIInquiry> get({required String requestId}) async {
+  static Future<MSIInquiry> get({required String id}) async {
     CollectionReference inquiries = _firestore.collection("inquiries");
 
-    DocumentSnapshot document = await inquiries.doc(requestId).get(); 
+    DocumentSnapshot document = await inquiries.doc(id).get(); 
 
     return MSIInquiry(
-      requestId: requestId,
+      id: id,
       uid: document["uid"],
       title: document["title"],
       description: document["description"]
@@ -57,7 +57,7 @@ class MSIInquiries {
     for (QueryDocumentSnapshot document in query.docs) {
       result.add(
         MSIInquiry(
-          requestId: document.id,
+          id: document.id,
           uid: document["uid"],
           title: document["title"],
           description: document["description"]
@@ -69,10 +69,10 @@ class MSIInquiries {
   }
 
   /// 주어진 고유 ID를 가진 문의를 서버에서 삭제한다.
-  static Future<void> delete({required String requestId}) async {
+  static Future<void> delete({required String id}) async {
     CollectionReference inquiries = _firestore.collection("inquiries");
 
-    await inquiries.doc(requestId).delete();
+    await inquiries.doc(id).delete();
   }
 
   /// 주어진 고유 ID를 가진 사용자의 모든 문의를 서버에서 삭제한다.

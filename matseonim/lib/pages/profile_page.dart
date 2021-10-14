@@ -38,6 +38,7 @@ class ProfilePage extends StatelessWidget {
               thickness: 2,
               color: Colors.grey,
             ),
+            SizedBox(height: 8),
             FutureBuilder(
               future: MSIUser.init(uid: uid!), 
               builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
 import 'package:matseonim/models/user.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -10,12 +11,12 @@ class MSIRoom {
 
   List<MSIUser> users;
 
-  String? roomId;
+  String? id;
   int? createdAt, updatedAt;
 
   MSIRoom({
     required this.users,
-    this.roomId,
+    this.id,
     this.createdAt,
     this.updatedAt
   });
@@ -37,13 +38,13 @@ class MSIRoom {
 
   /// 채팅방에 메시지를 전송한다.
   Future<void> sendMessage({required MSIUser user, required types.PartialText message}) async {
-    if (roomId == null) {
+    if (id == null) {
       throw Exception("고유 ID가 null 값인 채팅방에 메시지를 보낼 수 없습니다.");
     } else if (user.uid != users[0].uid && user.uid != users[1].uid) {
       throw Exception("주어진 고유 ID를 가진 사용자를 찾을 수 없습니다.");
     }
 
-    await _rooms.doc(roomId)
+    await _rooms.doc(id)
       .collection("messages")
       .add({
         "author": {
@@ -61,18 +62,19 @@ class MSIRoom {
 
   /// 채팅방의 모든 메시지를 실시간으로 반환한다. 
   Stream<List<types.TextMessage>> getMessages({required MSIUser user}) {
-    if (roomId == null) {
+    if (id == null) {
       throw Exception("고유 ID가 null 값인 채팅방의 메시지는 불러올 수 없습니다.");
     }
 
-    /// 메시지를 보낸 시간을 기준으로 정렬한다.
-    return _rooms.doc(roomId)
+    // 메시지를 보낸 시간을 기준으로 정렬한다.
+    return _rooms.doc(id)
       .collection("messages")
       .orderBy("createdAt", descending: true)
       .snapshots()
       .map(
         (QuerySnapshot snapshot) {
           for (var element in snapshot.docs) {
+            // 받는 사람이 메시지를 읽으면 메시지 상태를 변경한다.
             if (element["author"]["id"] != user.uid) {
               element.reference.update({
                 "status": types.Status.seen.index
@@ -87,7 +89,7 @@ class MSIRoom {
                 author: types.User.fromJson(element["author"]),
                 id: element.id,
                 text: element["text"],
-                roomId: roomId,
+                roomId: id,
                 status: types.Status.values[element["status"]],
                 createdAt: element["createdAt"],
                 updatedAt: element["updatedAt"],
@@ -102,16 +104,16 @@ class MSIRoom {
 
   /// 채팅방의 메시지를 수정한다.
   Future<void> updateMessage(types.TextMessage message) async {
-    if (roomId == null) {
+    if (id == null) {
       throw Exception("고유 ID가 null 값인 채팅방의 메시지는 수정할 수 없습니다.");
-    } else if (roomId != message.roomId) {
+    } else if (id != message.id) {
       throw Exception(
         "메시지를 수정하려면 현재 채팅방의 고유 ID와 " 
         "메시지의 채팅방 고유 ID가 같아야 합니다."
       );
     }
 
-    await _rooms.doc(roomId)
+    await _rooms.doc(id)
       .collection("messages")
       .doc(message.id)
       .update({
@@ -122,29 +124,29 @@ class MSIRoom {
 
   /// 채팅방을 삭제한다.
   Future<void> deleteRoom() async {
-    if (roomId == null) {
+    if (id == null) {
       throw Exception("고유 ID가 null 값인 채팅방은 삭제할 수 없습니다.");
     }
 
-    await _rooms.doc(roomId).delete();
+    await _rooms.doc(id).delete();
 
-    roomId = null;
+    id = null;
     createdAt = null;
     updatedAt = null;
   }
 
   /// 채팅방의 메시지를 삭제한다.
   Future<void> deleteMessage(types.TextMessage message) async {
-    if (roomId == null) {
+    if (id == null) {
       throw Exception("고유 ID가 null 값인 채팅방의 메시지는 삭제할 수 없습니다.");
-    } else if (roomId != message.roomId) {
+    } else if (id != message.id) {
       throw Exception(
         "메시지를 삭제하려면 현재 채팅방의 고유 ID와 " 
         "메시지의 채팅방 고유 ID가 같아야 합니다."
       );
     }
 
-    await _rooms.doc(roomId)
+    await _rooms.doc(id)
       .collection("messages")
       .doc(message.id)
       .delete();
@@ -186,7 +188,7 @@ class MSIRoom {
       createdAt = snapshot["createdAt"];
       updatedAt = snapshot["updatedAt"];
 
-      roomId = snapshot.id;
+      id = snapshot.id;
     } else {
       DocumentReference reference = await _rooms.add({
         "users": [users[0].uid, users[1].uid],
@@ -194,7 +196,7 @@ class MSIRoom {
         "updatedAt": _getCurrentTime()
       });
 
-      roomId = reference.id;
+      id = reference.id;
     }
   }
 }

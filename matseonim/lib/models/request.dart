@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:matseonim/models/user.dart';  
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 /// 사용자가 보낸 의뢰 요청을 나타내는 클래스.
 class MSIRequest {
-  String requestId, uid, field;
+  String id, uid, field;
   String title, description;
 
   MSIRequest({
-    required this.requestId,
+    required this.id,
     required this.uid,
     required this.field,
     required this.title,
@@ -51,7 +52,7 @@ class MSIRequests {
 
       result.add(
         MSIRequest(
-          requestId: document.id,
+          id: document.id,
           uid: document["uid"],
           field: document["field"],
           title: document["title"],
@@ -74,7 +75,7 @@ class MSIRequests {
     for (QueryDocumentSnapshot document in query.docs) {
       result.add(
         MSIRequest(
-          requestId: document.id,
+          id: document.id,
           uid: document["uid"],
           field: document["field"],
           title: document["title"],
@@ -87,10 +88,10 @@ class MSIRequests {
   }
 
   /// 주어진 고유 ID를 가진 의뢰를 서버에서 삭제한다.
-  static Future<void> delete({required String requestId}) async {
+  static Future<void> delete({required String id}) async {
     CollectionReference requests = _firestore.collection("requests");
 
-    await requests.doc(requestId).delete();
+    await requests.doc(id).delete();
   }
 
   /// 주어진 고유 ID를 가진 사용자의 모든 의뢰를 서버에서 삭제한다.

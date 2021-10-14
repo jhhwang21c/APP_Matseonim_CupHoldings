@@ -47,6 +47,7 @@ class LargeProfile extends StatelessWidget {
                         const WidgetSpan(
                             child: Icon(
                           Icons.star,
+                          size: 16.0,
                           color: Colors.amber,
                         )),
                         TextSpan(
@@ -285,33 +286,34 @@ class ReviewProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: MSIUser.init(uid: uid),
-        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-          if (!snapshot.hasData) {
-            return SizedBox(
-                child: Container(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator()));
-          } else {
-            final MSIUser user = snapshot.data!;
+      future: MSIUser.init(uid: uid),
+      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+        if (!snapshot.hasData) {
+          return SizedBox(
+              child: Container(
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator()));
+        } else {
+          final MSIUser user = snapshot.data!;
 
-            return Container(
-                margin: EdgeInsets.symmetric(horizontal: 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomCircleAvatar(size: 80, url: user.avatarUrl ?? ""),
-                    SizedBox(width: 10),
-                    Text(user.name ?? "",
-                      style: const TextStyle(
-                        fontSize: 32,
-                      )
-                    ),
-                  ],
-                ),
-            );
-          }
-        });
+          return Container(
+              margin: EdgeInsets.symmetric(horizontal: 12.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomCircleAvatar(size: 80, url: user.avatarUrl ?? ""),
+                  SizedBox(width: 10),
+                  Text(user.name ?? "",
+                    style: const TextStyle(
+                      fontSize: 32,
+                    )
+                  ),
+                ],
+              ),
+          );
+        }
+      }
+    );
   }
 }
 
@@ -323,25 +325,28 @@ class MidProfileListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height,
-        child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: uidList.length,
-            itemBuilder: (context, i) {
-              return FutureBuilder(
-                  future: MSIUser.init(uid: uidList[i]),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-                    if (!snapshot.hasData) {
-                      return SizedBox(
-                          child: Container(
-                              alignment: Alignment.center,
-                              child: const CircularProgressIndicator()));
-                    } else {
-                      return MidProfile(uid: snapshot.data!.uid);
-                    }
-                  });
-            }));
+      height: MediaQuery.of(context).size.height,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: uidList.length,
+        itemBuilder: (context, i) {
+          return FutureBuilder(
+            future: MSIUser.init(uid: uidList[i]),
+            builder:
+                (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+              if (!snapshot.hasData) {
+                return SizedBox(
+                    child: Container(
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator()));
+              } else {
+                return MidProfile(uid: snapshot.data!.uid);
+              }
+            }
+          );
+        }
+      )
+    );
   }
 }
 
@@ -354,7 +359,7 @@ class SmallProfileListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 115,
+        height: 120,
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: uidList.length,
