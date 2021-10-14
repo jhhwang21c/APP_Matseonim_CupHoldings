@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
+import 'package:matseonim/components/custom_review_list.dart';
+import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -26,7 +28,27 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 28),
-            LargeProfile(uid: uid)
+            LargeProfile(uid: uid),
+            const SizedBox(height: 28),
+            Text(
+                "리뷰", 
+                style: TextStyle(fontSize: 16)
+              ),
+            Divider(
+                          thickness: 2,
+                          color: Colors.grey,
+                        ),
+            FutureBuilder(
+              future: MSIUser.init(uid: uid!), 
+              builder:(BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Container(
+                          alignment: Alignment.center,
+                          child: const CircularProgressIndicator());
+                    } else {
+                      return Container(height: 300, child: ReviewListView(reviewee: snapshot.data!));
+                    }}
+            ),
           ],
         ),
       ),

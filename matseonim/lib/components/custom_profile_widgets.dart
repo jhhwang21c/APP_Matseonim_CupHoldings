@@ -90,7 +90,7 @@ class LargeProfile extends StatelessWidget {
                   SizedBox(width: 10),
                   Container(width: 150, height: 55,
                     child: CustomElevatedButton(
-                        text: "리뷰 쓰기",
+                        text: "리뷰하기",
                         color: Colors.cyan[200],
                         funPageRoute: () {
                           Get.to(
