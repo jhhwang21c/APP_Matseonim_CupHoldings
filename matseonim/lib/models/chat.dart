@@ -60,7 +60,7 @@ class MSIRoom {
   }
 
   /// 채팅방의 모든 메시지를 실시간으로 반환한다. 
-  Stream<List<types.TextMessage>> getMessages() {
+  Stream<List<types.TextMessage>> getMessages({required MSIUser user}) {
     if (roomId == null) {
       throw Exception("고유 ID가 null 값인 채팅방의 메시지는 불러올 수 없습니다.");
     }
@@ -72,6 +72,14 @@ class MSIRoom {
       .snapshots()
       .map(
         (QuerySnapshot snapshot) {
+          for (var element in snapshot.docs) {
+            if (element["author"]["id"] != user.uid) {
+              element.reference.update({
+                "status": types.Status.seen.index
+              });
+            }
+          }
+
           return snapshot.docs.fold(
             [], 
             (List<types.TextMessage> previousValues, QueryDocumentSnapshot element) {

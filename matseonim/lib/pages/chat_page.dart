@@ -63,7 +63,7 @@ class _ChatWidget extends StatelessWidget {
             final MSIRoom room = snapshot.data!;
 
             return StreamBuilder<List<types.TextMessage>>(
-              stream: room.getMessages(),
+              stream: room.getMessages(user: users[0]),
               builder: (BuildContext context, AsyncSnapshot<List<types.TextMessage>> snapshot) {
                 if (!snapshot.hasData) {
                   return SizedBox(

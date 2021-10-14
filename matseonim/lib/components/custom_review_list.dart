@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:matseonim/models/review.dart';
 import 'package:matseonim/models/user.dart';
 
@@ -14,9 +15,11 @@ class ReviewWidget extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
           if (!snapshot.hasData) {
             return SizedBox(
-                child: Container(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator()));
+              child: Container(
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator()
+              )
+            );
           } else {
             final MSIUser user = snapshot.data!;
 
@@ -48,19 +51,18 @@ class ReviewWidget extends StatelessWidget {
                             )),
                             TextSpan(text: review.rating.toStringAsFixed(1))
                           ],
-                        ),
-                      ),
-                      
-                    ],
+                        )
+                      )
+                    ]
                   ),
                   Text(
-                        review.value,
-                        style: TextStyle(fontSize: 16),
-                      ),
+                    review.value,
+                    style: TextStyle(fontSize: 16),
+                  ),
                   Divider(
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
+                    thickness: 1,
+                    color: Colors.grey,
+                  )
                 ],
               ),
             );
@@ -81,16 +83,22 @@ class ReviewListView extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<MSIReview>> snapshot) {
         if (!snapshot.hasData) {
           return Container(
-              alignment: Alignment.center,
-              child: const CircularProgressIndicator());
+            alignment: Alignment.center,
+            child: const CircularProgressIndicator()
+          );
         } else {
           final List<MSIReview> reviews = snapshot.data!;
-          return ListView.builder(
+
+          return SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: reviews.length,
               itemBuilder: (context, i) {
                 return ReviewWidget(review: reviews[i]);
-              });
+              }
+            )
+          );
         }
       },
     );

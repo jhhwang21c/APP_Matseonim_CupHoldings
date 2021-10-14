@@ -31,23 +31,25 @@ class ProfilePage extends StatelessWidget {
             LargeProfile(uid: uid),
             const SizedBox(height: 28),
             Text(
-                "리뷰", 
-                style: TextStyle(fontSize: 16)
-              ),
+              "리뷰", 
+              style: TextStyle(fontSize: 16)
+             ),
             Divider(
-                          thickness: 2,
-                          color: Colors.grey,
-                        ),
+              thickness: 2,
+              color: Colors.grey,
+            ),
             FutureBuilder(
               future: MSIUser.init(uid: uid!), 
-              builder:(BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Container(
-                          alignment: Alignment.center,
-                          child: const CircularProgressIndicator());
-                    } else {
-                      return Container(height: 300, child: ReviewListView(reviewee: snapshot.data!));
-                    }}
+              builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+                if (!snapshot.hasData) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator()
+                  );
+                } else {
+                  return ReviewListView(reviewee: snapshot.data!);
+                }
+              }
             ),
           ],
         ),
