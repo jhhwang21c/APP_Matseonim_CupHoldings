@@ -93,7 +93,7 @@ class MSIReviews {
     for (QueryDocumentSnapshot document in query.docs) {
       result.add(
         MSIReview(
-          reviewId: document.id,
+          id: document.id,
           reviewerId: document["reviewerId"],
           revieweeId: document["revieweeId"],
           rating: document["rating"],
