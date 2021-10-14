@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:matseonim/models/request.dart';
 import 'package:matseonim/models/review.dart';
 
@@ -187,6 +188,8 @@ class MSIUser {
       mhi.msiList!.add(uid);
       await mhi.update();
     }
+
+    await MSIRequests.delete(requestId: request.requestId);
 
     return MSIUserStatus.success;
   }

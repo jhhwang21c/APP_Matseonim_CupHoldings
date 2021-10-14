@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
 import 'package:matseonim/models/user.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -65,7 +66,7 @@ class MSIRoom {
       throw Exception("고유 ID가 null 값인 채팅방의 메시지는 불러올 수 없습니다.");
     }
 
-    /// 메시지를 보낸 시간을 기준으로 정렬한다.
+    // 메시지를 보낸 시간을 기준으로 정렬한다.
     return _rooms.doc(roomId)
       .collection("messages")
       .orderBy("createdAt", descending: true)
@@ -73,6 +74,7 @@ class MSIRoom {
       .map(
         (QuerySnapshot snapshot) {
           for (var element in snapshot.docs) {
+            // 받는 사람이 메시지를 읽으면 메시지 상태를 변경한다.
             if (element["author"]["id"] != user.uid) {
               element.reference.update({
                 "status": types.Status.seen.index

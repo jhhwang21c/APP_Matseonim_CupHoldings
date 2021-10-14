@@ -47,6 +47,7 @@ class ReviewWidget extends StatelessWidget {
                             const WidgetSpan(
                                 child: Icon(
                               Icons.star,
+                              size: 16.0,
                               color: Colors.amber,
                             )),
                             TextSpan(text: review.rating.toStringAsFixed(1))

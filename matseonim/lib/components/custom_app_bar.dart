@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
 
-  CustomAppBar({Key? key, this.showBackButton = false}) : super(key: key);
+  const CustomAppBar({Key? key, this.showBackButton = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
