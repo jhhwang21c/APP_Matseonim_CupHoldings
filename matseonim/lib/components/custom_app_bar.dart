@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:matseonim/components/custom_alert_dialog.dart';
 
+import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/notification_page.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -11,7 +13,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title:  Image.asset('images/logo_flat.png', fit: BoxFit.contain, width: 140),
+      title: Image.asset(
+        'images/logo_flat.png', 
+        fit: BoxFit.contain,
+        width: 140
+      ),
       centerTitle: true,
       backgroundColor: Colors.blue[900],
       elevation: 1.0,
@@ -35,13 +41,65 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       actions: [
-        IconButton(
-          icon: const Icon(
-            Icons.notifications_outlined,
-            color: Colors.white,
-          ),
-          onPressed: () { 
-            Get.to(NotificationPage());
+        FutureBuilder(
+          future: _getUserNotifications(), 
+          builder: (BuildContext context, AsyncSnapshot<List<MSINotification>> snapshot) { 
+            if (!snapshot.hasData) {
+              return IconButton(
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.white,
+                ),
+                iconSize: 28,
+                onPressed: () { 
+                  Get.dialog(
+                    const CustomAlertDialog(
+                      message: "잠시만 기다려주세요."
+                    )
+                  );
+                },
+              );
+            } else {
+              final List<MSINotification> notifications = snapshot.data!;
+
+              return Stack(
+                alignment: Alignment.center,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.notifications,
+                      color: Colors.white,
+                    ),
+                    iconSize: 28,
+                    onPressed: () { 
+                      Get.to(NotificationPage());
+                    },
+                  ),
+                  (notifications.isNotEmpty) 
+                  ? Positioned(
+                    top: 8,
+                    right: 6,
+                    child: Container(
+                      width: 16,
+                      height: 16,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        "${notifications.length}",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        textAlign: TextAlign.center
+                      )
+                    ),
+                  )
+                  : Container()
+                ]
+              );
+            }
           },
         )
       ],
@@ -50,4 +108,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+/// 현재 사용자가 받은 모든 알림을 반환한다.
+Future<List<MSINotification>> _getUserNotifications() async {
+  MSIUser user = await MSIUser.init();
+
+  return user.getNotifications();
 }

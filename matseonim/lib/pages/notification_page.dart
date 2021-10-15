@@ -5,6 +5,8 @@ import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class NotificationPage extends StatelessWidget {
+  const NotificationPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,5 +31,12 @@ class NotificationPage extends StatelessWidget {
         },
       ),
     );
+  }
+}
+
+class _NotificationListView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
