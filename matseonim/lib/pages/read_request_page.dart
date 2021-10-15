@@ -72,6 +72,14 @@ class ReadRequestPage extends StatelessWidget {
                       funPageRoute: () async { 
                         await user.acceptRequest(request: request);
 
+                        MSIUser requester = await MSIUser.init(uid: request.uid);
+                        
+                        await requester.sendNotification(
+                          type: MSINotificationType.acceptedRequest, 
+                          sender: requester, 
+                          payload: ""
+                        );
+
                         await Get.dialog(
                           const CustomAlertDialog(
                             message: "요청 수락이 완료되었습니다."

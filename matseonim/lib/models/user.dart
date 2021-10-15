@@ -32,16 +32,32 @@ enum MSINotificationType {
 class MSINotification {
   MSINotificationType type;
 
-  String id, message;
+  String id, uid, payload;
 
   int createdAt;
 
   MSINotification({
     required this.id,
+    required this.uid,
     required this.type,
-    required this.message,
-    required this.createdAt
+    required this.payload,
+    required this.createdAt,
   });
+
+  Future<String> getMessage() async {
+    MSIUser sender = await MSIUser.init(uid: uid);
+
+    switch (type) {
+      case MSINotificationType.acceptedRequest:
+        return "${sender.name}님이 맞선임 요청을 수락하였습니다.";
+
+      case MSINotificationType.newChatMessages:
+        return "${sender.name}님이 새로운 메시지를 보냈습니다.";
+
+      case MSINotificationType.newReview:
+        return "${sender.name}님이 평가를 남겼습니다.";
+    }
+  }
 }
 
 /// 사용자의 계정 정보를 나타내는 클래스.
@@ -220,13 +236,15 @@ class MSIUser {
   /// 사용자에게 새로운 알림을 보낸다.
   Future<void> sendNotification({
     required MSINotificationType type,
-    required String message
+    required MSIUser sender,
+    required String payload
   }) async {
     await _users.doc(uid!)
       .collection("notifications")
       .add({
+        "uid": sender.uid,
         "type": type.index,
-        "message": message,
+        "payload": payload,
         "createdAt": Timestamp.now().millisecondsSinceEpoch
       });
   }
@@ -243,8 +261,9 @@ class MSIUser {
       result.add(
         MSINotification(
           id: document.id,
+          uid: document["uid"],
           type: MSINotificationType.values[document["type"]],
-          message: document["message"],
+          payload: document["payload"],
           createdAt: document["createdAt"]
         )
       );

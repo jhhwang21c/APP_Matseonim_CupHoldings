@@ -198,11 +198,7 @@ class MidProfile extends StatelessWidget {
                                 Get.to(ChatPage(recipient: user));
                               }),
                         ),
-                        SizedBox(height: 5),
-                        Divider(
-                          thickness: 1,
-                          color: Colors.grey,
-                        ),
+                        SizedBox(height: 5)
                       ])
                     ]));
           }
@@ -228,10 +224,8 @@ class SmallProfile extends StatelessWidget {
           } else {
             final MSIUser user = snapshot.data!;
 
-            return GestureDetector(
-              onTap: () {
-                Get.to(ProfilePage(uid: user.uid));
-              },
+            return InkWell(
+              onTap: () { Get.to(ProfilePage(uid: user.uid)); },
               child: Container(
                 margin: EdgeInsets.symmetric(horizontal: 12.0),
                 child: Column(
@@ -326,7 +320,7 @@ class MidProfileListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height,
-      child: ListView.builder(
+      child: ListView.separated(
         scrollDirection: Axis.vertical,
         itemCount: uidList.length,
         itemBuilder: (context, i) {
@@ -344,7 +338,13 @@ class MidProfileListView extends StatelessWidget {
               }
             }
           );
-        }
+        }, 
+        separatorBuilder: (context, i) { 
+          return Divider(
+            thickness: 1,
+            color: Colors.grey,
+          );
+        },
       )
     );
   }

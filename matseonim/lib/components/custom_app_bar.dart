@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:matseonim/components/custom_alert_dialog.dart';
 
+import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/notification_page.dart';
 
@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (!snapshot.hasData) {
               return IconButton(
                 icon: const Icon(
-                  Icons.notifications_outlined,
+                  Icons.notifications,
                   color: Colors.white,
                 ),
                 iconSize: 28,

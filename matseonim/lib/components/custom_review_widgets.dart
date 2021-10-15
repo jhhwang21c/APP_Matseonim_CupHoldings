@@ -23,49 +23,43 @@ class ReviewWidget extends StatelessWidget {
           } else {
             final MSIUser user = snapshot.data!;
 
-            return Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 6),
-                      Text(user.name ?? "",
-                          style: const TextStyle(
-                            fontSize: 16,
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 6),
+                    Text(user.name ?? "",
+                        style: const TextStyle(
+                          fontSize: 16,
+                        )),
+                    SizedBox(width: 8),
+                    Text.rich(
+                      TextSpan(
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                        children: [
+                          const WidgetSpan(
+                              child: Icon(
+                            Icons.star,
+                            size: 16.0,
+                            color: Colors.amber,
                           )),
-                      SizedBox(width: 8),
-                      Text.rich(
-                        TextSpan(
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                          children: [
-                            const WidgetSpan(
-                                child: Icon(
-                              Icons.star,
-                              size: 16.0,
-                              color: Colors.amber,
-                            )),
-                            TextSpan(text: review.rating.toStringAsFixed(1))
-                          ],
-                        )
+                          TextSpan(text: review.rating.toStringAsFixed(1))
+                        ],
                       )
-                    ]
-                  ),
-                  SizedBox(height: 6),
-                  Text(
-                    review.value,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(height: 6),
-                  Divider(
-                    thickness: 1,
-                    color: Colors.grey,
-                  )
-                ],
-              ),
+                    )
+                  ]
+                ),
+                SizedBox(height: 6),
+                Text(
+                  review.value,
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 6)
+              ],
             );
           }
         });
@@ -92,12 +86,18 @@ class ReviewListView extends StatelessWidget {
 
           return SizedBox(
             height: MediaQuery.of(context).size.height * 0.25,
-            child: ListView.builder(
+            child: ListView.separated(
               scrollDirection: Axis.vertical,
               itemCount: reviews.length,
               itemBuilder: (context, i) {
                 return ReviewWidget(review: reviews[i]);
-              }
+              }, 
+              separatorBuilder: (context, i) { 
+                return Divider(
+                  thickness: 1,
+                  color: Colors.grey,
+                );
+              },
             )
           );
         }
