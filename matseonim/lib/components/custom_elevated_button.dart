@@ -6,6 +6,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color? color;
   final TextStyle? textStyle;
   final Size? size;
+  final double? elevation;
   final void Function()? funPageRoute;
 
   const CustomElevatedButton({
@@ -14,7 +15,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.textStyle, 
     this.color, 
     this.funPageRoute, 
-    this.size
+    this.size, this.elevation,
   }) : super(key: key);
 
   @override
@@ -26,6 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           primary: color ?? Colors.white,
           minimumSize: size ?? const Size(double.infinity, 50),
+          elevation: elevation,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),

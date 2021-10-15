@@ -212,8 +212,9 @@ class MidProfile extends StatelessWidget {
 
 class SmallProfile extends StatelessWidget {
   final String? uid;
+  final double? imageSize;
 
-  const SmallProfile({Key? key, this.uid}) : super(key: key);
+  const SmallProfile({Key? key, this.uid, this.imageSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -237,13 +238,14 @@ class SmallProfile extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CustomCircleAvatar(size: 60, url: user.avatarUrl ?? ""),
+                    CustomCircleAvatar(size: imageSize ?? 60, url: user.avatarUrl ?? ""),
                     SizedBox(height: 10),
                     Text(user.name ?? "",
                       style: const TextStyle(
                         fontSize: 16,
                       )
                     ),
+                    
                     Text.rich(
                       TextSpan(
                         style: const TextStyle(
@@ -266,6 +268,50 @@ class SmallProfile extends StatelessWidget {
                         ]
                       )
                     )
+                  ],
+                )
+              ),
+            );
+          }
+        });
+  }
+}
+
+class SmallProfile2 extends StatelessWidget {
+  final String? uid;
+  final double? imageSize;
+
+  const SmallProfile2({Key? key, this.uid, this.imageSize}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: MSIUser.init(uid: uid),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return SizedBox(
+                child: Container(
+                    alignment: Alignment.center,
+                    child: const CircularProgressIndicator()));
+          } else {
+            final MSIUser user = snapshot.data!;
+
+            return GestureDetector(
+              onTap: () {
+                Get.to(ProfilePage(uid: user.uid));
+              },
+              child: Container(
+                margin: EdgeInsets.symmetric(horizontal: 12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomCircleAvatar(size: imageSize ?? 60, url: user.avatarUrl ?? ""),
+                    SizedBox(height: 10),
+                    Text(user.name ?? "",
+                      style: const TextStyle(
+                        fontSize: 16,
+                      )
+                    ),
                   ],
                 )
               ),

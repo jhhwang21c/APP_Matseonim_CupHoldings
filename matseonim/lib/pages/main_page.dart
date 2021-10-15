@@ -70,7 +70,7 @@ class MainPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
                         Text(
-                          "실시간 후기",
+                          "실시간 리뷰",
                           style: TextStyle(
                             fontSize: 32,
                           ),
