@@ -62,10 +62,15 @@ class _MainLoginPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.asset(
-                'images/logo_white.png',
-                fit: BoxFit.contain,
-                width: 300,
+              Column(
+                children: [
+                  Image.asset(
+                    'images/logo_white.png',
+                    fit: BoxFit.contain,
+                    width: 300,
+                  ),
+                  Text("A급 군생활을 위한 필수 앱, 맞선임", style: TextStyle(fontSize: 16, color: Colors.white),)
+                ],
               ),
               Column(
                 children: [
