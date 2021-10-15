@@ -65,7 +65,7 @@ class _MainLoginPage extends StatelessWidget {
               Column(
                 children: [
                   Image.asset(
-                    'images/logo_white.png',
+                    'images/logo_flat.png',
                     fit: BoxFit.contain,
                     width: 300,
                   ),
@@ -75,7 +75,9 @@ class _MainLoginPage extends StatelessWidget {
               Column(
                 children: [
                   CustomElevatedButton(
-                    text: "이메일로 로그인",
+                    text: "로그인",
+                    elevation: 8,
+                    color: Colors.yellow[800],
                     funPageRoute: () {
                       Get.to(_EmailLoginPage());
                     },
@@ -86,7 +88,9 @@ class _MainLoginPage extends StatelessWidget {
                   const SizedBox(height: 10),
                   CustomElevatedButton(
                     text: "회원가입",
-                    color: Colors.lightBlueAccent,
+                    textStyle: TextStyle(color: Colors.white),
+                    elevation: 8,
+                    color: Colors.pink[400],
                     funPageRoute: () async {
                       Get.to(JoinPage1());
                     },

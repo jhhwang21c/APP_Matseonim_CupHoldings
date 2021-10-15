@@ -87,7 +87,7 @@ class MSIReviews {
   static Future<List<MSIReview>> getAll() async {
     List<MSIReview> result = [];
 
-    QuerySnapshot query = await _firestore.collection("reviews").limit(5)
+    QuerySnapshot query = await _firestore.collection("reviews").limit(7)
       .get();
 
     for (QueryDocumentSnapshot document in query.docs) {

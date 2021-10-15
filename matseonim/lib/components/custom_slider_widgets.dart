@@ -8,6 +8,8 @@ import 'package:matseonim/models/review.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/read_request_page.dart';
 
+import 'custom_profile_widgets.dart';
+
 List<Widget> _buildItemsFromRequests({
   required BuildContext context,
   required List<MSIRequest> requests,
@@ -112,13 +114,21 @@ List<Widget> _buildItemsFromReviews({
         child: Card(
           elevation: 6,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           child: Padding(
-            padding: EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(6.0),
             child:  Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SmallProfile2(uid: review.reviewerId, imageSize: 40,),
+                    Icon(Icons.forward),
+                    SmallProfile2(uid: review.revieweeId, imageSize: 40,),
+                  ],
+                ),
                 Text(
                   review.value,
                   style: const TextStyle(fontSize: 16.0),
@@ -193,9 +203,9 @@ class CustomReviewSlider extends StatelessWidget {
           return CarouselSlider(
             options: CarouselOptions(
               autoPlay: true,
-              autoPlayInterval: const Duration(seconds: 5),
+              autoPlayInterval: const Duration(seconds: 7),
               enlargeCenterPage: false,
-              height: 200,
+              height: 230,
             ),
             items: _buildItemsFromReviews(
               context: context,
