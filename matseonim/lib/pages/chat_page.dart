@@ -85,6 +85,11 @@ class _ChatWidget extends StatelessWidget {
                         user: users[0], 
                         message: message
                       );
+
+                      users[1].sendNotification(
+                        type: MSINotificationType.newChatMessages, 
+                        message: "${users[0].name}: ${message.text}"
+                      );
                     },
                     user: types.User(
                       id: users[0].uid!,

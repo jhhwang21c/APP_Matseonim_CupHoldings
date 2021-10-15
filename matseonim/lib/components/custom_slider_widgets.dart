@@ -95,7 +95,7 @@ List<Widget> _buildItemsFromReviews({
           ),
           child: const Center(
             child: Text(
-              "후기가 없습니다.",
+              "사용자 후기가 없습니다.",
               style: TextStyle(fontSize: 16.0),
               textAlign: TextAlign.center
             )

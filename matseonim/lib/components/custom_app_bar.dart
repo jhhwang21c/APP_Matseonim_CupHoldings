@@ -47,7 +47,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (!snapshot.hasData) {
               return IconButton(
                 icon: const Icon(
-                  Icons.notifications,
+                  Icons.notifications_outlined,
                   color: Colors.white,
                 ),
                 iconSize: 28,
@@ -76,31 +76,31 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     },
                   ),
                   (notifications.isNotEmpty) 
-                  ? Positioned(
-                    top: 8,
-                    right: 6,
-                    child: Container(
-                      width: 16,
-                      height: 16,
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        "${notifications.length}",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
+                    ? Positioned(
+                      top: 8,
+                      right: 6,
+                      child: Container(
+                        width: 16,
+                        height: 16,
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        textAlign: TextAlign.center
+                        child: Text(
+                          "${notifications.length}",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center
+                        )
                       )
-                    ),
-                  )
-                  : Container()
+                    )
+                    : Container()
                 ]
               );
             }
-          },
+          }
         )
       ],
     );

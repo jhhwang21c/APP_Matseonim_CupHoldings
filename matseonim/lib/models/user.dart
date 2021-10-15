@@ -30,14 +30,17 @@ enum MSINotificationType {
 
 /// 사용자가 받은 알림을 나타내는 클래스.
 class MSINotification {
+  MSINotificationType type;
+
   String id, message;
 
-  MSINotificationType type;
+  int createdAt;
 
   MSINotification({
     required this.id,
     required this.type,
-    required this.message
+    required this.message,
+    required this.createdAt
   });
 }
 
@@ -215,7 +218,7 @@ class MSIUser {
   }
 
   /// 사용자에게 새로운 알림을 보낸다.
-  Future<void> addNotification({
+  Future<void> sendNotification({
     required MSINotificationType type,
     required String message
   }) async {
@@ -224,6 +227,7 @@ class MSIUser {
       .add({
         "type": type.index,
         "message": message,
+        "createdAt": Timestamp.now().millisecondsSinceEpoch
       });
   }
 
@@ -239,8 +243,9 @@ class MSIUser {
       result.add(
         MSINotification(
           id: document.id,
-          type: document["type"],
-          message: document["message"]
+          type: MSINotificationType.values[document["type"]],
+          message: document["message"],
+          createdAt: document["createdAt"]
         )
       );
     }
@@ -249,7 +254,7 @@ class MSIUser {
   }
 
   /// 사용자가 받은 알림을 삭제한다.
-  Future<void> removeNotification({
+  Future<void> deleteNotification({
     required String id
   }) async {
     await _users.doc(uid!)
@@ -259,7 +264,7 @@ class MSIUser {
   }
 
   /// 사용자가 받은 모든 알림을 삭제한다.
-  Future<void> removeNotifications() async {
+  Future<void> deleteNotifications() async {
     QuerySnapshot query = await _users.doc(uid!)
       .collection("notifications")
       .get();
