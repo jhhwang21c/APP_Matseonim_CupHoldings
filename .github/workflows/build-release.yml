@@ -36,4 +36,6 @@ jobs:
         working-directory: ./APP(Android)
       - uses: actions/upload-artifact@v1
         with:
-          path: build/app/outputs/apk/release/matseonim-release.apk
+          name: matseonim-release
+          path: |
+            APP(Android)/build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk
