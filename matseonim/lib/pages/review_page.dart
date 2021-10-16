@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -115,6 +114,12 @@ class _CreateReviewForm extends StatelessWidget {
                   revieweeId: reviewee.uid!, 
                   rating: newRating, 
                   value: valueTextController.text
+                );
+
+                await reviewee.sendNotification(
+                  type: MSINotificationType.newReview, 
+                  sender: reviewer, 
+                  payload: ""
                 );
 
                 await Get.dialog(

@@ -114,15 +114,17 @@ class _EmailLoginPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            Container(
-              alignment: Alignment.center,
-              height: 200,
-              child: const Text(
-                "이메일로 로그인",
-                style: TextStyle(fontSize: 32, color: Colors.white),
+            Center(
+              child: Container(
+                alignment: Alignment.center,
+                height: 200,
+                child: const Text(
+                  "이메일로 로그인",
+                  style: TextStyle(fontSize: 32, color: Colors.white),
+                ),
               ),
             ),
-            _EmailLoginForm(),
+            Center(child: _EmailLoginForm()),
           ],
         ),
       ),

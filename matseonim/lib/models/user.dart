@@ -55,7 +55,7 @@ class MSINotification {
         return "${sender.name}님이 새로운 메시지를 보냈습니다.";
 
       case MSINotificationType.newReview:
-        return "${sender.name}님이 평가를 남겼습니다.";
+        return "${sender.name}님이 리뷰를 남겼습니다.";
     }
   }
 }
