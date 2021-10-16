@@ -19,7 +19,7 @@ class CustomCircleAvatar extends StatelessWidget {
           backgroundImage: imageProvider,
         ),
         placeholder: (context, url) => const CircleAvatar(
-          backgroundImage: AssetImage("images/default_avatar.jpg")
+          backgroundImage: AssetImage("assets/images/default_avatar.jpg")
         ),
         errorWidget: (context, url, error) => const Icon(Icons.error)
       )

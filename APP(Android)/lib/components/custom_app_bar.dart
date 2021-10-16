@@ -14,7 +14,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Image.asset(
-        'images/logo_flat.png', 
+        'assets/images/logo_flat.png', 
         fit: BoxFit.contain,
         width: 140
       ),

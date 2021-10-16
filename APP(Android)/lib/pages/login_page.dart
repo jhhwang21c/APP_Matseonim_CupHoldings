@@ -26,7 +26,7 @@ class LoginPage extends StatelessWidget {
             Column(
               children: [
                 Image.asset(
-                  'images/logo_flat.png',
+                  'assets/images/logo_flat.png',
                   fit: BoxFit.contain,
                   width: 300,
                 ),
