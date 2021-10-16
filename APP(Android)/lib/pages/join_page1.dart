@@ -5,6 +5,7 @@ import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/join_page2.dart';
+import 'package:matseonim/utils/media.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class JoinPage1 extends StatelessWidget {
@@ -12,22 +13,27 @@ class JoinPage1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[900],
-      body: Padding(
+      body: Container(
+        width: getScreenWidth(context),
+        height: getScreenHeight(context),
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             Container(
+              height: 220,
               alignment: Alignment.center,
-              height: 200,
               child: const Text(
                 "회원가입 (1/2)",
-                style: TextStyle(fontSize: 32, color: Colors.white),
+                style: TextStyle(
+                  fontSize: 32, 
+                  color: Colors.white
+                ),
               ),
             ),
             _JoinForm1()
-          ],
-        ),
-      ),
+          ]
+        )
+      )
     );
   }
 }
@@ -89,7 +95,7 @@ class _JoinForm1 extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10.0),
             child: CustomElevatedButton(
               text: "다음",
               funPageRoute: () {

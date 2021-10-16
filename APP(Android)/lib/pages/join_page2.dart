@@ -6,19 +6,22 @@ import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_fields.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/login_page.dart';
+import 'package:matseonim/utils/media.dart';
 
 class JoinPage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue[900],
-      body: Padding(
+      body: Container(
+        width: getScreenWidth(context),
+        height: getScreenHeight(context),
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             Container(
+              height: 220,
               alignment: Alignment.center,
-              height: 200,
               child: const Text(
                 "회원가입 (2/2)",
                 style: TextStyle(fontSize: 32, color: Colors.white),
@@ -68,7 +71,7 @@ class _JoinForm2 extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10.0),
             child: CustomElevatedButton(
               text: "회원가입",
               funPageRoute: () async {
@@ -78,29 +81,36 @@ class _JoinForm2 extends StatelessWidget {
                   user.profession = professionTextController.text;
                   user.interest = interestTextController.text;
                   user.baseName = baseTextController.text;
-                  
-                  MSIUserStatus status = await user.signUp();
 
-                  if (status == MSIUserStatus.success) {
-                    Get.to(LoginPage());
+                  switch (await user.signUp()) {
+                    case MSIUserStatus.success:
+                      Get.to(LoginPage());
 
-                    Get.dialog(
-                      const CustomAlertDialog(
-                        message: "회원가입이 완료되었습니다."
-                      )
-                    );
-                  } else if (status == MSIUserStatus.emailAlreadyInUse) {
-                    Get.dialog(
-                      const CustomAlertDialog(
-                        message: "이미 사용 중인 이메일 주소입니다."
-                      )
-                    );
-                  } else {
-                    Get.dialog(
-                      const CustomAlertDialog(
-                        message: "오류가 발생하였습니다. 다시 시도해주세요."
-                      )
-                    );
+                      Get.dialog(
+                        const CustomAlertDialog(
+                          message: "회원가입이 완료되었습니다."
+                        )
+                      );
+
+                      break;
+
+                    case MSIUserStatus.emailAlreadyInUse:
+                      Get.dialog(
+                        const CustomAlertDialog(
+                          message: "이미 사용 중인 이메일 주소입니다."
+                        )
+                      );
+
+                      break;
+
+                    default:
+                      Get.dialog(
+                        const CustomAlertDialog(
+                          message: "오류가 발생하였습니다. 다시 시도해주세요."
+                        )
+                      );
+
+                      break;
                   }
                 }
               },

@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 import 'package:matseonim/pages/login_page.dart';
 import 'package:matseonim/pages/main_page.dart';

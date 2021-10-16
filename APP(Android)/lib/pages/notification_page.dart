@@ -35,7 +35,7 @@ class NotificationPage extends StatelessWidget {
             return SizedBox(
               width: getScreenWidth(context),
               height: getScreenHeight(context),
-              child: Column(
+              child: ListView(
                 children: [
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 20),

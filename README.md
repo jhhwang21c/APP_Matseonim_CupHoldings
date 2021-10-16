@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/matseonim.png" alt="osamhack2021/APP_Matseonim_CupHoldings"><br>
+<img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/APP(Android)/assets/images/logo_readme.png" alt="osamhack2021/APP_Matseonim_CupHoldings"><br>
 
 ![license badge](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
 ![codefactor badge](https://img.shields.io/codefactor/grade/github/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
