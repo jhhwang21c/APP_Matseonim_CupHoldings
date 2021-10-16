@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,55 +11,6 @@ import 'package:matseonim/utils/media.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class LoginPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Firebase.initializeApp(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasError) {
-          return _ErrorPage();
-        } else {
-          return (snapshot.connectionState != ConnectionState.done)
-            ? _LoadingPage()
-            : _MainLoginPage();
-        }
-      }
-    );
-  }
-}
-
-class _ErrorPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue[900],
-      body: const CustomAlertDialog(
-        message: "오류가 발생하였습니다. 다시 시도해주세요."
-      )
-    );
-  }
-}
-
-class _LoadingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue[900],
-      body: Center(
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: CircularProgressIndicator(
-              color: Theme.of(context).backgroundColor
-            )
-          )
-        )
-      )
-    );
-  }
-}
-
-class _MainLoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
