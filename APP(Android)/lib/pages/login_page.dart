@@ -100,7 +100,7 @@ class _EmailLoginPage extends StatelessWidget {
 }
 
 class _EmailLoginForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final _emailTextController = TextEditingController();
   final _passwordTextController = TextEditingController();

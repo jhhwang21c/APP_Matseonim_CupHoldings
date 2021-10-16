@@ -57,7 +57,7 @@ class ReviewPage extends StatelessWidget {
 }
 
 class _CreateReviewForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final valueTextController = TextEditingController();
 

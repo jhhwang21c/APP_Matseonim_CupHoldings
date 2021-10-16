@@ -43,7 +43,7 @@ class CreateRequestPage extends StatelessWidget {
 }
 
 class _CreateRequestForm extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final titleTextController = TextEditingController();
   final descriptionTextController = TextEditingController();

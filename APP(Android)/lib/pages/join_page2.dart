@@ -36,7 +36,7 @@ class JoinPage2 extends StatelessWidget {
 }
 
 class _JoinForm2 extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final professionTextController = TextEditingController();
   final interestTextController = TextEditingController();

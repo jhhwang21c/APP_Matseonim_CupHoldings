@@ -179,7 +179,7 @@ class _MyAccountAvatar extends StatelessWidget {
 }
 
 class _MyAccountForm1 extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final MSIUser user;
 
@@ -409,7 +409,7 @@ class _MyAccountForm1 extends StatelessWidget {
 }
 
 class _MyAccountForm2 extends StatelessWidget {
-  final _formKey = GlobalKey<FormState>();
+  static final _formKey = GlobalKey<FormState>();
 
   final MSIUser user;
 
