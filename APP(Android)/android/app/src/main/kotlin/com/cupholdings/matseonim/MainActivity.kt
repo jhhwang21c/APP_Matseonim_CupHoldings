@@ -1,4 +1,4 @@
-package comm.cupholdings.matseonim
+package com.cupholdings.matseonim
 
 import io.flutter.embedding.android.FlutterActivity
 

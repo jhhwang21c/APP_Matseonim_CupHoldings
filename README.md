@@ -2,10 +2,10 @@
 
 <img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/APP(Android)/assets/images/logo_readme.png" alt="osamhack2021/APP_Matseonim_CupHoldings"><br>
 
-![라이선스 배지](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
-![CI 상태 배지](https://img.shields.io/github/workflow/status/osamhack2021/APP_Matseonim_CupHoldings/build-release?style=flat-square)
-![CodeFactor 등급 배지](https://img.shields.io/codefactor/grade/github/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
-![코드 크기 배지](https://img.shields.io/github/languages/code-size/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)
+[![라이선스 배지](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/LICENSE)
+[![CI/CD 상태 배지](https://img.shields.io/github/workflow/status/osamhack2021/APP_Matseonim_CupHoldings/build-release?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/actions)
+[![CodeFactor 등급 배지](https://img.shields.io/codefactor/grade/github/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)](https://www.codefactor.io/repository/github/osamhack2021/app_matseonim_cupholdings)
+[![코드 크기 배지](https://img.shields.io/github/languages/code-size/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/pulse)
   
 '맞선임'은 군생활 중 특정 분야에 도움이 필요할 때 맞선임 같은 전문가를 매칭시켜주는 군생활의 동반자 서비스입니다.
 
@@ -141,6 +141,10 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 ## 백엔드
 
 - [Firebase](https://firebase.google.com/?hl=en)
+
+## CI/CD
+
+- [GitHub Actions](https://docs.github.com/en/actions)
 
 # 팀원 정보
 
