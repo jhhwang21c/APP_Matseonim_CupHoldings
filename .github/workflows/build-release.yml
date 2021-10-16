@@ -1,0 +1,39 @@
+name: build-release
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "**/LICENSE"
+      - "**/README.md"
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1.5.3
+        with:
+          channel: "stable"
+      - id: msi-keystore
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: msi-keystore.jks
+          encodedString: ${{ secrets.MSI_KEYSTORE_DATA }}
+      - run: |
+          echo "storeFile=${{ steps.msi-keystore.outputs.filePath }}" > android/key.properties
+          echo "storePassword=${{ secrets.MSI_KEYSTORE_PASSWORD }}" >> android/key.properties
+          echo "keyPassword=${{ secrets.MSI_KEY_PASSWORD }}" >> android/key.properties
+          echo "keyAlias=matseonim" >> android/key.properties
+        working-directory: ./APP(Android)
+      - run: flutter pub get
+        working-directory: ./APP(Android)
+      - run: flutter build apk --split-per-abi --release
+        working-directory: ./APP(Android)
+      - uses: actions/upload-artifact@v1
+        with:
+          path: build/app/outputs/apk/release/matseonim-release.apk
