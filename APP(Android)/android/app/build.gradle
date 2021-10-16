@@ -45,7 +45,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.cupholdings.matseonim"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -65,8 +65,18 @@ flutter {
 }
 
 dependencies {
+    // @jdeokkim: Android 앱 빌드 전에 반드시 확인할 것!
+    // https://firebase.google.com/docs/android/setup#java_2
     implementation platform('com.google.firebase:firebase-bom:28.4.1')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-storage'
+    implementation 'com.google.firebase:firebase-storage-ktx'
 }
