@@ -31,21 +31,13 @@ class NotificationPage extends StatelessWidget {
             final MSIUser user = snapshot.data!;
 
             return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: ListView(
-                shrinkWrap: true, 
-                children: [
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: ListView(shrinkWrap: true, children: [
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Text(
-                      "새로운 알림", 
-                      style: TextStyle(fontSize: 32)
-                    )
-                  ),
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Text("새로운 알림", style: TextStyle(fontSize: 32))),
                   _NotificationListView(user: user)
-                ]
-              )
-            );
+                ]));
           }
         },
       ),
@@ -55,6 +47,7 @@ class NotificationPage extends StatelessWidget {
 
 class _NotificationWidget extends StatelessWidget {
   final MSINotification notification;
+
   final MSIUser user;
 
   const _NotificationWidget(
@@ -75,60 +68,67 @@ class _NotificationWidget extends StatelessWidget {
             final String message = snapshot.data!;
 
             return InkWell(
-              onTap: () async {
-                await user.deleteNotification(id: notification.id);
+                onTap: () async {
+                  await user.deleteNotification(id: notification.id);
 
-                if (notification.type ==
-                    MSINotificationType.acceptedRequest) {
-                  await Get.to(MyMSIPage());
-                } else if (notification.type ==
-                    MSINotificationType.newChatMessages) {
-                  await Get.to(ChatPage(
-                      recipient: await MSIUser.init(uid: notification.uid)));
-                } else if (notification.type ==
-                    MSINotificationType.newReview) {
-                  await Get.to(ProfilePage());
-                }
-              },
-              child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Row(children: [
-                    FutureBuilder(
-                      future: MSIUser.init(uid: notification.uid),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<MSIUser> snapshot) {
-                        if (!snapshot.hasData) {
-                          return Container(
-                              alignment: Alignment.center,
-                              child: const CircularProgressIndicator());
-                        } else {
-                          final MSIUser sender = snapshot.data!;
+                  switch (notification.type) {
+                    case MSINotificationType.acceptedRequest:
+                      await Get.to(MyMSIPage());
 
-                          return CustomCircleAvatar(
-                              size: 60, url: sender.avatarUrl ?? "");
-                        }
-                      },
-                    ),
-                    SizedBox(width: 16),
-                    Flexible(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                          Text(message,
-                              style: const TextStyle(
-                                fontSize: 16,
-                              )),
-                          SizedBox(height: 4),
-                          (notification.payload.isNotEmpty)
-                              ? Text(
-                                  "> ${notification.payload.split("\n")[0]}",
-                                  style: const TextStyle(
-                                    color: msiPrimaryColor,
-                                    fontSize: 16,
-                                  ))
-                              : Container()
-                        ]))
-                  ])));
+                      break;
+
+                    case MSINotificationType.newChatMessages:
+                      await Get.to(ChatPage(
+                          recipient:
+                              await MSIUser.init(uid: notification.uid)));
+
+                      break;
+
+                    case MSINotificationType.newReview:
+                      await Get.to(ProfilePage());
+
+                      break;
+                  }
+                },
+                child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Row(children: [
+                      FutureBuilder(
+                        future: MSIUser.init(uid: notification.uid),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<MSIUser> snapshot) {
+                          if (!snapshot.hasData) {
+                            return Container(
+                                alignment: Alignment.center,
+                                child: const CircularProgressIndicator());
+                          } else {
+                            final MSIUser sender = snapshot.data!;
+
+                            return CustomCircleAvatar(
+                                size: 60, url: sender.avatarUrl ?? "");
+                          }
+                        },
+                      ),
+                      SizedBox(width: 16),
+                      Flexible(
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                            Text(message,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                )),
+                            SizedBox(height: 4),
+                            (notification.payload.isNotEmpty)
+                                ? Text(
+                                    "> ${notification.payload.split("\n")[0]}",
+                                    style: const TextStyle(
+                                      color: msiPrimaryColor,
+                                      fontSize: 16,
+                                    ))
+                                : Container()
+                          ]))
+                    ])));
           }
         });
   }

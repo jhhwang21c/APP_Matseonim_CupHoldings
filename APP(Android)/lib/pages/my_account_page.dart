@@ -61,13 +61,10 @@ class _MyAccountWidget1 extends StatelessWidget {
           
           return ListView(
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Text(
-                  "내 정보",
-                  style: TextStyle(
-                    fontSize: 32
-                  )
+              const Text(
+                "내 정보",
+                style: TextStyle(
+                  fontSize: 32
                 )
               ),
               Column(
