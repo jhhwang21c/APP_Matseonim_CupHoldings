@@ -14,14 +14,14 @@ class CustomDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 192,
+      height: 210,
       child: DrawerHeader(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
           children: [
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              CustomCircleAvatar(size: 84, url: user.avatarUrl ?? ""),
+              CustomCircleAvatar(size: 80, url: user.avatarUrl ?? ""),
               SizedBox(width: 24),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,12 +44,16 @@ class CustomDrawerHeader extends StatelessWidget {
             CustomElevatedButton(
               text: '로그아웃',
               size: Size(double.infinity, 35),
-              color: Colors.grey[300],
+              color: Colors.yellow[300],
               funPageRoute: () async {
                 await user.logout();
                 Get.to(LoginPage());
               },
             ),
+            Divider(
+            thickness: 1,
+            color: Colors.grey,
+          ),
           ],
         ),
       ),

@@ -76,13 +76,15 @@ class _EmailLoginPage extends StatelessWidget {
       body: Container(
         width: getScreenWidth(context),
         height: getScreenHeight(context),
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         alignment: Alignment.center,
         child: ListView(
+          shrinkWrap: true,
           children: [
             Container(
               alignment: Alignment.center,
-              height: 220,
+              margin: EdgeInsets.only(bottom: 20),
+              height: 60,
               child: const Text(
                 "이메일로 로그인",
                 style: TextStyle(
@@ -91,7 +93,7 @@ class _EmailLoginPage extends StatelessWidget {
                 ),
               ),
             ),
-            _EmailLoginForm()
+            Center(child: _EmailLoginForm())
           ],
         ),
       ),
@@ -102,8 +104,8 @@ class _EmailLoginPage extends StatelessWidget {
 class _EmailLoginForm extends StatelessWidget {
   static final _formKey = GlobalKey<FormState>();
 
-  final _emailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final emailTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -114,21 +116,25 @@ class _EmailLoginForm extends StatelessWidget {
           ObscurableFormField(
               shouldObscure: false,
               hintText: "이메일",
+              textController: emailTextController,
               funValidator: validateEmail(),
-              textController: _emailTextController),
+              ),
           ObscurableFormField(
             shouldObscure: true,
             hintText: "비밀번호",
+            textController: passwordTextController,
             funValidator: validatePassword(),
-            textController: _passwordTextController,
           ),
           CustomElevatedButton(
             text: "로그인",
+            elevation: 8,
+            color: Colors.yellow[800],
             funPageRoute: () async {
               if (_formKey.currentState!.validate()) {
                 MSIUserStatus status = await MSIUser(
-                        email: _emailTextController.text,
-                        password: _passwordTextController.text)
+                        email: emailTextController.text,
+                        password: passwordTextController.text,
+                        )
                     .login();
 
                 switch (status) {

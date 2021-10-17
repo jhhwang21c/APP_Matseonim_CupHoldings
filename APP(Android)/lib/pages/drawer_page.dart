@@ -21,12 +21,11 @@ class DrawerPage extends StatelessWidget {
             future: MSIUser.init(),
             builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
               if (!snapshot.hasData) {
-                return SizedBox(
-                  height: 160,
-                  child: Container(
+                return Container(
+                    height: 200,
                     alignment: Alignment.center,
                     child: const CircularProgressIndicator()
-                  )
+                  
                 );
               } else {
                 return CustomDrawerHeader(user: snapshot.data!);
