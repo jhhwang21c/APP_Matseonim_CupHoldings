@@ -159,7 +159,7 @@ class MSIUser {
         "interest": interest,
         "resume": "(없음)",
         "avatarUrl": null,
-        "baseName": null,
+        "baseName": baseName,
         "msiList": [],
         "mhiList": [],
         "rating": 0.0

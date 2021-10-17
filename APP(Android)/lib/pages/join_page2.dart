@@ -76,6 +76,8 @@ class _JoinForm2 extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10.0),
             child: CustomElevatedButton(
               text: "회원가입",
+              textStyle: TextStyle(color: Colors.white),
+              color: Colors.pink[400],
               funPageRoute: () async {
                 if (_formKey.currentState!.validate()) {
                   final MSIUser user = Get.arguments;
