@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_drawer_header.dart';
-import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/create_request_page.dart';
 import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/pages/my_mhi_page.dart';
@@ -17,21 +16,7 @@ class DrawerPage extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          FutureBuilder(
-            future: MSIUser.init(),
-            builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-              if (!snapshot.hasData) {
-                return Container(
-                    height: 200,
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator()
-                  
-                );
-              } else {
-                return CustomDrawerHeader(user: snapshot.data!);
-              }
-            }
-          ),
+          CustomDrawerHeader(),
           ListTile(
             title: const Text('홈 화면'),
             onTap: () async {

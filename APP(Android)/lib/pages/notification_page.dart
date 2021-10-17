@@ -66,60 +66,60 @@ class _NotificationWidget extends StatelessWidget {
             final String message = snapshot.data!;
 
             return InkWell(
-                onTap: () async {
-                  await user.deleteNotification(id: notification.id);
+              onTap: () async {
+                await user.deleteNotification(id: notification.id);
 
-                  if (notification.type ==
-                      MSINotificationType.acceptedRequest) {
-                    await Get.to(MyMSIPage());
-                  } else if (notification.type ==
-                      MSINotificationType.newChatMessages) {
-                    await Get.to(ChatPage(
-                        recipient: await MSIUser.init(uid: notification.uid)));
-                  } else if (notification.type ==
-                      MSINotificationType.newReview) {
-                    await Get.to(ProfilePage());
-                  }
-                },
-                child: Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Row(children: [
-                      FutureBuilder(
-                        future: MSIUser.init(uid: notification.uid),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<MSIUser> snapshot) {
-                          if (!snapshot.hasData) {
-                            return Container(
-                                alignment: Alignment.center,
-                                child: const CircularProgressIndicator());
-                          } else {
-                            final MSIUser sender = snapshot.data!;
+                if (notification.type ==
+                    MSINotificationType.acceptedRequest) {
+                  await Get.to(MyMSIPage());
+                } else if (notification.type ==
+                    MSINotificationType.newChatMessages) {
+                  await Get.to(ChatPage(
+                      recipient: await MSIUser.init(uid: notification.uid)));
+                } else if (notification.type ==
+                    MSINotificationType.newReview) {
+                  await Get.to(ProfilePage());
+                }
+              },
+              child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(children: [
+                    FutureBuilder(
+                      future: MSIUser.init(uid: notification.uid),
+                      builder: (BuildContext context,
+                          AsyncSnapshot<MSIUser> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Container(
+                              alignment: Alignment.center,
+                              child: const CircularProgressIndicator());
+                        } else {
+                          final MSIUser sender = snapshot.data!;
 
-                            return CustomCircleAvatar(
-                                size: 60, url: sender.avatarUrl ?? "");
-                          }
-                        },
-                      ),
-                      SizedBox(width: 16),
-                      Flexible(
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                            Text(message,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                )),
-                            SizedBox(height: 4),
-                            (notification.payload.isNotEmpty)
-                                ? Text(
-                                    "> ${notification.payload.split("\n")[0]}",
-                                    style: const TextStyle(
-                                      color: msiPrimaryColor,
-                                      fontSize: 16,
-                                    ))
-                                : Container()
-                          ]))
-                    ])));
+                          return CustomCircleAvatar(
+                              size: 60, url: sender.avatarUrl ?? "");
+                        }
+                      },
+                    ),
+                    SizedBox(width: 16),
+                    Flexible(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                          Text(message,
+                              style: const TextStyle(
+                                fontSize: 16,
+                              )),
+                          SizedBox(height: 4),
+                          (notification.payload.isNotEmpty)
+                              ? Text(
+                                  "> ${notification.payload.split("\n")[0]}",
+                                  style: const TextStyle(
+                                    color: msiPrimaryColor,
+                                    fontSize: 16,
+                                  ))
+                              : Container()
+                        ]))
+                  ])));
           }
         });
   }
@@ -152,11 +152,10 @@ class _NotificationListView extends StatelessWidget {
                     style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.center));
           } else {
-            return Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                itemCount: notifications.length,
-                itemBuilder: (context, i) {
+            return ListView.separated(
+              shrinkWrap: true,
+              itemCount: notifications.length,
+              itemBuilder: (context, i) {
                 return _NotificationWidget(
                     notification: notifications[i], user: user);
               },
@@ -166,7 +165,7 @@ class _NotificationListView extends StatelessWidget {
                   color: Colors.grey,
                 );
               },
-            ));
+            );
           }
         }
       },

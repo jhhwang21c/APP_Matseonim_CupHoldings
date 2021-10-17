@@ -163,7 +163,7 @@ class MSIUser {
         "msiList": [],
         "mhiList": [],
         "rating": 0.0
-      });
+      }, SetOptions(merge: true));
     } on FirebaseAuthException catch (e) {
       if (e.code == "email-already-in-use") {
         return MSIUserStatus.emailAlreadyInUse;

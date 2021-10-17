@@ -50,7 +50,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Icons.notifications,
                   color: Colors.white,
                 ),
-                iconSize: 28,
+                iconSize: 30,
                 onPressed: () { 
                   Get.dialog(
                     const CustomAlertDialog(
@@ -70,7 +70,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       Icons.notifications,
                       color: Colors.white,
                     ),
-                    iconSize: 28,
+                    iconSize: 30,
                     onPressed: () { 
                       Get.to(NotificationPage());
                     },
@@ -78,7 +78,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   (notifications.isNotEmpty) 
                     ? Positioned(
                       top: 8,
-                      right: 6,
+                      right: 8,
                       child: Container(
                         width: 16,
                         height: 16,
