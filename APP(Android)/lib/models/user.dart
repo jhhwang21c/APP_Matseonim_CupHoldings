@@ -158,7 +158,7 @@ class MSIUser {
         "profession": profession,
         "interest": interest,
         "resume": "(없음)",
-        "avatarUrl": null,
+        "avatarUrl": "",
         "baseName": baseName,
         "msiList": [],
         "mhiList": [],

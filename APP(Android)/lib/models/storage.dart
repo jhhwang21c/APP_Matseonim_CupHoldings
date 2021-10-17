@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:matseonim/models/user.dart';
@@ -26,34 +27,37 @@ class MSIStorage {
 
     final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
-    if (image != null) {
-      try {
-        Uint8List imageData = await image.readAsBytes();
-
-        if (imageData.lengthInBytes > maxFileSize) {
-          return MSIStorageStatus.fileTooLarge;
-        }
-
-        await _storage.ref("avatars/${user.uid}.png").putData(imageData);
-
-        // CORS 구성 필요 (https://firebase.google.com/docs/storage/web/download-files)
-        user.avatarUrl = await _storage.ref("avatars/${user.uid}.png")
-          .getDownloadURL();
-
-        await user.update();
-
-        return MSIStorageStatus.success;
-      } on FirebaseException catch (e) {
-        if (e.code == "canceled") {
-          return MSIStorageStatus.canceled;
-        } else if (e.code == "permission-denied") {
-          return MSIStorageStatus.permissionDenied;
-        } else {
-          return MSIStorageStatus.unknownError;
-        }
-      }
-    } else {
+    if (image == null) {
       return MSIStorageStatus.unknownError;
+    }
+
+    try {
+      Uint8List imageData = await image.readAsBytes();
+
+      if (imageData.lengthInBytes > maxFileSize) {
+        return MSIStorageStatus.fileTooLarge;
+      }
+
+      await _storage.ref("avatars/${user.uid}.png").putData(imageData);
+
+      // @jdeokkim: CORS 구성 필요 (https://firebase.google.com/docs/storage/web/download-files)
+      user.avatarUrl = await _storage.ref("avatars/${user.uid}.png")
+        .getDownloadURL();
+
+      await user.update();
+
+      return MSIStorageStatus.success;
+    } on FirebaseException catch (e) {
+      // TODO: ...
+      Get.snackbar("오류", e.toString());
+
+      if (e.code == "canceled") {
+        return MSIStorageStatus.canceled;
+      } else if (e.code == "permission-denied") {
+        return MSIStorageStatus.permissionDenied;
+      } else {
+        return MSIStorageStatus.unknownError;
+      }
     }
   }
 }

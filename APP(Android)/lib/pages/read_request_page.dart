@@ -45,6 +45,7 @@ class ReadRequestPage extends StatelessWidget {
                     ),
                   ),
                   MidProfile(uid: request.uid),
+                  SizedBox(height: 20),
                   Text(
                     "의뢰 제목: ${request.title}", 
                     style: const TextStyle(fontSize: 32)
