@@ -216,12 +216,12 @@ class MSIUser {
       return MSIUserStatus.invalidUser;
     }
 
-    MSIUser mhi = MSIUser(uid: request.uid);
-
     if (mhiList != null && !mhiList!.contains(request.uid)) {
       mhiList!.add(request.uid);
       await update();
     }
+
+    MSIUser mhi = await MSIUser.init(uid: request.uid);
 
     if (mhi.msiList != null && !mhi.msiList!.contains(uid)) {
       mhi.msiList!.add(uid);

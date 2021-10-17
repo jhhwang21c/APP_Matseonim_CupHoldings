@@ -31,11 +31,12 @@ class CustomDrawerHeader extends StatelessWidget {
                 Flexible(
                     child: CustomElevatedButton(
                     text: '로그아웃',
-                    size: Size(double.infinity, 36),
+                    size: Size(double.infinity, 42),
                     color: Colors.yellow[300],
                     funPageRoute: () async {
                       await user.logout();
-                      Get.to(LoginPage());
+
+                      Get.offAll(LoginPage());
                     },
                   )
                 )

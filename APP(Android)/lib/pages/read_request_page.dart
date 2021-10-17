@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +8,7 @@ import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/models/request.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
+import 'package:matseonim/pages/main_page.dart';
 
 class ReadRequestPage extends StatelessWidget {
   final MSIRequest request;
@@ -76,7 +76,7 @@ class ReadRequestPage extends StatelessWidget {
                         
                         await requester.sendNotification(
                           type: MSINotificationType.acceptedRequest, 
-                          sender: requester, 
+                          sender: user, 
                           payload: ""
                         );
 
@@ -86,7 +86,7 @@ class ReadRequestPage extends StatelessWidget {
                           )
                         );
 
-                        Get.back();
+                        Get.to(MainPage());
                       }
                     )
                   )

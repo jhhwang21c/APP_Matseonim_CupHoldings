@@ -136,6 +136,7 @@ class MidProfile extends StatelessWidget {
             return Container(
               margin: EdgeInsets.symmetric(vertical: 12.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -201,17 +202,14 @@ class MidProfile extends StatelessWidget {
                     ]
                   ),
                   SizedBox(height: 10),
-                  SizedBox(
-                    width: 150,
-                    height: 55,
-                    child: CustomElevatedButton(
-                      text: "채팅하기",
-                      color: Colors.lightBlue[300],
-                      funPageRoute: () {
-                        Get.to(ChatPage(recipient: user));
-                      }
-                    ),
-                  )
+                  CustomElevatedButton(
+                    text: "채팅하기",
+                    size: Size(150, 55),
+                    color: Colors.lightBlue[300],
+                    funPageRoute: () {
+                      Get.to(ChatPage(recipient: user));
+                    }
+                  ),
                 ]
               )
             );

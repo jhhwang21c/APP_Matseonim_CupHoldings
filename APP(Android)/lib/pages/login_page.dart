@@ -58,7 +58,7 @@ class LoginPage extends StatelessWidget {
                   elevation: 8,
                   color: Colors.pink[400],
                   funPageRoute: () async {
-                    Get.to(JoinPage1());
+                    Get.offAll(JoinPage1());
                   },
                 ),
               ],

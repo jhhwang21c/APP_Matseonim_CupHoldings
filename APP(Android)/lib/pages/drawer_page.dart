@@ -22,43 +22,37 @@ class DrawerPage extends StatelessWidget {
           ListTile(
             title: const Text('홈 화면'),
             onTap: () async {
-              Get.back();
-              await Get.to(MainPage());
+              Get.to(MainPage());
             }
           ),
           ListTile(
             title: const Text('내 정보'),
             onTap: () async {
-              Get.back();
-              await Get.to(MyAccountPage1());
+              Get.to(MyAccountPage1());
             }
           ),
           ListTile(
             title: const Text('의뢰하기'),
             onTap: () async {
-              Get.back();
-              await Get.to(CreateRequestPage());
+              Get.to(CreateRequestPage());
             }
           ),
           ListTile(
             title: const Text('내 맞선임'),
             onTap: () async {
-              Get.back();
-              await Get.to(MyMSIPage());
+              Get.to(MyMSIPage());
             }
           ),
           ListTile(
             title: const Text('내 맞후임'),
             onTap: () async {
-              Get.back();
-              await Get.to(MyMHIPage());
+              Get.to(MyMHIPage());
             }
           ),
           ListTile(
             title: const Text('문의하기'),
             onTap: () async {
-              Get.back();
-              await Get.to(InquiryPage());
+              Get.to(InquiryPage());
             }
           ),
         ],

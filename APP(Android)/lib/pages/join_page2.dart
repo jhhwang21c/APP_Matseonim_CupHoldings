@@ -88,7 +88,7 @@ class _JoinForm2 extends StatelessWidget {
 
                   switch (await user.signUp()) {
                     case MSIUserStatus.success:
-                      Get.to(LoginPage());
+                      Get.offAll(LoginPage());
 
                       Get.dialog(
                         const CustomAlertDialog(
