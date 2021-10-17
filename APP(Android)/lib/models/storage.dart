@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:matseonim/models/user.dart';
@@ -48,9 +47,6 @@ class MSIStorage {
 
       return MSIStorageStatus.success;
     } on FirebaseException catch (e) {
-      // TODO: ...
-      Get.snackbar("오류", e.toString());
-
       if (e.code == "canceled") {
         return MSIStorageStatus.canceled;
       } else if (e.code == "permission-denied") {
