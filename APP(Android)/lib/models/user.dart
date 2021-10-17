@@ -212,7 +212,7 @@ class MSIUser {
 
   /// 다른 사용자의 의뢰 요청을 수락한다.
   Future<MSIUserStatus> acceptRequest({required MSIRequest request}) async {
-    if (uid == null) {
+    if (uid == null || uid == request.uid) {
       return MSIUserStatus.invalidUser;
     }
 

@@ -1,15 +1,20 @@
+import 'dart:typed_data';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'package:matseonim/models/user.dart';
 
+const int maxFileSize = 2 * 1024 * 1024;
+
 final FirebaseStorage _storage = FirebaseStorage.instance;
 
 /// 사용자의 파일 업로드 또는 다운로드 결과를 나타내는 열거형.
 enum MSIStorageStatus {
-  canceled,
-  permissionDenied,
   success,
+  canceled,
+  fileTooLarge,
+  permissionDenied,
   unknownError
 }
 
@@ -23,7 +28,13 @@ class MSIStorage {
 
     if (image != null) {
       try {
-        await _storage.ref("avatars/${user.uid}.png").putData(await image.readAsBytes());
+        Uint8List imageData = await image.readAsBytes();
+
+        if (imageData.lengthInBytes > maxFileSize) {
+          return MSIStorageStatus.fileTooLarge;
+        }
+
+        await _storage.ref("avatars/${user.uid}.png").putData(imageData);
 
         // CORS 구성 필요 (https://firebase.google.com/docs/storage/web/download-files)
         user.avatarUrl = await _storage.ref("avatars/${user.uid}.png")

@@ -152,18 +152,42 @@ class _MyAccountAvatar extends StatelessWidget {
               onPressed: () async {
                 MSIStorageStatus status = await MSIStorage.pickAvatar(user: user);
 
-                if (status == MSIStorageStatus.success) {
-                  Get.dialog(
-                    const CustomAlertDialog(
-                      message: "프로필 사진이 변경되었습니다."
-                    )
-                  );
-                } else {
-                  Get.dialog(
-                    const CustomAlertDialog(
-                      message: "오류가 발생하였습니다. 다시 시도해주세요."
-                    )
-                  );
+                switch (status) {
+                  case MSIStorageStatus.success:
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "프로필 사진이 변경되었습니다."
+                      )
+                    );
+
+                    break;
+
+                  case MSIStorageStatus.canceled:
+                     Get.dialog(
+                      const CustomAlertDialog(
+                        message: "프로필 사진 변경을 취소하였습니다."
+                      )
+                    );
+
+                    break;
+
+                  case MSIStorageStatus.fileTooLarge:
+                     Get.dialog(
+                      const CustomAlertDialog(
+                        message: "2MB 이하의 사진 파일만 업로드할 수 있습니다."
+                      )
+                    );
+
+                    break;
+
+                  default:
+                    Get.dialog(
+                      const CustomAlertDialog(
+                        message: "오류가 발생하였습니다. 다시 시도해주세요."
+                      )
+                    );
+
+                    break;
                 }
 
                 _.update();
@@ -509,32 +533,44 @@ class _MyAccountForm2 extends StatelessWidget {
                     newPassword: newPasswordTextController.text
                   );
 
-                  if (status == MSIUserStatus.success) {
-                    await Get.dialog(
-                      const CustomAlertDialog(
-                        message: "비밀번호가 변경되었습니다."
-                      )
-                    );
+                  switch (status) {
+                    case MSIUserStatus.success:
+                      await Get.dialog(
+                        const CustomAlertDialog(
+                          message: "비밀번호가 변경되었습니다."
+                        )
+                      );
 
-                    Get.back();
-                  } else if (status == MSIUserStatus.userNotFound) {
-                    Get.dialog(
-                      const CustomAlertDialog(
-                        message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."
-                      )
-                    );
-                  } else if (status == MSIUserStatus.wrongPassword) {
-                    Get.dialog(
-                      const CustomAlertDialog(
-                        message: "현재 비밀번호가 틀렸습니다. 다시 시도해주세요."
-                      )
-                    );
-                  } else {
-                    Get.dialog(
-                      const CustomAlertDialog(
-                        message: "오류가 발생하였습니다. 다시 시도해주세요."
-                      )
-                    );
+                      Get.back();
+
+                      break;
+
+                    case MSIUserStatus.userNotFound:
+                      Get.dialog(
+                        const CustomAlertDialog(
+                          message: "사용자를 찾을 수 없습니다. 다시 시도해주세요."
+                        )
+                      );
+
+                      break;
+
+                    case MSIUserStatus.wrongPassword:
+                      Get.dialog(
+                        const CustomAlertDialog(
+                          message: "현재 비밀번호가 틀렸습니다. 다시 시도해주세요."
+                        )
+                      );
+
+                      break;
+
+                    default:
+                      Get.dialog(
+                        const CustomAlertDialog(
+                          message: "오류가 발생하였습니다. 다시 시도해주세요."
+                        )
+                      );
+
+                      break;
                   }
                 }
               }

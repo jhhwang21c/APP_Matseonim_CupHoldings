@@ -46,7 +46,7 @@ class MSIRequests {
       .get();
 
     for (QueryDocumentSnapshot document in query.docs) {
-      if (user.mhiList!.contains(document["uid"])) {
+      if (user.uid == document["uid"] || user.mhiList!.contains(document["uid"])) {
         continue;
       }
 

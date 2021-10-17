@@ -155,7 +155,7 @@ class _NotificationListView extends StatelessWidget {
           if (notifications.isEmpty) {
             return Container(
                 width: getScreenWidth(context),
-                height: getScreenHeight(context) - 48,
+                height: getScreenHeight(context) - 24,
                 alignment: Alignment.center,
                 child: Text("새로운 알림이 없습니다.",
                     style: const TextStyle(fontSize: 16),
