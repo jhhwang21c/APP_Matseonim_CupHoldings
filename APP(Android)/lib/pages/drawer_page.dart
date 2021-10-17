@@ -10,6 +10,8 @@ import 'package:matseonim/pages/my_account_page.dart';
 import 'package:matseonim/pages/inquiry_page.dart';
 
 class DrawerPage extends StatelessWidget {
+  const DrawerPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(

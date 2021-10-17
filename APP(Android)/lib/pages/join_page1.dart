@@ -9,6 +9,8 @@ import 'package:matseonim/utils/media.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class JoinPage1 extends StatelessWidget {
+  const JoinPage1({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

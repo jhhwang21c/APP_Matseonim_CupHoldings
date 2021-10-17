@@ -12,6 +12,8 @@ import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class InquiryPage extends StatelessWidget {
+  const InquiryPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

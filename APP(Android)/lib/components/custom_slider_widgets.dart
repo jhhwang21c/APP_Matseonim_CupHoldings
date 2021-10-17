@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:matseonim/components/custom_elevated_button.dart';
+import 'package:matseonim/components/custom_profile_widgets.dart';
 import 'package:matseonim/models/request.dart';
 import 'package:matseonim/models/review.dart';
 import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/read_request_page.dart';
-
-import 'custom_profile_widgets.dart';
+import 'package:matseonim/utils/media.dart';
 
 List<Widget> _buildItemsFromRequests({
   required BuildContext context,
@@ -18,7 +18,7 @@ List<Widget> _buildItemsFromRequests({
   if (requests.isEmpty) {
     return <Widget>[
       SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: getScreenWidth(context),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -35,8 +35,7 @@ List<Widget> _buildItemsFromRequests({
   } else {
     return requests.map(
       (MSIRequest request) => Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.width * 0.35,
+        height: getScreenHeight(context) * 0.35,
         margin: const EdgeInsets.all(5.0),
         child: Card(
           elevation: 6,
@@ -90,7 +89,7 @@ List<Widget> _buildItemsFromReviews({
   if (reviews.isEmpty) {
     return <Widget>[
       SizedBox(
-        width: MediaQuery.of(context).size.width,
+        width: getScreenWidth(context),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5.0),
@@ -108,8 +107,7 @@ List<Widget> _buildItemsFromReviews({
   } else {
     return reviews.map(
       (MSIReview review) => Container(
-        width: MediaQuery.of(context).size.width * 0.9,
-        height: MediaQuery.of(context).size.width * 0.35,
+        height: getScreenHeight(context) * 0.35,
         margin: const EdgeInsets.all(5.0),
         child: Card(
           elevation: 6,
@@ -124,9 +122,15 @@ List<Widget> _buildItemsFromReviews({
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SmallProfile2(uid: review.reviewerId, imageSize: 40,),
+                    SmallProfile2(
+                      uid: review.reviewerId, 
+                      imageSize: 40
+                    ),
                     Icon(Icons.forward),
-                    SmallProfile2(uid: review.revieweeId, imageSize: 40,),
+                    SmallProfile2(
+                      uid: review.revieweeId, 
+                      imageSize: 40
+                    ),
                   ],
                 ),
                 Text(

@@ -11,6 +11,8 @@ import 'package:matseonim/utils/media.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -6,6 +6,8 @@ import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/drawer_page.dart';
 
 class MyMSIPage extends StatelessWidget {
+  const MyMSIPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

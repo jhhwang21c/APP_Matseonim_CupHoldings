@@ -12,6 +12,8 @@ import 'package:matseonim/pages/drawer_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class MyAccountPage1 extends StatelessWidget {
+  const MyAccountPage1({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +28,8 @@ class MyAccountPage1 extends StatelessWidget {
 }
 
 class MyAccountPage2 extends StatelessWidget {
+  const MyAccountPage2({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -178,18 +182,19 @@ class _MyAccountAvatar extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class _MyAccountForm1 extends StatelessWidget {
   static final _formKey = GlobalKey<FormState>();
 
   final MSIUser user;
 
-  var nameTextController = TextEditingController();
-  var phoneNumberTextController = TextEditingController();
-  var emailTextController = TextEditingController();
-  var baseTextController = TextEditingController();
-  var professionTextController = TextEditingController();
-  var interestTextController = TextEditingController();
-  var resumeTextController = TextEditingController();
+  final nameTextController = TextEditingController();
+  final phoneNumberTextController = TextEditingController();
+  final emailTextController = TextEditingController();
+  final baseTextController = TextEditingController();
+  final professionTextController = TextEditingController();
+  final interestTextController = TextEditingController();
+  final resumeTextController = TextEditingController();
 
   _MyAccountForm1({
     Key? key,

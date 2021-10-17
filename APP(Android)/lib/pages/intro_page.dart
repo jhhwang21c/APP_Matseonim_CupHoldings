@@ -5,6 +5,8 @@ import 'package:matseonim/pages/login_page.dart';
 import 'package:matseonim/pages/main_page.dart';
 
 class IntroPage extends StatelessWidget {
+  const IntroPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(

@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:matseonim/components/custom_alert_dialog.dart';
 
+import 'package:matseonim/components/custom_alert_dialog.dart';
 import 'package:matseonim/components/custom_app_bar.dart';
 import 'package:matseonim/components/custom_elevated_button.dart';
 import 'package:matseonim/components/custom_form_fields.dart';
@@ -13,6 +13,8 @@ import 'package:matseonim/pages/main_page.dart';
 import 'package:matseonim/utils/validator.dart';
 
 class CreateRequestPage extends StatelessWidget {
+  const CreateRequestPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

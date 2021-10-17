@@ -7,6 +7,7 @@ import 'package:matseonim/models/user.dart';
 import 'package:matseonim/pages/chat_page.dart';
 import 'package:matseonim/pages/profile_page.dart';
 import 'package:matseonim/pages/review_page.dart';
+import 'package:matseonim/utils/media.dart';
 
 class LargeProfile extends StatelessWidget {
   final String? uid;
@@ -133,80 +134,90 @@ class MidProfile extends StatelessWidget {
             final MSIUser user = snapshot.data!;
 
             return Container(
-                margin: EdgeInsets.symmetric(vertical: 12.0),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              margin: EdgeInsets.symmetric(vertical: 12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Column(children: [
-                        Row(children: [
-                          CustomCircleAvatar(
-                              size: 120, url: user.avatarUrl ?? ""),
-                          const SizedBox(width: 40),
-                          Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(user.name ?? "",
-                                        style: const TextStyle(
-                                          fontSize: 32,
-                                        )),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text.rich(TextSpan(
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                        ),
-                                        children: [
-                                          const WidgetSpan(
-                                              child: Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
-                                          )),
-                                          TextSpan(
-                                              text: user
-                                                  .rating!
-                                                  .toStringAsFixed(1))
-                                        ]))
-                                  ],
-                                ),
-                                SizedBox(height: 10),
-                                Text(user.baseName ?? "?",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    )),
-                                SizedBox(height: 10),
-                                Text("분야: ${user.interest ?? ""}",
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                    )),
-                                SizedBox(height: 4),
-                                TextButton(
-                                  onPressed: () {
-                                    Get.to(ProfilePage(uid: user.uid));
-                                  },
-                                  child: Text("자세히 >>"),
+                      CustomCircleAvatar(
+                        size: 120, 
+                        url: user.avatarUrl ?? ""
+                      ),
+                      const SizedBox(width: 30),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                user.name ?? "",
+                                style: const TextStyle(
+                                  fontSize: 32,
                                 )
-                              ])
-                        ]),
-                        SizedBox(height: 10),
-                        SizedBox(
-                          width: 150,
-                          height: 55,
-                          child: CustomElevatedButton(
-                              text: "채팅하기",
-                              color: Colors.lightBlue[300],
-                              funPageRoute: () {
-                                Get.to(ChatPage(recipient: user));
-                              }),
-                        ),
-                        SizedBox(height: 5)
-                      ])
-                    ]));
+                              ),
+                              SizedBox(width: 8),
+                              Text.rich(
+                                TextSpan(
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                  children: [
+                                    const WidgetSpan(
+                                      child: Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      )
+                                    ),
+                                    TextSpan(
+                                      text: user.rating!
+                                        .toStringAsFixed(1)
+                                    )
+                                  ]
+                                )
+                              )
+                            ],
+                          ),
+                          SizedBox(height: 10),
+                          Text(user.baseName ?? "?",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              )),
+                          SizedBox(height: 10),
+                          Text("분야: ${user.interest ?? ""}",
+                              style: const TextStyle(
+                                fontSize: 16,
+                              )),
+                          SizedBox(height: 4),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(ProfilePage(uid: user.uid));
+                            },
+                            child: Text("자세히 >>"),
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(
+                    width: 150,
+                    height: 55,
+                    child: CustomElevatedButton(
+                      text: "채팅하기",
+                      color: Colors.lightBlue[300],
+                      funPageRoute: () {
+                        Get.to(ChatPage(recipient: user));
+                      }
+                    ),
+                  )
+                ]
+              )
+            );
           }
-        });
+        }
+      );
   }
 }
 
@@ -277,6 +288,7 @@ class SmallProfile extends StatelessWidget {
 
 class SmallProfile2 extends StatelessWidget {
   final String? uid;
+
   final double? imageSize;
 
   const SmallProfile2({Key? key, this.uid, this.imageSize}) : super(key: key);
@@ -284,38 +296,42 @@ class SmallProfile2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: MSIUser.init(uid: uid),
-        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-          if (!snapshot.hasData) {
-            return SizedBox(
-                child: Container(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator()));
-          } else {
-            final MSIUser user = snapshot.data!;
-
-            return GestureDetector(
-              onTap: () {
-                Get.to(ProfilePage(uid: user.uid));
-              },
+      future: MSIUser.init(uid: uid),
+      builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+        if (!snapshot.hasData) {
+          return SizedBox(
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 12.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomCircleAvatar(size: imageSize ?? 60, url: user.avatarUrl ?? ""),
-                    SizedBox(height: 10),
-                    Text(user.name ?? "",
-                      style: const TextStyle(
-                        fontSize: 16,
-                      )
-                    ),
-                  ],
-                )
-              ),
-            );
-          }
-        });
+                  alignment: Alignment.center,
+                  child: const CircularProgressIndicator()));
+        } else {
+          final MSIUser user = snapshot.data!;
+
+          return GestureDetector(
+            onTap: () {
+              Get.to(ProfilePage(uid: user.uid));
+            },
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 12.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CustomCircleAvatar(
+                    size: imageSize ?? 60, 
+                    url: user.avatarUrl ?? ""
+                  ),
+                  SizedBox(height: 10),
+                  Text(user.name ?? "",
+                    style: const TextStyle(
+                      fontSize: 16,
+                    )
+                  ),
+                ],
+              )
+            ),
+          );
+        }
+      }
+    );
   }
 }
 
@@ -369,9 +385,10 @@ class MidProfileListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
+      width: getScreenWidth(context),
+      height: getScreenHeight(context),
       child: ListView.separated(
-        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
         itemCount: uidList.length,
         itemBuilder: (context, i) {
           return FutureBuilder(

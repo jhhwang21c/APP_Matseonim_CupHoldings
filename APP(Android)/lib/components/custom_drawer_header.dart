@@ -11,29 +11,25 @@ class CustomDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: 180,
-        maxHeight: 200
-      ),
-      child: DrawerHeader(
-        child: FutureBuilder(
-          future: MSIUser.init(),
-          builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-            if (!snapshot.hasData) {
-              return Container(
-                alignment: Alignment.center,
-                child: const CircularProgressIndicator()
-              );
-            } else {
-              final MSIUser user = snapshot.data!;
+    return DrawerHeader(
+      child: FutureBuilder(
+        future: MSIUser.init(),
+        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+          if (!snapshot.hasData) {
+            return Container(
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator()
+            );
+          } else {
+            final MSIUser user = snapshot.data!;
 
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _DrawerProfile(user: user),
-                  SizedBox(height: 16),
-                  CustomElevatedButton(
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _DrawerProfile(user: user),
+                SizedBox(height: 16),
+                Flexible(
+                    child: CustomElevatedButton(
                     text: '로그아웃',
                     size: Size(double.infinity, 36),
                     color: Colors.yellow[300],
@@ -42,11 +38,11 @@ class CustomDrawerHeader extends StatelessWidget {
                       Get.to(LoginPage());
                     },
                   )
-                ],
-              );
-            }
+                )
+              ]
+            );
           }
-        )
+        }
       )
     );
   }
