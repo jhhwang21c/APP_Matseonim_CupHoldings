@@ -80,7 +80,9 @@ class LargeProfile extends StatelessWidget {
               Row(
               mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(width: 150, height: 55,
+                  SizedBox(
+                    width: 150, 
+                    height: 55,
                     child: CustomElevatedButton(
                         text: "채팅하기",
                         color: Colors.lightBlue,
@@ -89,7 +91,9 @@ class LargeProfile extends StatelessWidget {
                         }),
                   ),
                   SizedBox(width: 10),
-                  Container(width: 150, height: 55,
+                  SizedBox(
+                    width: 150, 
+                    height: 55,
                     child: CustomElevatedButton(
                         text: "리뷰하기",
                         color: Colors.cyan[200],

@@ -11,8 +11,11 @@ class CustomDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 180,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: 180,
+        maxHeight: 200
+      ),
       child: DrawerHeader(
         child: FutureBuilder(
           future: MSIUser.init(),

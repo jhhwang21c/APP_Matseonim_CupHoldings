@@ -358,7 +358,9 @@ class MSIUser {
       msiList = snapshot["msiList"] ?? [];
       mhiList = snapshot["mhiList"] ?? [];
       
-      rating = await MSIReviews.getAverageRatingFor(reviewee: this);
+      rating = await MSIReviews.getAverageRatingFor(
+        reviewee: this
+      );
     }
   }
 }

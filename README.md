@@ -138,6 +138,7 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 - [`firebase_core: ^1.6.0`](https://pub.dev/packages/firebase_core)
 - [`firebase_storage: ^10.0.4`](https://pub.dev/packages/firebase_storage)
 - [`flutter_chat_ui: ^1.4.4`](https://pub.dev/packages/flutter_chat_ui)
+- [`flutter_launcher_icons: ^0.9.2`](https://pub.dev/packages/flutter_launcher_icons)
 - [`flutter_rating_bar: ^4.0.0`](https://pub.dev/packages/flutter_rating_bar)
 - [`flutter_typeahead: ^3.2.1`](https://pub.dev/packages/flutter_typeahead)
 - [`validators: ^3.0.0`](https://pub.dev/packages/validators)
@@ -157,4 +158,26 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 # 라이선스
 
-[MIT License](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/LICENSE)
+[MIT 라이선스](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/LICENSE)
+
+```
+Copyright (c) 2021 John Hwang (@jhhwang21c) and Jaedeok Kim (@jdeokkim)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

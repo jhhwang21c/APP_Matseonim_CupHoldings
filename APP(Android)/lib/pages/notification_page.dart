@@ -30,13 +30,22 @@ class NotificationPage extends StatelessWidget {
           } else {
             final MSIUser user = snapshot.data!;
 
-            return ListView(shrinkWrap: true, children: [
-              const Padding(
-                padding: EdgeInsets.all(10),
-                child: Text("새로운 알림", style: TextStyle(fontSize: 32)),
-              ),
-              _NotificationListView(user: user)
-            ]);
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ListView(
+                shrinkWrap: true, 
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      "새로운 알림", 
+                      style: TextStyle(fontSize: 32)
+                    )
+                  ),
+                  _NotificationListView(user: user)
+                ]
+              )
+            );
           }
         },
       ),
