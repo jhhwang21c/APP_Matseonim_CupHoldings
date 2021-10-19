@@ -239,7 +239,7 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
   <td align='center'>공군 상병</td>
   <td align='center'>팀장<br>프론트엔드</td>
   <td align='center'><a href="https://github.com/jhhwang21c">GitHub</a></td>
-  <td align='center'><a href="h.jungho21c@gmail.com">h.jungho21c@gmail.com</a></td>
+  <td align='center'>h.jungho21c@gmail.com</td>
  </tr>
 
  
@@ -249,7 +249,7 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
   <td align='center'>공군 병장</td>
   <td align='center'>백엔드</td>
   <td align='center'><a href="https://github.com/jdeokkim">GitHub</a></td>
-  <td align='center'><a href="jdeokkim@protonmail.com">jdeokkim@protonmail.com</a></td>
+  <td align='center'>jdeokkim@protonmail.com</td>
  </tr>
 </table>
 
