@@ -18,85 +18,77 @@ class ReadRequestPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(showBackButton: true),
-      drawer: DrawerPage(),
-      body: FutureBuilder(
-        future: MSIUser.init(),
-        builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
-          if (!snapshot.hasData) {
-            return SizedBox(
-              child: Container(
-                alignment: Alignment.center,
-                child: const CircularProgressIndicator()
-              )
-            );
-          } else {
-            final MSIUser user = snapshot.data!;
+        appBar: CustomAppBar(showBackButton: true),
+        drawer: DrawerPage(),
+        body: FutureBuilder(
+            future: MSIUser.init(),
+            builder: (BuildContext context, AsyncSnapshot<MSIUser> snapshot) {
+              if (!snapshot.hasData) {
+                return SizedBox(
+                    child: Container(
+                        alignment: Alignment.center,
+                        child: const CircularProgressIndicator()));
+              } else {
+                final MSIUser user = snapshot.data!;
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: ListView(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Text(
-                      "의뢰 내용", 
-                      style: TextStyle(fontSize: 32)
-                    ),
-                  ),
-                  MidProfile(uid: request.uid),
-                  SizedBox(height: 20),
-                  Text(
-                    "의뢰 제목: ${request.title}", 
-                    style: const TextStyle(fontSize: 32)
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    "요청 분야: ${request.field}", 
-                    style: const TextStyle(fontSize: 16)
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    request.description, 
-                    style: const TextStyle(fontSize: 16),
-                    textAlign: TextAlign.justify,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomElevatedButton(
-                      text: "요청 수락",
-                      textStyle: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.white
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: ListView(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        child: Text("의뢰 내용", style: TextStyle(fontSize: 32)),
                       ),
-                      color: Theme.of(context).primaryColor,
-                      funPageRoute: () async { 
-                        await user.acceptRequest(request: request);
+                      MidProfile(uid: request.uid),
+                      SizedBox(height: 10),
+                      Divider(
+                        thickness: 1,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "의뢰 제목: ${request.title}",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 15),
+                      Text("요청 분야: ${request.field}",
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(height: 15),
+                      Text(
+                        request.description,
+                        style: const TextStyle(fontSize: 16),
+                        textAlign: TextAlign.justify,
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CustomElevatedButton(
+                              text: "요청 수락",
+                              textStyle: const TextStyle(
+                                  fontSize: 16, color: Colors.white),
+                              color: Theme.of(context).primaryColor,
+                              funPageRoute: () async {
+                                await user.acceptRequest(request: request);
 
-                        MSIUser requester = await MSIUser.init(uid: request.uid);
-                        
-                        await requester.sendNotification(
-                          type: MSINotificationType.acceptedRequest, 
-                          sender: user, 
-                          payload: ""
-                        );
+                                MSIUser requester =
+                                    await MSIUser.init(uid: request.uid);
 
-                        await Get.dialog(
-                          const CustomAlertDialog(
-                            message: "요청 수락이 완료되었습니다."
-                          )
-                        );
+                                await requester.sendNotification(
+                                    type: MSINotificationType.acceptedRequest,
+                                    sender: user,
+                                    payload: "");
 
-                        Get.to(MainPage());
-                      }
-                    )
-                  )
-                ],
-              ),
-            );
-          }
-        }
-      )
-    );
+                                await Get.dialog(const CustomAlertDialog(
+                                    message: "요청 수락이 완료되었습니다."));
+
+                                Get.to(MainPage());
+                              }))
+                    ],
+                  ),
+                );
+              }
+            }));
   }
 }
