@@ -1,6 +1,6 @@
 <div align="center">
 
-[![osamhack2021/APP_Matseonim_CupHoldings](https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/logo.png)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/releases/download/v0.1.0/matseonim-v0.1.0-armeabi-v7a-release.apk)
+![osamhack2021/APP_Matseonim_CupHoldings](https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/logo.png)
 
 [![라이선스 배지](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/LICENSE)
 [![CI/CD 상태 배지](https://img.shields.io/github/workflow/status/osamhack2021/APP_Matseonim_CupHoldings/build-release?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/actions)
@@ -17,7 +17,9 @@
 [개발 문서](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/wiki) •
 [기술 스택](#기술-스택)
 
-</div>
+</div> <br />
+
+[<img align="right" src="resources/images/download.png">](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/releases/download/v0.1.0/matseonim-v0.1.0-armeabi-v7a-release.apk)
 
 # 앱 소개
 
@@ -33,22 +35,43 @@
 
 # 주요 기능
 
-| 회원가입 | 의뢰 요청 | 전문가 매칭 |
-| -------- | --------- | ----------- |
-| ![1]     | ![2]      | ![3]        |
+## 회원가입
 
-| 실시간 채팅 | 리뷰 및 평점 | 알림 페이지 |
-| ----------- | ------------ | ----------- |
-| ![4]        | ![5]         | ![6]        |
+계정 정보를 입력하고 소속 부대, 전문 분야와 관심 분야를 선택하면 회원가입이 완료됩니다.
 
-- **회원가입:** 계정 정보를 입력하고 소속 부대, 전문 분야와 관심 분야를 선택하면 회원가입이 완료됩니다.
-- **의뢰 요청:** 새로운 의뢰를 요청하는 기능입니다. 제목, 내용과 의뢰 분야를 작성하여 제출하면 사용자가 속한 부대의 전문가들이 의뢰를 확인할 수 있습니다.
-- **전문가 매칭:** 의뢰를 수락하면 의뢰를 요청한 사람과 의뢰를 수락한 사람이 “맞선임”&mdash;“맞후임” 관계를 맺게 됩니다.
-- **실시간 채팅:** “맞선임”&mdash;“맞후임” 관계를 맺은 사람들끼리 실시간 채팅을 통하여 의뢰의 세부 사항을 조율할 수 있습니다.
-- **리뷰 및 평점:** 다른 사용자에게 평점을 매기고 리뷰를 작성할 수 있습니다. 사용자 프로필의 평균 평점과 리뷰는 실시간으로 업데이트됩니다.
-- **알림 페이지:** 맞선임과 매칭이 되었거나 채팅방에 새로운 메시지 또는 리뷰가 작성되면 앱에서 알림을 받을 수 있습니다.
+<img src="resources/images/demo_01.gif" width="300">
 
-## 기대 효과 및 전망
+## 의뢰 요청
+
+새로운 의뢰를 요청하는 기능입니다. 제목, 내용과 의뢰 분야를 작성하여 제출하면 사용자가 속한 부대의 전문가들이 의뢰를 확인할 수 있습니다.
+
+<img src="resources/images/demo_02.gif" width="300">
+
+## 전문가 매칭
+
+의뢰를 수락하면 의뢰를 요청한 사람과 의뢰를 수락한 사람이 “맞선임”&mdash;“맞후임” 관계를 맺게 됩니다.
+
+<img src="resources/images/demo_03.gif" width="300">
+
+## 실시간 채팅
+
+“맞선임”&mdash;“맞후임” 관계를 맺은 사람들끼리 실시간 채팅을 통하여 의뢰의 세부 사항을 조율할 수 있습니다.
+
+<img src="resources/images/demo_04.gif" width="300">
+
+## 리뷰 및 평점
+
+다른 사용자에게 평점을 매기고 리뷰를 작성할 수 있습니다. 사용자 프로필의 평균 평점과 리뷰는 실시간으로 업데이트됩니다.
+
+<img src="resources/images/demo_05.gif" width="300">
+
+## 알림 페이지
+
+맞선임과 매칭이 되었거나 채팅방에 새로운 메시지 또는 리뷰가 작성되면 앱에서 알림을 받을 수 있습니다.
+
+<img src="resources/images/demo_06.gif" width="300">
+
+# 기대 효과 및 전망
 
 군에는 신기하게도 자타공인 “전문가”들이 많이 숨어있습니다. 사격 만발자, 제초 전문가, 공구리 마스터 등의 군생활 전문가 뿐만 아니라 토익 만점자, 물리치료사, 풋살 신동, 각종 석·박사 등 사회에서 이름을 날릴 만한 여러 전문가들이 있습니다. 이런 인재들을 그냥 썩히기는 너무 아깝습니다.
 
@@ -69,6 +92,12 @@ $ git clone https://github.com/osamhack2021/APP_Matseonim_CupHoldings.git
 ```
 
 ## Firebase 설정하기
+
+<details>
+
+<summary>자세히 보기</summary>
+
+<br />
 
 1. [Firebase 콘솔 페이지](https://console.firebase.google.com/)에서 새로운 Firebase 프로젝트를 생성합니다.
 - "이 프로젝트에서 Google 애널리틱스 사용 설정" 버튼은 체크 해제하고 "프로젝트 만들기" 버튼을 클릭합니다.
@@ -133,6 +162,8 @@ const firebaseConfig = {
     firebase.initializeApp(firebaseConfig);
   </script>
 ```
+
+</details>
 
 ## Flutter 패키지 업데이트하기 
 
@@ -199,8 +230,6 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 # 라이선스
 
-[MIT 라이선스](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/LICENSE)
-
 ```
 Copyright (c) 2021 John Hwang (@jhhwang21c) and Jaedeok Kim (@jdeokkim)
 
@@ -223,9 +252,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-[1]: https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/demo_01.gif
-[2]: https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/demo_02.gif
-[3]: https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/demo_03.gif
-[4]: https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/demo_04.gif
-[5]: https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/demo_05.gif
-[6]: https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/demo_06.gif
+```
+Copyright © 2017-2021, Eunbin Jeong (Dalgona.) <project-neodgm@dalgona.dev>
+with reserved font name "Neo둥근모" and "NeoDunggeunmo".
+```
