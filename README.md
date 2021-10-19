@@ -225,8 +225,33 @@ $ flutter run -d web-server --web-hostname=0.0.0.0
 
 # 팀원 정보
 
-- [John Hwang (h.jungho21c@gmail.com)](https://github.com/jhhwang21c)
-- [Jaedeok Kim (jdeokkim@protonmail.com)](https://github.com/jdeokkim)
+<table>
+ <tr>
+  <td align='center'>이름</td>
+  <td align='center'>계급</td>
+  <td align='center'>역할</td>
+  <td align='center'>GitHub</td>
+  <td align='center'>E-Mail</td>
+ </tr>
+   
+ <tr>
+  <td align='center'>황정호</td>
+  <td align='center'>공군 상병</td>
+  <td align='center'>팀장<br>프론트엔드</td>
+  <td align='center'><a href="https://github.com/jhhwang21c">GitHub</a></td>
+  <td align='center'><a href="h.jungho21c@gmail.com">h.jungho21c@gmail.com</a></td>
+ </tr>
+
+ 
+
+ <tr>
+  <td align='center'>김재덕</td>
+  <td align='center'>공군 병장</td>
+  <td align='center'>백엔드</td>
+  <td align='center'><a href="https://github.com/jdeokkim">GitHub</a></td>
+  <td align='center'><a href="jdeokkim@protonmail.com">jdeokkim@protonmail.com</a></td>
+ </tr>
+</table>
 
 # 라이선스
 
