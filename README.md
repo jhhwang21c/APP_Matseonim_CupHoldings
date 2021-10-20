@@ -48,7 +48,7 @@
 
 ## 의뢰 요청
 
-새로운 의뢰를 요청하는 기능입니다. 제목, 내용과 의뢰 분야를 작성하여 제출하면 사용자가 속한 부대의 전문가들이 의뢰를 확인할 수 있습니다.
+새로운 의뢰를 요청하는 기능입니다.<br>제목, 내용과 의뢰 분야를 작성하여 제출하면 사용자가 속한 부대의 전문가들이 의뢰를 확인할 수 있습니다.
 
 <img src="resources/images/demo_02.gif" width="300">
 
@@ -66,13 +66,13 @@
 
 ## 리뷰 및 평점
 
-<div style="border: 1px solid black; float: left; width: 33%;">다른 사용자에게 평점을 매기고 리뷰를 작성할 수 있습니다.<br>사용자 프로필의 평균 평점과 리뷰는 실시간으로 업데이트됩니다.</div>
+다른 사용자에게 평점을 매기고 리뷰를 작성할 수 있습니다.<br>사용자 프로필의 평균 평점과 리뷰는 실시간으로 업데이트됩니다.
 
-<div style="border: 1px solid black; float: right;"><img src="resources/images/demo_05.gif" width="300"></div>
+<img src="resources/images/demo_05.gif" width="300">
 
 ## 알림 페이지
 
-맞선임과 매칭이 되었거나 채팅방에 새로운 메시지 또는 리뷰가 작성되면 앱에서 알림을 받을 수 있습니다.
+맞선임과 매칭이 되었거나 채팅방에 새로운 메시지 <br>또는 리뷰가 작성되면 앱에서 알림을 받을 수 있습니다.
 
 <img src="resources/images/demo_06.gif" width="300">
 
