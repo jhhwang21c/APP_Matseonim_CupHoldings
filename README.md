@@ -36,7 +36,7 @@
 백문이 불여일견. 아래를 클릭하여 영상부터 보고 가시죠!
 
 [![소개 영상](http://img.youtube.com/vi/SMeg5vRWqD8/0.jpg)](https://youtu.be/SMeg5vRWqD8)
-맞선임 
+
 
 # 주요 기능
 
