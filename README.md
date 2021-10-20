@@ -66,9 +66,9 @@
 
 ## 리뷰 및 평점
 
-다른 사용자에게 평점을 매기고 리뷰를 작성할 수 있습니다. 사용자 프로필의 평균 평점과 리뷰는 실시간으로 업데이트됩니다.
+<div style="border: 1px solid black; float: left; width: 33%;">다른 사용자에게 평점을 매기고 리뷰를 작성할 수 있습니다. 사용자 프로필의 평균 평점과 리뷰는 실시간으로 업데이트됩니다.</div>
 
-<img src="resources/images/demo_05.gif" width="300">
+<div style="border: 1px solid black; float: left;"><img src="resources/images/demo_05.gif" width="300"></div>
 
 ## 알림 페이지
 
