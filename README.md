@@ -2,7 +2,7 @@
 
 ![osamhack2021/APP_Matseonim_CupHoldings](https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/logo.png)
 
-[<img align="center" src="resources/images/download.png">](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/releases/download/v0.1.0/matseonim-v0.1.0-armeabi-v7a-release.apk)
+[<img align="center" src="resources/images/download.png">](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/releases/download/v0.1.1/matseonim-v0.1.1-armeabi-v7a-release.apk)
 
 [![라이선스 배지](https://img.shields.io/github/license/osamhack2021/APP_Matseonim_CupHoldings?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/blob/main/LICENSE)
 [![CI/CD 상태 배지](https://img.shields.io/github/workflow/status/osamhack2021/APP_Matseonim_CupHoldings/build-release?style=flat-square)](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/actions)
