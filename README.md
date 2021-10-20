@@ -14,8 +14,8 @@
 
 [앱 소개](#앱-소개) •
 [주요 기능](#주요-기능) •
-[필수 조건](#필수-조건) •
-[빌드 방법](#빌드-방법) •
+[필수 조건](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/wiki/%ED%95%84%EC%88%98-%EC%A1%B0%EA%B1%B4) •
+[빌드 방법](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/wiki/%EC%95%B1-%EB%B9%8C%EB%93%9C%ED%95%98%EA%B8%B0) •
 [개발 문서](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/wiki) •
 [기술 스택](#기술-스택)
 
@@ -84,9 +84,9 @@
 
 저희 맞선임 서비스는 최종적으로 국방부와 협업하여 운영하는 것을 목표로 하고 있습니다. 수업을 잘 따라가는 맞후임, 의뢰를 열정적으로 수행하는 맞선임 등의 우수 참여자들에게는 포상휴가, 가점이나 보조금 등의 인센티브를 부여하면 수요와 공급이 모두 잡히고 서비스를 원활하게 운영할 수 있을 것입니다.
 
-# 빌드 방법
+# 필수 조건 및 빌드 방법
 
-빌드 전 필수 조건과 안드로이드 앱, 웹 앱으로의 빌드 방법은 [맞선임 wiki](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/wiki/%ED%95%84%EC%88%98%EC%A1%B0%EA%B1%B4) 에 자세히 나와있습니다!
+필수 조건과 안드로이드 앱, 웹 앱으로의 빌드 방법은 ['맞선임' 공식 개발 문서](https://github.com/osamhack2021/APP_Matseonim_CupHoldings/wiki)를 참고해주시기 바랍니다.
 
 # 기술 스택
 
@@ -138,8 +138,6 @@
   <td align='center'><a href="https://github.com/jhhwang21c">GitHub</a></td>
   <td align='center'>h.jungho21c@gmail.com</td>
  </tr>
-
- 
 
  <tr>
   <td align='center'>김재덕</td>
