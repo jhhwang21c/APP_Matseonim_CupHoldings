@@ -35,11 +35,9 @@
 
 백문이 불여일견. 아래를 클릭하여 영상과 프레젠테이션부터 보고 가시죠!
 
-[![소개 영상](http://img.youtube.com/vi/SMeg5vRWqD8/0.jpg)](https://youtu.be/SMeg5vRWqD8)
-
-
-PPT: https://shorturl.at/nqrzA
-
+| 소개 영상 | PPT |
+| ------- | --- |
+|[<img src="http://img.youtube.com/vi/SMeg5vRWqD8/0.jpg" width="400">](https://youtu.be/SMeg5vRWqD8)| [<img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/ppt.png" width="400">](https://shorturl.at/nqrzA)|
 
 # 주요 기능
 
