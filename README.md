@@ -37,7 +37,7 @@
 
 | 소개 영상 | PPT |
 | ------- | --- |
-|[<img src="http://img.youtube.com/vi/SMeg5vRWqD8/0.jpg" width="400">](https://youtu.be/SMeg5vRWqD8)| [<img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/ppt.png" width="400">](https://shorturl.at/nqrzA)|
+|[<img src="http://img.youtube.com/vi/HfG5JgnUkIw/0.jpg" width="400">](https://youtu.be/HfG5JgnUkIw)| [<img src="https://raw.githubusercontent.com/osamhack2021/APP_Matseonim_CupHoldings/main/resources/images/ppt.png" width="400">](https://shorturl.at/nqrzA)|
 
 # 주요 기능
 
